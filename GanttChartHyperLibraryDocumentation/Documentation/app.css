@@ -1,0 +1,12 @@
+﻿.nav-secondary .module.widget-handle.left {
+    margin-right: 8px;
+}
+.technology-menu-item {
+    width: 140px;
+}
+.selected-menu-item {
+    opacity: 1 !important;
+}
+.code-snippet {
+    margin-top: 0;
+}

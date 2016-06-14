@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" ng-app="Documentation" ng-controller="MainController">
+<head id="head">
+    <title>Documentation - Gantt Chart Hyper Library - DlhSoft</title>
+    <link href="http://DlhSoft.com/assets/css/app.min.css" rel="stylesheet">
+    <link href="http://DlhSoft.com/assets/css/custom.css" rel="stylesheet">
+    <link href="http://DlhSoft.com/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://DlhSoft.com/css/themify-icons.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://DlhSoft.com/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://DlhSoft.com/css/flexslider.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://DlhSoft.com/css/theme-red.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="http://DlhSoft.com/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+    <link href="app.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://DlhSoft.com/js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://DlhSoft.com/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="Scripts/DlhSoft.Data.HTML.Controls.js"></script>
+    <script type="text/javascript" src="Scripts/DlhSoft.ProjectData.GanttChart.HTML.Controls.js"></script>
+    <script type="text/javascript" src="Scripts/DlhSoft.ProjectData.GanttChart.HTML.Controls.Extras.js"></script>
+    <script type="text/javascript" src="Scripts/DlhSoft.ProjectData.GanttChart.Angular.Directives.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="http://DlhSoft.com/assets/js/app.min.js"></script>
+    <script type="text/javascript" src="http://DlhSoft.com/assets/js/custom.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta name="author" content="DlhSoft" />
+    <meta name="keywords" content="Documentation, reference" />
+    <meta name="description" content="Documentation for DlhSoft Gantt Chart Hyper Library." />
+</head>
+<body>
+    <div class="nav-container">
+        <nav class="bg-dark">
+            <div class="nav-bar">
+                <div class="module left">
+                    <a href="http://DlhSoft.com/index.html" target="_blank">
+                        <img class="logo logo-light" alt="logo" src="http://DlhSoft.com/Images/Logo-light.png">
+                    </a>
+                </div>
+                <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+                    <i class="ti-menu"></i>
+                </div>
+                <div class="module-group right">
+                    <div class="module left">
+                        <ul class="menu">
+                            <li>
+                                <a href="index.html">Documentation</a>&nbsp;
+                                –&nbsp;
+                                <a href="http://DlhSoft.com/GanttChartHyperLibrary" target="_blank">Gantt Chart Hyper Library</a>
+                            </li>
+                            <li>
+                                <a href="http://DlhSoft.com/GanttChartHyperLibrary/Download.aspx" target="_blank">Downloads</a>
+                            </li>
+                            <li>
+                                <a href="http://DlhSoft.com/GanttChartHyperLibrary/Purchase.aspx" target="_blank">Order licenses</a>
+                            </li>
+                            <li>
+                                <a href="http://DlhSoft.com/GanttChartHyperLibrary/Support.aspx" target="_blank">Support</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="main-container">
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-sm-12">
+                <div class="nav-container">
+                    <nav class="bg-secondary">
+                        <div class="nav-bar nav-secondary">
+                            <div class="module-group right">
+                                <div class="module left">
+                                    <ul class="menu">
+                                        <li>
+                                            <a class="{{ selectedFile == null ? 'color-primary' : '' }}" href="javascript:" ng-click="getStarted()">Start</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="module widget-handle left">
+                                    <ul class="menu">
+                                        <li ng-repeat="file in files">
+                                            <a class="{{ selectedFile == file ? 'color-primary' : '' }}" href="javascript:" ng-click="selectFile(file)">{{ file }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="module widget-handle left">
+                                    <ul class="menu">
+                                        <li>
+                                            <a class="technology-menu-item text-right" href="javascript:">{{ selectedTechnology.title }}</a>
+                                            <ul>
+                                                <li ng-repeat="technology in technologies">
+                                                    <a class="{{ selectedTechnology == technology ? 'selected-menu-item' : '' }}" href="javascript:" ng-click="selectTechnology(technology)">{{ technology.title }}</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div ng-show="selectedTechnology.name == 'JavaScript' && selectedFile == null">
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Initialization</h2>
+                            <p>Add the necessary DlhSoft.* script references to the head section(s) of HTML page(s) in your JavaScript® based application:</p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-markup" ng-non-bindable>
+&lt;head&gt;
+  …
+  &lt;script src="DlhSoft.ProjectData.GanttChart.HTML.Controls.js" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;script src="DlhSoft.Data.HTML.Controls.js" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;script src="DlhSoft.ProjectData.GanttChart.HTML.Controls.Extras.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code>
+                                </pre>
+                            </div>
+                            <p>Prepare control placeholder elements as child nodes of appropriate container elements and obtain their references in code behind:</p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-markup" ng-non-bindable>
+&lt;body&gt;
+  &lt;div id="ganttChartView"&gt;…&lt;/div&gt;
+&lt;/body&gt;
+</code>
+                                </pre>
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var ganttChartView = document.querySelector("#ganttChartView");
+</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Data binding</h2>
+                            <p>
+                                To load and present data items within GanttChartView or other Gantt Chart based component instances initialize their items collections.
+                                The item type to use depends on the actual component type. For Gantt Chart controls define objects providing these fields:
+                            </p>
+                            <ul>
+                                <li>content values usually specify task names;</li>
+                                <li>start and finish date and time values indicate the scheduled times of their displayed bars;</li>
+                                <li>completedFinish date and time values specify the schedule times of their completion displayed bars (indicating completion percentages);</li>
+                                <li>isMilestone Boolean values determine the project milestones that are presented as diamond shapes in the chart;</li>
+                                <li>assignmentsContent values specify indicate the assigned resource names of each task, separated by commas;</li>
+                                <li>indentation values generate the hierarchical work breakdown structure of the project (summary and standard tasks).</li>
+                            </ul>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var item1 = { content: "My summary task" };
+var item2 = { content: "My standard task", indentation: 1,
+              start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 7, 16, 0, 0), completedFinish: new Date(2012, 8, 5, 16, 0, 0),
+              assignmentsContent: "My resource" };
+var items = [ item1, item2 ];
+var item3 = { content: "My milestone", indentation: 1,
+              isMilestone: true };
+items.push(item3);
+</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div ng-show="selectedTechnology.name == 'TypeScript' && selectedFile == null">
+            TS
+        </div>
+        <div ng-show="selectedTechnology.name == 'AngularJS' && selectedFile == null">
+            NG
+        </div>
+        <div ng-show="selectedFile == 'Gantt chart'">
+            GCV
+        </div>
+        <div ng-show="selectedFile == 'Schedule chart'">
+            SCV
+        </div>
+        <div ng-show="selectedFile == 'Load chart'">
+            LCV
+        </div>
+        <div ng-show="selectedFile == 'PERT chart'">
+            PCV
+        </div>
+        <div ng-show="selectedFile == 'Network diagram'">
+            NDV
+        </div>
+        <div ng-show="selectedFile == 'More'">
+            More
+        </div>
+    </div>
+</body>
+</html>
