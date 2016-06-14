@@ -23,6 +23,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.css" />
+    <Content Include="NetworkDiagramView.htm" />
+    <Content Include="PertChartView.htm" />
+    <Content Include="LoadChartView.htm" />
+    <Content Include="ScheduleChartView.htm" />
     <Content Include="GanttChartView.htm" />
     <Content Include="default.htm" />
     <Content Include="index.html" />
