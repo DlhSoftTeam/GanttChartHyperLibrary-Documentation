@@ -22,12 +22,10 @@ angular.module('Documentation', [])
             $scope.selectedTechnology = technology;
             $scope.selectedFile = null;
         };
-        if (initialSelection != null) {
-            $timeout(() => {
-                if (initialSelection == 'AngularJS')
-                    $scope.selectedTechnology = technologies[2];
-                else
-                    $scope.selectedFile = initialSelection;
-            }, 200);
-        }
+        if (initialSelection == 'AngularJS')
+            $scope.selectedTechnology = technologies[2];
+        else
+            $scope.selectedFile = initialSelection;
+        $scope.isInitializing = true;
+        $timeout(() => { $scope.isInitializing = false; }, 200);
     });

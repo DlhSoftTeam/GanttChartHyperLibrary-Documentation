@@ -19,9 +19,10 @@ section p {
 section ul {
     margin-top: 0;
     list-style: initial;
-    list-style-position: inside;
+    list-style-position: hanging;
 }
 section li {
+    margin-left: 24px;
     padding-left: 8px;
 }
 section .code-snippet {

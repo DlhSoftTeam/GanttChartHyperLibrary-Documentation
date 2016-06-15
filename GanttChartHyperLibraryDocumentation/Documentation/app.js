@@ -20,13 +20,11 @@ angular.module('Documentation', [])
         $scope.selectedTechnology = technology;
         $scope.selectedFile = null;
     };
-    if (initialSelection != null) {
-        $timeout(function () {
-            if (initialSelection == 'AngularJS')
-                $scope.selectedTechnology = technologies[2];
-            else
-                $scope.selectedFile = initialSelection;
-        }, 200);
-    }
+    if (initialSelection == 'AngularJS')
+        $scope.selectedTechnology = technologies[2];
+    else
+        $scope.selectedFile = initialSelection;
+    $scope.isInitializing = true;
+    $timeout(function () { $scope.isInitializing = false; }, 200);
 });
 //# sourceMappingURL=app.js.map
