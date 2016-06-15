@@ -105,13 +105,15 @@
                 </div>
             </div>
         </div>
-        <div ng-show="selectedTechnology.name == 'JavaScript' && selectedFile == null">
+        <div ng-show="selectedTechnology.name == 'JavaScript' && !selectedFile">
             <section>
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>Initialization</h2>
-                            <p>Add the necessary DlhSoft.* script references to the head section(s) of HTML page(s) in your JavaScript® based application:</p>
+                            <h2>Bootstrapping</h2>
+                            <p>
+                                Add the necessary DlhSoft.* script references to the head section(s) of HTML page(s) in your JavaScript® based application:
+                            </p>
                             <div class="code-snippet">
                                 <pre class="line-numbers">
 <code class="language-markup" ng-non-bindable>
@@ -124,7 +126,9 @@
 </code>
                                 </pre>
                             </div>
-                            <p>Prepare control placeholder elements as child nodes of appropriate container elements and obtain their references in code behind:</p>
+                            <p>
+                                Prepare control placeholder elements as child nodes of appropriate container elements and obtain their references in code behind:
+                            </p>
                             <div class="code-snippet">
                                 <pre class="line-numbers">
 <code class="language-markup" ng-non-bindable>
@@ -135,19 +139,11 @@
                                 </pre>
                                 <pre class="line-numbers">
 <code class="language-javascript" ng-non-bindable>
-var ganttChartView = document.querySelector("#ganttChartView");
+var ganttChartView = document.querySelector('#ganttChartView');
 </code>
                                 </pre>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h2>Data binding</h2>
+                            <h2>Initialization</h2>
                             <p>
                                 To load and present data items within GanttChartView or other Gantt Chart based component instances initialize their items collections.
                                 The item type to use depends on the actual component type. For Gantt Chart controls define objects providing these fields:
@@ -163,14 +159,307 @@ var ganttChartView = document.querySelector("#ganttChartView");
                             <div class="code-snippet">
                                 <pre class="line-numbers">
 <code class="language-javascript" ng-non-bindable>
-var item1 = { content: "My summary task" };
-var item2 = { content: "My standard task", indentation: 1,
+var item1 = { content: 'My summary task' };
+var item2 = { content: 'My standard task', indentation: 1,
               start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 7, 16, 0, 0), completedFinish: new Date(2012, 8, 5, 16, 0, 0),
-              assignmentsContent: "My resource" };
+              assignmentsContent: 'My resource' };
 var items = [ item1, item2 ];
-var item3 = { content: "My milestone", indentation: 1,
+var item3 = { content: 'My milestone', indentation: 1,
               isMilestone: true };
 items.push(item3);
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                To initialize dependencies between Gantt Chart bars, use the successor item’s predecessors collection.
+                                The referred item is determined by reference within the component’s items collection.
+                                Dependency type values supports all common types of task links, including: Finish-to-Start (FS), Start-to-Start (SS), Finish-to-Finish (FF), Start-to-Finish (SF):
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+item3.predecessors = [{ item: item2, dependencyType: 'FF' }];
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                You may supplementary customize items using custom values, if needed:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+item.description = 'My task’s description';
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                Finally, prepare the component settings object and call initialize function to prepare the user interface of the component.
+                                To customize the displayed grid columns, use the columns field of the component’s settings object.
+                                By default, the first column displays content data hierarchically.
+                                You may also prepare new or updated column objects starting from the default columns collection, using JavaScript® statements referring item values as defined by cellTemplate field:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var settings = { currentTime: new Date(2012, 8, 2, 12, 0, 0) };
+var columns = DlhSoft.Controls.GanttChartView.getDefaultColumns(items, settings);
+columns[0].header = 'Work items';
+columns[0].width  = 240;
+columns[1].header = 'Beginning';
+columns[2].header = 'Start';
+columns.push({ header: 'Description', width: 200, cellTemplate: function (item) { return document.createTextNode(item.description); } });
+settings.columns = columns;
+DlhSoft.Controls.GanttChartView.initialize(ganttChartView, items, settings);
+</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Timeline definition</h2>
+                            <p>
+                                To specify the scrollable timeline and the zoom level of the chart:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+settings.timelineStart  = start; 
+settings.timelineFinish = finish; 
+settings.hourWidth = zoomLevel;
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                To specify the time schedule displayed and used by default by the control:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+settings.workingWeekStart  = 1; // Monday
+settings.workingWeekFinish = 5; // Friday
+settings.visibleWeekStart  = 0; // Sunday
+settings.visibleWeekFinish = 6; // Saturday
+settings.visibleDayStart   = 09 * 60 * 60 * 1000; // 9 AM
+settings.visibleDayFinish  = 17 * 60 * 60 * 1000; // 5 PM
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                Alternatively, you can use schedule objects, which are supported also at task item level:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+settings.schedule = { workingWeekStart: 1, workingWeekFinish: 5 …); 
+item.schedule     = { … };
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                To set up the scales displayed by the control use the scales collection. The scale objects define their type, header texts, and separator lines.
+                                Weeks scales are displayed as starting on Sunday; to display weeks starting on Monday instead, simply set weekStartDay field to 1.
+                                NonworkingTime and CurrentTime scales souldn’t have headers, and would actually highlight nonworking time and the display a vertical line for the current time, respectively.
+                                Finally, if you change the headered scale count, update the headerHeight value accordingly:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+settings.weekStartDay = 1;
+settings.scales = [{ scaleType: 'NonworkingTime', isHeaderVisible: false, isHighlightingVisible: true, 
+                     highlightingStyle: 'stroke-width: 0; fill: #f8f8f8; fill-opacity: 0.65' },
+                   { scaleType: 'Months', headerTextFormat: 'Month', 
+                     headerStyle: 'padding: 2.25px; border-right: solid 1px White; border-bottom: solid 1px White', 
+                     isSeparatorVisible: true, separatorStyle: 'stroke: #c8bfe7; stroke-width: 0.5px' },
+                   { scaleType: 'Weeks', headerTextFormat: 'Date', 
+                     headerStyle: 'padding: 2.25px; border-right: solid 1px White; border-bottom: solid 1px White', 
+                     isSeparatorVisible: true, separatorStyle: 'stroke: #c8bfe7; stroke-width: 0.5px' },
+                   { scaleType: 'Days', headerTextFormat: 'Day', 
+                     headerStyle: 'padding: 2.25px; border-right: solid 1px White' },
+                   { scaleType: 'CurrentTime', isHeaderVisible: false, isSeparatorVisible: true, 
+                     separatorStyle: 'stroke: Red; stroke-width: 0.5px' }];
+settings.headerHeight = 21 * 3;
+</code>
+                                </pre>
+                            </div>
+                            <h2>Appearance</h2>
+                            <p>
+                                To configure the look of the Gantt Chart bars (alternative class suffixed fields referring CSS classes are also available):
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+settings.standardBarStyle          = 'stroke: Green; fill: LightGreen'; 
+settings.standardCompletedBarStyle = 'stroke: DarkGreen; fill: DarkGreen'; 
+settings.summaryBarStyle           = 'stroke: DarkGreen; fill: DarkGreen'; 
+settings.milestoneBarStyle         = 'stroke: DarkGreen; fill: DarkGreen'; 
+settings.dependencyLineStyle       = 'stroke: Green; fill: none; marker-end: url(#ArrowMarker)';
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                You may also initialize individual item appearance settings:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+item1.standardBarStyle = 'stroke: Green; fill: LightGreen';
+item2.standardBarStyle = 'stroke: Brown; fill: Brown';
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                Alternatively or supplementary, you can configure the bar, dependency line, and tool tip templates using JavaScript® based statements:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+settings.standardTaskTemplate    = function (item) {…}; 
+settings.summaryTaskTemplate     = function (item) {…}; 
+settings.milestoneTaskTemplate   = function (item) {…}; 
+settings.extraTaskTemplate       = function (item) {…}; 
+settings.assignmentsTemplate     = function (item) {…}; 
+settings.dependencyLineTemplate  = function (item, predecessorItem) {…}; 
+settings.itemTemplate            = function (item) {…};                                   // Task bar tool tip
+settings.predecessorItemTemplate = function (item, predecessorItem, predecessorItem) {…}; // Dependency line tool tip
+</code>
+                                </pre>
+                            </div>
+                            <h2>More settings</h2>
+                            <p>
+                                To set up assignable resources and define their costs:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+settings.assignableResources = …; 
+settings.resourceQuantities = …; 
+settings.specificResourceHourCosts = …;
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                To further configure the look and feel, behavior, and other aspects of the components use the other member fields of the settings object:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+settings.areTaskDependencyConstraintsEnabled = true;
+settings.isMouseWheelZoomEnabled = false; 
+settings.updateScaleInterval = 1 * 60 * 60 * 1000; // 1h 
+settings.isBaselineVisible = true;
+settings.alternativeItemStyle = 'background-color: Silver'; 
+settings.alternativeChartItemStyle = 'fill: Silver';
+</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Hierarchical operations</h2>
+                            <p>
+                                To get the root or leaf tasks from the managed collection:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var roots  = ganttChartView.getRootItems(); 
+var leaves = ganttChartView.getLeafItems();
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                To get the parent, or children of a specific task item:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var parent    = item.parent;
+var children  = item.children;
+</code>
+                                </pre>
+                            </div>
+                            <h2>Project management</h2>
+                            <p>
+                                To reschedule tasks so that project work is fully optimized or assigned resources are not over-allocated:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+ganttChartView.optimizeWork();
+ganttChartView.levelResources();
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                To get critical tasks (those that by rescheduling might affect the finish date and time of the project):
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var criticalItems = ganttChartView.getCriticalItems();
+</code>
+                                </pre>
+                            </div>
+                            <h2>Importing, exporting, and printing</h2>
+                            <p>
+                                To import or export project data from or to Microsoft® Project® XML format use the extra GanttChartView.ProjectSerializer component:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var projectSerializer = DlhSoft.Controls.GanttChartView.ProjectSerializer.initialize(ganttChartView);
+projectSerializer.loadXml(inputString);
+var outputString = projectSerializer.getXml();
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                To send the Gantt Chart and associated data grid content of specified columns to the printer (allowing the end user to select the printing settings), optionally rotating the output to generate landscape output by default:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+ganttChartView.print({ title: 'My document', columnIndexes: new int[] {0, 2}, rotate: true });
+</code>
+                                </pre>
+                            </div>
+                            <h2>More operations</h2>
+                            <p>
+                                To display the current items from a Gantt Chart control in different way using a Schedule Chart:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var scheduleChartItems = ganttChartView.getScheduleChartItems();
+var scheduleChartView = document.querySelector('#scheduleChartView');
+var scheduleChartSettings = { isReadOnly: true };
+DlhSoft.Controls.ScheduleChartView.initialize(scheduleChartView, scheduleChartItems, scheduleChartSettings);
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                Other member methods and events are available to provide advanced operations with the components and the data items they manage:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+ganttChartView.moveItem(item, toIndex);
+ganttChartView.moveItemHierarchyUp(item);
+ganttChartView.moveItemHierarchyDown(item);
+var projectCost = ganttChartView.getProjectCost();
+var finish = ganttChartView.getProjectFinish();
+ganttChartView.itemPropertyChangeHandler = function(item, propertyName, isFinal, isDirect) {…}; 
+ganttChartView.itemSelectionChangeHandler = function(item, isSelected, isDirect) {…};
 </code>
                                 </pre>
                             </div>
@@ -179,10 +468,10 @@ items.push(item3);
                 </div>
             </section>
         </div>
-        <div ng-show="selectedTechnology.name == 'TypeScript' && selectedFile == null">
+        <div ng-show="selectedTechnology.name == 'TypeScript' && !selectedFile">
             TS
         </div>
-        <div ng-show="selectedTechnology.name == 'AngularJS' && selectedFile == null">
+        <div ng-show="selectedTechnology.name == 'AngularJS' && !selectedFile">
             NG
         </div>
         <div ng-show="selectedFile == 'Gantt chart'">

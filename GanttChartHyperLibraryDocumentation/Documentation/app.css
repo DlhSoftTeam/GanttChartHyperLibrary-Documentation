@@ -7,6 +7,23 @@
 .selected-menu-item {
     opacity: 1 !important;
 }
-.code-snippet {
+section h2 {
+    margin-top: 64px;
+}
+section h2:first-child {
+    margin-top: auto;
+}
+section p {
+    margin-bottom: 8px;
+}
+section ul {
     margin-top: 0;
+    list-style: initial;
+    list-style-position: inside;
+}
+section li {
+    padding-left: 8px;
+}
+section .code-snippet {
+    margin-top: 16px;
 }
