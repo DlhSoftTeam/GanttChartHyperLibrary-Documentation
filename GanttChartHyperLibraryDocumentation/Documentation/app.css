@@ -13,6 +13,11 @@ section h2 {
 section h2:first-child {
     margin-top: auto;
 }
+section h3 {
+    margin-top: 32px;
+    margin-bottom: 8px;
+    font-size: 24px;
+}
 section p {
     margin-bottom: 8px;
 }
@@ -24,6 +29,10 @@ section ul {
 section li {
     margin-left: 24px;
     padding-left: 8px;
+}
+section em {
+    font-style: normal;
+    color: #dd4a68;
 }
 section .code-snippet {
     margin-top: 16px;

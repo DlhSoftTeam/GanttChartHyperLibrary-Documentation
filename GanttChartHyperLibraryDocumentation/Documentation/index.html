@@ -697,7 +697,93 @@ $scope.settings = settings;
             </section>
         </div>
         <div ng-show="isInitializing || selectedFile == 'Gantt chart'">
-            GCV
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>GanttChartView control</h2>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+                                The control container element can be retrieved using a querySelector method call:
+                            </p>
+                            <div class="code-snippet" ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var ganttChartView = document.querySelector('#ganttChartView'); 
+</code>
+                                </pre>
+                            </div>
+                            <h3>Data items</h3>
+                            <p>
+                                The task items that may be presented within GanttChartView control should provide these properties:
+                            </p>
+                            <ul>
+                                <li><em>content</em>: The object that is displayed to represent the task item in the grid and in task bar tool tips, usually the task name;</li>
+                                <li><em>indentation</em>: The hierarchy is based on the indentation level values of the tasks, so that a task with a lower index in the collection and having a specific indentation level will become the parent task for the tasks with a higher index in the collection and having an increased indentation level;</li>
+                                <li><em>isExpanded</em>: If a parent task is expanded its child tasks become visible. If a parent task is collapsed its child tasks become invisible;</li>
+                                <li><em>start</em>, <em>finish</em>, <em>completedFinish</em>: Date and time values may be initialized as string values using standard date and time formatting or integral numeric formatting indicating millliseconds passed since January 1, 1970; supplementary, completedFinish values may be initialized as completion float values (between 0 and 1) instead of date and time values;</li>
+                                <li><em>isMilestone</em>: A milestone task is displayed in the Gantt Chart view using a different task bar template;</li>
+                                <li>
+                                    <em>schedule</em>: Object that optionally defines specific working week and day intervals and special nonworking days to consider for scheduling purposes using these properties:
+                                    <ul>
+                                        <li><em>workingWeekStart</em>, <em>workingWeekFinish</em>: The start and finish days of the working week interval, used when computing task effort values and when dragging and dropping task bars;</li>
+                                        <li><em>workingDayStart</em>, <em>workingDayFinish</em>: The start and finish times of the working day interval, in milliseconds passed since midnight, used when computing task effort values and when dragging and dropping task bars;</li>
+                                        <li><em>specialNonworkingDays</em>: Optional collection of special nonworking days, such as holidays;</li>
+                                    </ul>
+                                </li>
+                                <li><em>baselineStart</em>, <em>baselineFinish</em>: Indicate the baseline start and finish date and times to be presented as a second (estimation) task bar for the item in the chart area;</li>
+                                <li><em>minStart</em>, <em>maxStart</em>, <em>minFinish</em>, <em>maxFinish</em>: Indicate the minimum and maximum start and finish date and times to be considered (whenever possible) for the item;</li>
+                                <li><em>isRelativeToTimezone</em>: Indicates whether <em>start</em>, <em>finish</em>, <em>completedFinish</em>, <em>baseline{Start|Finsih}</em>, and <em>{min|max}{Start|Finish}</em> values are configured as local timezone based values (true by default); it gets set to false upon component initialization as date and times are converted to UTC values internally; set it back to true if you reinitialize the properties and refresh the component; to read the timing values externally, you may use <em>getOutputDate</em> method of the component;</li>
+                                <li><em>assignmentsContent</em>: The assignments content to be displayed in the Gantt Chart view next to the associated task bar, but it is not used internally for computing/updating task finish date and time (generating duration) based on any updated assignments;</li>
+                                <li><em>isReadOnly</em>: Indicates whether the current item should be read only in the grid and chart areas;</li>
+                                <li><em>isHidden</em>: Indicates whether the current item should be hidden in the grid and chart areas, for filtering purposes;</li>
+                                <li><em>isBarVisible</em>: Indicates whether the task bar is displayed in the chart area for this item;</li>
+                                <li><em>isBarReadOnly</em>: Indicates whether the task bar of current item should be read only in the chart;</li>
+                                <li><em>isSummaryEnabled</em>, <em>isParentSummarizationEnabled</em>: Indicate whether the current summary item should aggregate child item values and be presented using a summary bar, or whether the current item values should be aggregated to the parent summary item;</li>
+                                <li><em>displayRowIndex</em>: Indicates the row index to display the task bar at within the chart; by default it is not defined, and the row index is computed at runtime based on its hierarchical position and expansion states of summary item in the collection;</li>
+                                <li><em>parts</em>: Optional array of task item parts to be represented for this group item in the chart area;</li>
+                                <li><em>class</em>, <em>style</em>: CSS class and/or inline style to apply to the task row container element in the grid;</li>
+                                <li><em>barClass</em>, <em>standardBarClass</em>, <em>completedStandardBarClass</em>, <em>summaryBarClass</em>, <em>milestoneBarClass</em>, <em>baselineBarClass</em>, <em>barStyle</em>, <em>standardBarStyle</em>, <em>completedStandardBarStyle</em>, <em>summaryBarStyle</em>, <em>milestoneBarStyle</em>, <em>baselineBarStyle</em>: CSS classes and/or inline styles to apply to the task bar or specific types of task bars when they are presented in the chart for this item;</li>
+                                <li><em>taskTemplate</em>: Optional function that returns the output (SVG node) for the task bar to be presented in the chart for this item, overriding the control settings;</li>
+                                <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the chart for this item (usually a tool tip), overriding the control settings;</li>
+                                <li><em>isSelected</em>: Indicates whether the current item is currently selected in the view;</li>
+                                <li>
+                                    <em>predecessors</em>: The predecessors collection defines predecessor items (objects) referring the task items that the current item depends of, and having the relations displayed in the Gantt Chart view as dependency lines, but it is not used internally for computing/updating task start and finish date and times (generating work time intervals) based on its defined dependencies; the predecessor item properties are presented below:
+                                    <ul>
+                                        <li><em>item</em>: Task item that precedes the owner of the predecessor item (the item that the current item depends of);</li>
+                                        <li><em>dependencyType</em>: Indicates the type of the dependency; supported values are: <em>FinishStart</em> (default value), <em>StartStart</em>, <em>FinishFinish</em>, or <em>StartFinish</em>;</li>
+                                        <li><em>lag</em>: Indicates an optional lag of the dependency (in milliseconds);</li>
+                                        <li><em>dependencyLineClass</em>, <em>dependencyLineStyle</em>: CSS class and/or inline style to apply to the dependency line to be presented in the chart for this predecessor item;</li>
+                                        <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the chart for this predecessor item (usually a tool tip), overriding the control settings;</li>
+                                    </ul>
+                                </li>
+                                <li><em>executionCost</em>: The direct cost related to the task item execution.</li>
+                            </ul>
+                            <div class="code-snippet" ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var items = [{ content: "Task 1", isExpanded: false },
+             { content: "Task 1.1", indentation: 1, start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 4, 16, 0, 0) },
+             { content: "Task 1.2", indentation: 1, start: new Date(2012, 8, 3, 8, 0, 0), finish: new Date(2012, 8, 5, 12, 0, 0) },
+             { content: "Task 2", isExpanded: true },
+             { content: "Task 2.1", indentation: 1, start: new Date(2012, 8, 4, 8, 0, 0), finish: new Date(2012, 8, 8, 16, 0, 0),
+               completedFinish: new Date(2012, 8, 5, 16, 0, 0), assignmentsContent: "Resource 1, Resource 2 [50%]" },
+             { content: "Task 2.2", indentation: 1 },
+             { content: "Task 2.2.1", indentation: 2, start: new Date(2012, 8, 11, 8, 0, 0), finish: new Date(2012, 8, 12, 16, 0, 0),
+               completedFinish: new Date(2012, 8, 12, 16, 0, 0), assignmentsContent: "Resource 2" },
+             { content: "Task 2.2.2", indentation: 2, start: new Date(2012, 8, 12, 12, 0, 0), finish: new Date(2012, 8, 14, 16, 0, 0) },
+             { content: "Task 3", indentation: 1, start: new Date(2012, 8, 15, 16, 0, 0), isMilestone: true}];
+ items[3].predecessors = [{ item: items[0], dependencyType: "SS"}];
+ items[7].predecessors = [{ item: items[6]}];
+ items[8].predecessors = [{ item: items[4] }, { item: items[5]}];
+ for (var i = 4; i <= 32; i++)
+     items.push({ content: "Task " + i, start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 4, 16, 0, 0) });
+</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <div ng-show="isInitializing || selectedFile == 'Schedule chart'">
             SCV
