@@ -29,11 +29,16 @@ section ul {
 section li {
     margin-left: 24px;
     padding-left: 8px;
+    margin-top: 4px;
 }
 section em {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
     font-style: normal;
     color: #dd4a68;
 }
 section .code-snippet {
     margin-top: 16px;
+}
+section pre {
+    padding-bottom: 0 !important;
 }

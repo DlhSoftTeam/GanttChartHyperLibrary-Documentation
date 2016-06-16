@@ -38,15 +38,12 @@
                         <img class="logo logo-light" alt="logo" src="http://DlhSoft.com/Images/Logo-light.png">
                     </a>
                 </div>
-                <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
-                    <i class="ti-menu"></i>
-                </div>
                 <div class="module-group right">
                     <div class="module left">
                         <ul class="menu">
                             <li>
-                                <a href="index.html">Documentation</a>&nbsp;
-                                –&nbsp;
+                                <a href="index.html">Documentation</a> 
+                                – 
                                 <a href="http://DlhSoft.com/GanttChartHyperLibrary" target="_blank">Gantt Chart Hyper Library</a>
                             </li>
                             <li>
@@ -111,7 +108,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>Bootstrapping</h2>
+                            <h2>Get started</h2>
                             <p>
                                 Add the necessary DlhSoft.* script references to the head section(s) of HTML page(s) in your JavaScript® based application:
                             </p>
@@ -144,7 +141,7 @@ var ganttChartView = document.querySelector('#ganttChartView');
 </code>
                                 </pre>
                             </div>
-                            <h2>Initialization</h2>
+                            <h2>Data items</h2>
                             <p>
                                 To load and present data items within GanttChartView or other Gantt Chart based component instances initialize their items collections.
                                 The item type to use depends on the actual component type. For Gantt Chart controls define objects providing these fields:
@@ -208,7 +205,8 @@ columns[0].header = 'Work items';
 columns[0].width  = 240;
 columns[1].header = 'Beginning';
 columns[2].header = 'Start';
-columns.push({ header: 'Description', width: 200, cellTemplate: function (item) { return document.createTextNode(item.description); } });
+columns.push({ header: 'Description', width: 200, cellTemplate: function (item) { 
+    return item.ganttChartView.ownerDocument.createTextNode(item.description); } });
 settings.columns = columns;
 DlhSoft.Controls.GanttChartView.initialize(ganttChartView, items, settings);
 </code>
@@ -474,7 +472,7 @@ ganttChartView.itemSelectionChangeHandler = function(item, isSelected, isDirect)
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>Bootstrapping</h2>
+                            <h2>Get started</h2>
                             <p>
                                 Add the necessary DlhSoft.* script references to the head section(s) of HTML page(s) in your TypeScript based application:
                             </p>
@@ -512,7 +510,7 @@ var ganttChartViewElement = &lt;HTMLElement&gt;document.querySelector('#ganttCha
 </code>
                                 </pre>
                             </div>
-                            <h2>Initialization</h2>
+                            <h2>Data items</h2>
                             <p>
                                 To load and present data items within GanttChartView or other Gantt Chart based component instances initialize their items collections.
                                 The item type to use depends on the actual component type. For Gantt Chart controls define objects providing these fields:
@@ -576,7 +574,8 @@ columns[0].header = 'Work items';
 columns[0].width  = 240;
 columns[1].header = 'Beginning';
 columns[2].header = 'Start';
-columns.push({ header: 'Description', width: 200, cellTemplate: (item) => { return document.createTextNode(item.description); } });
+columns.push({ header: 'Description', width: 200, cellTemplate: (item) => { 
+    return item.ganttChartView.ownerDocument.createTextNode(item.description); } });
 settings.columns = columns;
 var ganttChartView = DlhSoft.Controls.GanttChartView.initialize(ganttChartViewElement, items, settings);
 </code>
@@ -592,7 +591,7 @@ var ganttChartView = DlhSoft.Controls.GanttChartView.initialize(ganttChartViewEl
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>Bootstrapping</h2>
+                            <h2>Get started</h2>
                             <p>
                                 To use the AngularJS extensions for DlhSoft Gantt Chart Hyper Library please follow these steps:
                             </p>
@@ -620,7 +619,7 @@ var ganttChartView = DlhSoft.Controls.GanttChartView.initialize(ganttChartViewEl
 </code>
                                 </pre>
                             </div>
-                            <h2>Initialization</h2>
+                            <h2>Data items</h2>
                             <p>
                                 To load and present data items within ds:gantt-chart extension or other Gantt Chart based component instances initialize their items collections.
                                 The item type to use depends on the actual component type. For Gantt Chart controls define objects providing these fields:
@@ -685,7 +684,8 @@ columns[0].header = 'Work items';
 columns[0].width  = 240;
 columns[1].header = 'Beginning';
 columns[2].header = 'Start';
-columns.push({ header: 'Description', width: 200, cellTemplate: (item) => { return document.createTextNode(item.description); } });
+columns.push({ header: 'Description', width: 200, cellTemplate: (item) => { 
+    return item.ganttChartView.ownerDocument.createTextNode(item.description); } });
 settings.columns = columns;
 $scope.settings = settings;
 </code>
@@ -701,17 +701,15 @@ $scope.settings = settings;
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>GanttChartView control</h2>
+                            <h2>GanttChartView reference</h2>
                             <p ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <div class="code-snippet" ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
-                                <pre class="line-numbers">
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 var ganttChartView = document.querySelector('#ganttChartView'); 
 </code>
-                                </pre>
-                            </div>
+                            </pre>
                             <h3>Data items</h3>
                             <p>
                                 The task items that may be presented within GanttChartView control should provide these properties:
@@ -758,28 +756,862 @@ var ganttChartView = document.querySelector('#ganttChartView');
                                 </li>
                                 <li><em>executionCost</em>: The direct cost related to the task item execution.</li>
                             </ul>
-                            <div class="code-snippet" ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
-                                <pre class="line-numbers">
+                            <pre>
 <code class="language-javascript" ng-non-bindable>
-var items = [{ content: "Task 1", isExpanded: false },
-             { content: "Task 1.1", indentation: 1, start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 4, 16, 0, 0) },
-             { content: "Task 1.2", indentation: 1, start: new Date(2012, 8, 3, 8, 0, 0), finish: new Date(2012, 8, 5, 12, 0, 0) },
-             { content: "Task 2", isExpanded: true },
-             { content: "Task 2.1", indentation: 1, start: new Date(2012, 8, 4, 8, 0, 0), finish: new Date(2012, 8, 8, 16, 0, 0),
-               completedFinish: new Date(2012, 8, 5, 16, 0, 0), assignmentsContent: "Resource 1, Resource 2 [50%]" },
-             { content: "Task 2.2", indentation: 1 },
-             { content: "Task 2.2.1", indentation: 2, start: new Date(2012, 8, 11, 8, 0, 0), finish: new Date(2012, 8, 12, 16, 0, 0),
-               completedFinish: new Date(2012, 8, 12, 16, 0, 0), assignmentsContent: "Resource 2" },
-             { content: "Task 2.2.2", indentation: 2, start: new Date(2012, 8, 12, 12, 0, 0), finish: new Date(2012, 8, 14, 16, 0, 0) },
-             { content: "Task 3", indentation: 1, start: new Date(2012, 8, 15, 16, 0, 0), isMilestone: true}];
- items[3].predecessors = [{ item: items[0], dependencyType: "SS"}];
+var items = [{ content: 'Task 1', isExpanded: false },
+             { content: 'Task 1.1', indentation: 1, start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 4, 16, 0, 0) },
+             { content: 'Task 1.2', indentation: 1, start: new Date(2012, 8, 3, 8, 0, 0), finish: new Date(2012, 8, 5, 12, 0, 0) },
+             { content: 'Task 2', isExpanded: true },
+             { content: 'Task 2.1', indentation: 1, start: new Date(2012, 8, 4, 8, 0, 0), finish: new Date(2012, 8, 8, 16, 0, 0),
+               completedFinish: new Date(2012, 8, 5, 16, 0, 0), assignmentsContent: 'Resource 1, Resource 2 [50%]' },
+             { content: 'Task 2.2', indentation: 1 },
+             { content: 'Task 2.2.1', indentation: 2, start: new Date(2012, 8, 11, 8, 0, 0), finish: new Date(2012, 8, 12, 16, 0, 0),
+               completedFinish: new Date(2012, 8, 12, 16, 0, 0), assignmentsContent: 'Resource 2' },
+             { content: 'Task 2.2.2', indentation: 2, start: new Date(2012, 8, 12, 12, 0, 0), finish: new Date(2012, 8, 14, 16, 0, 0) },
+             { content: 'Task 3', indentation: 1, start: new Date(2012, 8, 15, 16, 0, 0), isMilestone: true}];
+ items[3].predecessors = [{ item: items[0], dependencyType: 'SS'}];
  items[7].predecessors = [{ item: items[6]}];
  items[8].predecessors = [{ item: items[4] }, { item: items[5]}];
  for (var i = 4; i <= 32; i++)
-     items.push({ content: "Task " + i, start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 4, 16, 0, 0) });
+     items.push({ content: 'Task ' + i, start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 4, 16, 0, 0) });
 </code>
-                                </pre>
-                            </div>
+                            </pre>
+                            <h3>Settings</h3>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>target</em>: Name of the target to generically apply to the control; <em>Standard</em>, and <em>Phone</em> targets are supported; by default it is Standard:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.target = 'Phone';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>interaction</em>: Name of the interaction mode to generically apply to the control; <em>Standard</em>, and <em>TouchEnabled</em> interaction modes are supported; by default it is Standard:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.interaction = 'TouchEnabled';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em>, <em>ModernBordered</em>, and <em>Aero</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Aero';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>border</em>: Color for the border to be presented around the main content container within the control; the border type is set to solid and its width is set to 1px by design (they are fixed values); by default it is gray:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.border = 'Blue';
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>containerClass</em>, <em>containerStyle</em>: CSS class and/or inline style to apply to the main content container within the control;</li>
+                                <li>
+                                    <em>isGridVisible</em>: Determines whether the grid is visible in the view; true by default:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isGridVisible = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>gridWidth</em>, <em>chartWidth</em>: Widths of the grid and chart areas within the control; by default they are set to 35% and 65% when <em>isGridVisible</em> is true:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.gridWidth  = '30%';
+settings.chartWidth = '70%';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>isSplitterEnabled</em>: Determines whether a splitter is displayed between the grid and chart when the grid is visible and the end user hovers the left most area of the chart, allowing resizing the internal panels; true by default:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isSplitterEnabled = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>splitterWidth</em>: The width of the splitter within the control:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.splitterWidth = 8;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>splitterBackground</em>: The background used to fill the splitter within the control (when hovering the area between the grid and chart); by default it is a shade of light gray:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.splitterBackground = 'Blue';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>minGridWidth</em>, <em>minChartWidth</em>: The minimum widths of the grid and chart to be used as left and right splitting limits within the control (values should not be below 32 and 32 + splitterWidth, respectively):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.minGridWidth  = 100;
+settings.minChartWidth = 100 + 4;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>allowUserToResizeColumns</em>: Indicates whether the columns may be resized or not by the end user with gripper drag and drop operations; by default it is set to true; when set to true, individual <em>column.allowUserToResize</em> values may be defined as local overrides;</li>
+                                <li><em>minColumnWidth</em>, <em>maxColumnWidth</em>: Numeric values indicating the default limits of width of the columns (in pixels) when updated by the end user with gripper drag and drop operations;</li>
+                                <li>
+                                    <em>isReadOnly</em>, <em>isGridReadOnly</em>, <em>isChartReadOnly</em>, <em>isContentReadOnly</em>, <em>isAssignmentsContentReadOnly</em>, <em>isTaskStartReadOnly</em>, <em>isTaskEffortReadOnly</em>, <em>isTaskCompletionReadOnly</em>, <em>areTaskPredecessorsReadOnly</em>: Indicate whether the entire control or specific control features are read only:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isGridReadOnly = true;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isTaskEffortPreservedWhenStartChangesInGrid</em>: Indicates whether effort is preserved for tasks when end users change their start value from the default <em>Start</em> column in the grid; by default it is set to false;</li>
+                                <li><em>headerBackground</em>: Background color (and optionally other standard background atributes) used to fill the header areas within the control (grid and chart headers); by default it is a shade of light gray;</li>
+                                <li>
+                                    <em>headerHeight</em>: Height of the header areas within the control (grid and chart headers); by default it is set to 42  (i.e. 21 for each of the 2 default headered scale items):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.headerHeight = 21 * 3; // Prepare space for 3 scales
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>itemHeight</em>: Height value shared by all item rows within the control (grid rows and chart item areas); by default it is set to 21;</li>
+                                <li>
+                                    <em>columns</em>: Collection of objects indicating the columns to be presented in the grid; each column object supports these properties:
+                                    <ul>
+                                        <li><em>isTreeView</em>: When set to true, indicates which column to be presented as a tree view (indented hierarchy) within the grid;</li>
+                                        <li><em>header</em>: Text to be displayed as the grid column header;</li>
+                                        <li><em>width</em>: Numeric value indicating the width of the column (in pixels);</li>
+                                        <li><em>allowUserToResize</em>: Indicates whether the column may be resized or not by the end user with gripper drag and drop operations;</li>
+                                        <li><em>minWidth</em>, <em>maxWidth</em>: Numeric values indicating the limits of width of the column (in pixels) when updated by the end user with gripper drag and drop operations;</li>
+                                        <li><em>isReadOnly</em>: Indicates whether the column cells should be read only;</li>
+                                        <li><em>isSelection</em>: Indicates whether the column cells include user interface for item selection;</li>
+                                        <li><em>headerClass</em>, <em>headerStyle</em>: CSS class and/or inline style to apply to the grid header container element of the column;</li>
+                                        <li><em>cellClass</em>, <em>cellStyle</em>: CSS class and/or inline style to apply to the grid cell container elements for the column;</li>
+                                        <li><em>cellTemplate</em>, <em>exportCellTemplate</em>: Functions that return the output (document nodes) to be presented within the grid cell of this column in the standard view, and optionally different at export time, for a specific item received as parameter;</li>
+                                    </ul>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+items[7].description = 'Custom description';
+var columns = DlhSoft.Controls.GanttChartView.getDefaultColumns(items, settings);
+columns.push({ header: 'Description', width: 200, cellTemplate: function (item) { 
+    return item.ganttChartView.ownerDocument.createTextNode(item.description); } });
+settings.columns = columns;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>itemClass</em>, <em>itemStyle</em>: CSS class and/or inline style to apply to task row elements in the grid;</li>
+                                <li><em>standardItemClass</em>, <em>summaryItemClass</em>, <em>milestoneItemClass</em>, <em>standardItemStyle</em>, <em>summaryItemStyle</em>, <em>milestoneItemStyle</em>: CSS classes and/or inline styles to apply to task row elements for the standard, summary, and milestone items in the grid; by default summary items are set to be displayed using bold as font weight;</li>
+                                <li><em>alternativeItemClass</em>, <em>alternativeChartItemClass</em>, <em>alternativeItemStyle</em>, <em>alternativeChartItemStyle</em>: CSS classes and/or inline styles to apply to alternative row elements in the grid and chart area;</li>
+                                <li><em>gridLines</em>, <em>horizontalGridLines</em>, <em>verticalGridLines</em>, <em>horizontalChartLines</em>: Colors for lines to be presented between rows and columns of the grid and/or chart areas of the control; by default they are not set;</li>
+                                <li><em>selectedItemClass</em>, <em>selectedItemStyle</em>: CSS class and/or inline style to apply to selected task row elements in the grid;</li>
+                                <li><em>selectionMode</em>: Indicates the selection behavior; support values are <em>None</em> (not allowed), <em>Focus</em> (single item selected triggered by focus), <em>Single</em> (single item selection using check box), <em>Extended</em> (multiple item selection using check boxes), and <em>ExtendedFocus</em> (multiple item selection using check boxes or triggered by focus); by default it is set to <em>Focus</em>;</li>
+                                <li>
+                                    <em>indentationLevelWidth</em>: Indicates the width (in pixels) of the indentation padding for a single level in the tree view column of the grid:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.indentationLevelWidth = 20;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>cellClass</em>, <em>cellStyle</em>: CSS class and/or inline style to apply by default to cell container elements in the grid;</li>
+                                <li>
+                                    <em>toggleButtonClass</em>, <em>toggleButtonHoveringClass</em>, <em>toggleButtonStyle</em>, <em>toggleButtonHoveringStyle</em>: CSS classes and/or inline styles to apply to the expander buttons in their standard and hovering states within the tree view of the hierarchical grid of the control; by default they are set to fill content using gray and black solid colors:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.toggleButtonStyle         = 'fill: Blue';
+settings.toggleButtonHoveringStyle = 'fill: Red';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>collapsedToggleButtonTemplate</em>, <em>expandedToggleButtonTemplate</em>: Functions that return the outputs (SVG nodes) to be presented as expander buttons in collapsed and expanded states within the tree view of the hierarchical grid of the control; by default they return appropriate SVG triangle (polygon) elements:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.collapsedToggleButtonTemplate = function () { 
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); 
+    svg.setAttribute('style', 'width: 12px; height: 12px'); 
+    var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); 
+    rect.setAttribute('id', 'PART_Button'); 
+    rect.setAttribute('x', '2'); 
+    rect.setAttribute('y', '2'); 
+    rect.setAttribute('width', '8'); 
+    rect.setAttribute('height', '8'); 
+    svg.appendChild(rect); 
+    return svg; 
+}; 
+settings.expandedToggleButtonTemplate = function () { 
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); 
+    svg.setAttribute('style', 'width: 12px; height: 12px'); 
+    var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); 
+    rect.setAttribute('id', 'PART_Button'); 
+    rect.setAttribute('x', '3'); 
+    rect.setAttribute('y', '3'); 
+    rect.setAttribute('width', '6'); 
+    rect.setAttribute('height', '6'); 
+    svg.appendChild(rect); 
+    return svg; 
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>displayedTime</em>, <em>currentTime</em>: Date and time to scroll to and highlight (using a vertical bar) within the chart view; by defaut they are obtained from the local computer:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.displayedTime = new Date(2012, 8, 1);
+settings.currentTime   = new Date(2012, 8, 2, 12, 0, 0);
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>timelineStart</em>, <em>timelineFinish</em>: Start and finish date and times of the scrollable chart area; by default they are set to include the current time near the start position:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.timelineStart  = new Date(2012, 7, 1);
+settings.timelineFinish = new Date(2014, 7, 1);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isRelativeToTimezone</em>: Indicates whether <em>displayedTime</em>, <em>currentTime</em>, <em>timelineStart</em>, and <em>timelineFinish</em> values are configured as local timezone based values (true by default); it gets set to false upon component initialization as date and times are converted to UTC values internally; set it back to true if you reinitialize the properties and refresh the component; to read the timing values externally, you may use <em>getOutputDate</em> method of the component;</li>
+                                <li><em>scales</em>: Collection of objects indicating the scales to be presented in the chart; each scale object supports these properties:
+                                    <ul>
+                                        <li><em>scaleType</em>: Type of the scale; supported values are: <em>Years</em>, <em>Months</em>, <em>Weeks</em>, <em>Days</em>, <em>Hours</em>, <em>NonworkingTime</em> (highlighting weekends), <em>CurrentTime</em> (current time vertical bar), <em>FutureTime</em> (current time vertical bar with future highlighting support), and <em>Custom</em> (the developer needs to also set the <em>intervals</em> collection in this case, using time interval objects defined by <em>start</em> and <em>finish</em> properties);</li>
+                                        <li><em>isHeaderVisible</em>: Whether to display a chart header for the scale or not; by default it is false for NonworkingTime and CurrentTime scale types;</li>
+                                        <li><em>headerHeight</em>: Height of the scale header in the chart;</li>
+                                        <li><em>headerTextFormat</em>: Format to use for scale header texts; supported values are: <em>DateTime</em>, <em>Date</em>, <em>Hour</em>, <em>DayOfWeek</em>, <em>DayOfWeekAbbreviation</em>, <em>Day</em>, <em>Month</em>, <em>MonthAbbreviation</em>, <em>Year</em>, <em>MonthYear</em>, <em>Localized</em>, and <em>Custom</em> (the developer needs to also set the <em>headerText</em> property of each interval object within the <em>intervals</em> collection of the scale object in this case), or a function that converts a Date parameter to a presentation string;</li>
+                                        <li><em>headerClass</em>, <em>headerStyle</em>: CSS class and/or inline style to apply to the scale header container elements;</li>
+                                        <li><em>isHighlightingVisible</em>: Whether to display vertical rectangles in the main chart area for the generated scale intervals;</li>
+                                        <li><em>highlightingClass</em>, <em>highlightingStyle</em>: CSS class and/or inline style to apply to the scale highlighter rectangle elements in the main chart area;</li>
+                                        <li><em>isSeparatorVisible</em>: Whether to display vertical separator lines in the main chart area between the generated scale intervals;</li>
+                                        <li><em>separatorClass</em>, <em>separatorStyle</em>: CSS class and/or inline style to apply to the scale separator line elements in the main chart area;</li>
+                                    </ul>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.scales = [
+    { scaleType: 'NonworkingTime', isHeaderVisible: false,
+      isHighlightingVisible: true, highlightingStyle: 'stroke-width: 0; fill: #f8f8f8' },
+    { scaleType: 'Months', headerTextFormat: 'Month',
+      headerStyle: 'padding: 2.25px; border-right: solid 1px #c8bfe7; border-bottom: solid 1px #c8bfe7',
+      isSeparatorVisible: true, separatorStyle: 'stroke: #c8bfe7' },
+    { scaleType: 'Weeks', headerTextFormat: 'Date',
+      headerStyle: 'padding: 2.25px; border-right: solid 1px #c8bfe7; border-bottom: solid 1px #c8bfe7' },
+    { scaleType: 'Days', headerTextFormat: 'Day', headerStyle: 'padding: 2.25px; border-right: solid 1px #c8bfe7' },
+    { scaleType: 'CurrentTime', isHeaderVisible: false, isSeparatorVisible: true, separatorStyle: 'stroke: #8bbf8a; stroke-width: 0.5px'}];
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isIndividualItemNonworkingTimeHighlighted</em>, <em>areTaskInterruptionsHighlighted</em>: Indicates whether to highlight specific nonworking time and/or task bar interruptions in the chart area for items that have specific <em>schedule</em> values defined;</li>
+                                <li>
+                                    <em>updateScale</em>: Time interval length (in milliseconds) to be used to dynamically round date and time during drag and drop update operations; by default it is set to quarter-hour (15 minutes):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.updateScale = 60 * 60 * 1000; // 1 hour
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>hourWidth</em>: Indicates the zoom level to be used for the chart area, and represents the actual number of pixels each hour in the timeline gets available; to zoom in, increase this value; to zoom out, decrease it; by default it is set to 2.5:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.hourWidth *= 2; // 200%
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>visibleWeekStart</em>, <em>visibleWeekFinish</em>: The start and finish days of the visible week interval; by default they are set to Sunday (0) and Saturday (6):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.visibleWeekStart  = 1; // Monday
+settings.visibleWeekFinish = 5; // Friday
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>workingWeekStart</em>, <em>workingWeekFinish</em>: The start and finish days of the working week interval, used when computing task effort values and when dragging and dropping task bars; by default they are set to Monday (1) and Friday (5); remaining days of the week are considered nonworking time and by default they are highlighted in the chart area:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.workingWeekStart  = 1; // Monday
+settings.workingWeekFinish = 4; // Thursday
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>visibleDayStart</em>, <em>visibleDayFinish</em>: The start and finish times of the visible day interval, in milliseconds passed since midnight; by default they are set to 8 AM and 4 PM; the working time interval of the day is also defined using the same values:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.visibleDayStart  = 10 * 60 * 60 * 1000; // 10 AM
+settings.visibleDayFinish = 20 * 60 * 60 * 1000; // 8 PM
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>specialNonworkingDays</em>: Optional collection of special nonworking days, such as holidays:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.specialNonworkingDays = [new Date(2012, 8, 24), new Date(2012, 8, 25)];
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>schedule</em>: Allows initializing working week and day intervals and special nonworking days to consider for scheduling purposes using an alternative definition object:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.schedule = { 
+    workingWeekStart: 0, workingWeekFinish: 3, // Sunday - Wednesday 
+    workingDayStart: 9 * 60 * 60 * 1000, workingDayFinish: 19 * 60 * 60 * 1000, // 9 AM - 7 PM, exceeding visible 4 PM 
+    specialNonworkingDays: [new Date(2012, 8, 18), new Date(2012, 8, 21), new Date(2012, 8, 22)] // Partial replacement for excluded dates 
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>barMargin</em>: The top and bottom margins around the task bars in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.barMargin = 3;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>barHeight</em>: The actual height to apply to the task bars in the chart; by default it is set to the remaining space from itemHeight when subtracting top and bottom barMargin values:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.barHeight = 16;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>barCornerRadius</em>: The corner radius to use to round corners of the task bars in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.barCornerRadius = 4;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>completedBarMargin</em>: The top and bottom margins around completion bars of the task bars in the chart;</li>
+                                <li><em>completedBarHeight</em>: The actual height to apply to completion bars of the task bars in the chart; by default it is set to the remaining space from barHeight when subtracting top and bottom completedBarMargin values;</li>
+                                <li><em>completedBarCornerRadius</em>: The corner radius to use to round corners of completion bars of the task bars in the chart; by default it is set to zero (0);</li>
+                                <li>
+                                    <em>styleDefinitionTemplate</em>: Function that returns SVG definitions (node) to be used in standard, summary, and milestone style and template definitions (see below); by default, they include these items: <em>BlueGradient</em>, <em>BlackGradient</em>, <em>ArrowMarker</em>:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.styleDefinitionTemplate = function (ganttChartView) {
+    var document = ganttChartView.ownerDocument;
+    var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    var arrowMarker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    arrowMarker.setAttribute('id', 'ArrowMarker');
+    arrowMarker.setAttribute('viewBox', '0 0 10 10');
+    arrowMarker.setAttribute('refX', '0');
+    arrowMarker.setAttribute('refY', '5');
+    arrowMarker.setAttribute('markerUnits', 'strokeWidth');
+    arrowMarker.setAttribute('markerWidth', '5');
+    arrowMarker.setAttribute('markerHeight', '4');
+    arrowMarker.setAttribute('orient', 'auto');
+    var arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    arrowPath.setAttribute('fill', 'LightGreen');
+    arrowPath.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+    arrowMarker.appendChild(arrowPath);
+    defs.appendChild(arrowMarker);
+    return defs;
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>standardBarClass</em>, <em>summaryBarClass</em>, <em>milestoneBarClass</em>, <em>standardBarStyle</em>, <em>summaryBarStyle</em>, <em>milestoneBarStyle</em>: CSS classes and/or inline styles to apply to the standard, summary, and milestone task bars in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.standardBarStyle  = 'stroke: Green; fill: LightGreen';
+settings.summaryBarStyle   = 'stroke: LightGreen; fill: White';
+settings.milestoneBarStyle = 'stroke: DarkRed; fill: Red';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>standardCompletedBarClass</em>, <em>standardCompletedBarStyle</em>: CSS class and/or inline style to apply to completion bars of the task bars in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.standardCompletedBarStyle = 'stroke: DarkGreen; fill: Green';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>collapsedSummaryLineClass</em>, <em>collapsedSummaryLineStyle</em>: CSS class and/or inline style to apply to the line displayed at the bottom of summary task bars in the chart when they get collapsed:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.collapsedSummaryLineStyle = 'stroke: LightGreen; stroke-dasharray: 2 2';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>dependencyPointerClass</em>, <em>dependencyPointerStyle</em>: CSS class and/or inline style to apply to the circle displayed at the finish end of task bars in the chart when they are hovered using the mouse cursor, providing access to creating task dependencies (predecessor items):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dependencyPointerStyle = 'stroke: DarkGreen; fill: LightGreen';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>dependencyLineClass</em>, <em>dependencyLineStyle</em>: CSS class and/or inline style to apply to polylines displayed between dependent task bars in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dependencyLineStyle = 'stroke: LightGreen; fill: none; marker-end: url(#ArrowMarker)';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>temporaryDependencyLineClass</em>, <em>temporaryDependencyLineStyle</em>: CSS class and/or inline style to apply to the temporary line displayed between task bars in the chart during drag operations occuring while preparing for creating task dependencies (predecessor items):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.temporaryDependencyLineStyle = 'stroke: LightGreen; stroke-dasharray: 2 2; fill: none; marker-end: url(#ArrowMarker)';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>assignmentsClass</em>, <em>assignmentsStyle</em>: CSS class and/or inline style to apply to the assignments presenter element in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.assignmentsStyle = 'fill: Green';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>standardTaskTemplate</em>, <em>summaryTaskTemplate</em>, <em>milestoneTaskTemplate</em>: Functions that return the outputs (SVG nodes) for standard, summary, and milestone task bars to be presented in the chart for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+var originalStandardTaskTemplate = DlhSoft.Controls.GanttChartView.getDefaultStandardTaskTemplate(items, ganttChartView, settings);
+settings.standardTaskTemplate = function (item) {
+    var document = item.ganttChartView.ownerDocument;
+    var svgGroup = originalStandardTaskTemplate(item);
+    if (item.content.indexOf('Task 2.') == 0) {
+        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        var itemLeft = ganttChartView.getChartPosition(item.start, settings);
+        var itemRight = ganttChartView.getChartPosition(item.finish, settings);
+        rect.setAttribute('x', itemLeft - 1);
+        rect.setAttribute('y', settings.barMargin - 1);
+        rect.setAttribute('width', Math.max(0, itemRight - itemLeft + 1));
+        rect.setAttribute('height', settings.barHeight + 2);
+        rect.setAttribute('style', 'stroke: Red; fill: Transparent');
+        svgGroup.insertBefore(rect, svgGroup.childNodes[0]);
+    }
+    return svgGroup;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>extraTaskTemplate</em>: Optional function that returns supplemental output (SVG node) to display on top of task bars to be presented in the chart for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.extraTaskTemplate = function (item) {
+    var document = item.ganttChartView.ownerDocument;
+    var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    var itemLeft = ganttChartView.getChartPosition(item.start, settings);
+    rect.setAttribute('x', itemLeft - 20 + (!item.hasChildren && !item.isMilestone ? 5 : 0));
+    rect.setAttribute('y', settings.barMargin);
+    rect.setAttribute('width', 12);
+    rect.setAttribute('height', settings.barHeight);
+    if (!item.hasChildren && !item.isMilestone)
+        rect.setAttribute('style', 'stroke: Blue; fill: LightBlue');
+    else
+        rect.setAttribute('style', 'stroke: none; fill: none');
+    return rect;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isTaskToolTipVisible</em>: Determines whether task bar tool tips are presented;</li>
+                                <li>
+                                    <em>itemTemplate</em>: Function that returns the output (SVG node) to presented in the chart for a specific item received as parameter (usually a tool tip):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.itemTemplate = function (item) {
+    var document = item.ganttChartView.ownerDocument;
+    var toolTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    var toolTipContent = item.content + ' • ' + 'Start: ' + item.start.toLocaleString();
+    if (!item.isMilestone)
+        toolTipContent += ' • ' + 'Finish: ' + item.finish.toLocaleString();
+    toolTip.appendChild(document.createTextNode(toolTipContent));
+    return toolTip;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>areTaskAssignmentsVisible</em>: Determines whether task assignments are presented in the chart;</li>
+                                <li><em>assignmentsTemplate</em>: Function that returns the output (SVG node) for assignments content to be presented in the chart for a specific item received as parameter;</li>
+                                <li><em>isTaskCompletedEffortVisible</em>: Determines whether task completion bars are presented in the chart;</li>
+                                <li><em>areTaskDependenciesVisible</em>: Determines whether dependency lines are presented in the chart;</li>
+                                <li><em>allowCreatingStartDependencies</em>, <em>allowCreatingToFinishDependencies</em>: Determine whether to allow creating start- and -to-finish dependencies between tasks using drag and drop operations;</li>
+                                <li><em>dependencyLineTemplate</em>: Function that returns the output (SVG node) for dependency polyline representing predecessor information in the chart for an item and a specific predecessor item received as parameters;</li>
+                                <li><em>isDependencyToolTipVisible</em>: Determines whether dependency line tool tips are presented;</li>
+                                <li>
+                                    <em>predecessorItemTemplate</em>: Function that returns the output (SVG node) to presented in the chart for an item and a specific predecessor item received as parameters (usually a tool tip):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.predecessorItemTemplate = function (item, predecessorItem) {
+    var document = item.ganttChartView.ownerDocument;
+    var toolTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    var toolTipContent = predecessorItem.item.content + ' → ' + item.content;
+    toolTip.appendChild(document.createTextNode(toolTipContent));
+    return toolTip;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isDraggingTaskStartEndsEnabled</em>: Indicates ehwehter left ends of task bars may be dragged to update task start date and times preserving finish values;</li>
+                                <li><em>isGridRowClickTimeScrollingEnabled</em>: Indicates whehter clicking a grid row should automatically scroll the chart area horizontally to display the associated task item start date and time;</li>
+                                <li><em>isMouseWheelZoomEnabled</em>: Indicates whehter to zoom in and out the timeline automatically when the end user rolls the mouse wheel hovering the chart area;</li>
+                                <li><em>isMouseWheelZoomEnabledMinHourWidth</em>, <em>isMouseWheelZoomEnabledMaxHourWidth</em>: Indicates the limits of the <em>hourWidth</em> value to be considered when mouse wheel zooming is enabled;</li>
+                                <li>
+                                    <em>visibilityFilter</em>: Optional function that determines whether an item from the managed collection should be presented in the view:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.visibilityFilter = function (item) { return item.content.indexOf('Task 2') >= 0; };
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>areTaskDependencyConstraintsEnabled</em>: Determines whether dependency constraints are enabled in the chart, providing auto-scheduling features for dependent tasks; by default is it set to false for optimization purposes;</li>
+                                <li><em>areTaskDependencyConstraintsEnabledWhileDragging</em>: Determines whether dependency constraints are automatically ensured even while dragging task bars in the control (or only when the operation completes), when areTaskDependencyConstraintsEnabled property is set to true; by default it is set to false;</li>
+                                <li><em>areTaskDependencyConstraintsDisabledWhenDropping</em>: Determines whether dependency constraints are disabled when the predecessor item is created using drag and drop operations in the chart, when areTaskDependencyConstraintsEnabled is set to false; by default it is set to false;</li>
+                                <li><em>areDependencyConstraintsAppliedOnStartedTasks</em>, <em>areDependencyConstraintsAppliedOnMilestones</em>: When set to false, limit dependency constraints as specified (scheduled times of started tasks and/or of milestones are preserved);</li>
+                                <li><em>isBaselineVisible</em>: Determines whether baseline task bars are presented in the chart;</li>
+                                <li>
+                                    <em>assignableResources</em>: Determines the resources that may be assigned to task items using the resource selector control, when available and accepted by having useResourceSelector set to true, from within the assignments content cells of the grid:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.assignableResources = ['Resource 1', 'Resource 2', 'Resource 3', 'Material 1', 'Material 2'];
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>autoAppendAssignableResources</em>: Determines whether the new resource names typed directly within the input element of the resource selector control, when available, are appended to the assignableResources collection automatically;</li>
+                                <li>
+                                    <em>resourceQuantities</em>: Dictionary that determines the quantity values to consider when leveling resources, indicating maximum amounts of materials available for use at the same time:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.resourceQuantities = [{ key: 'Material 1', value: 4 }, { key: 'Material 2', value: Infinity }];
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>maxLoadChartDisplayedResourceQuantity</em>: Indicates the maximum quantity displayed as 100% height in the Load Chart when using <em>getLoadChartItems</em> method;</li>
+                                <li>
+                                    <em>taskInitiationCost</em>, <em>defaultResourceUsageCost</em>, <em>specificResourceUsageCosts</em>, <em>defaultResourceHourCost</em>, <em>specificResourceHourCosts</em>: Numbers and dictionaries that determine costs of managed tasks and assigned resources:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.taskInitiationCost         = 5;
+settings.defaultResourceUsageCost   = 1;
+settings.specificResourceUsageCosts = [{ key: 'Resource 1', value: 2 }, { key: 'Material 1', value: 7}];
+settings.defaultResourceHourCost    = 10;
+settings.specificResourceHourCosts  = [{ key: 'Resource 1', value: 20 }, { key: 'Material 2', value: 0.5}];            
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>isVirtualizing</em>: Indicates whether the control will create task bars only when they need to be presented (such as only when scrolling the view to their positions); by default it is set to true for optimization purposes:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isVirtualizing = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>dateTimePickerType</em>: The input type to use for the default start and finish cell value editors; "text" by default:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dateTimePickerType = 'dateTime';
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>useDatePicker</em>, <em>useTimePicker</em>, <em>useResourceSelector</em>: Indicate whether or not to use DatePicker (or DateTimePicker) and MultiSelectorComboBox controls for start and finish (when dateTimePickerType is set to "text"), and assignments content cell editors, respectively, in the grid, assuming that DlhSoft.Data.HTML.Controls library that provides the required components is loaded; by default they are set to true;</li>
+                                <li><em>calendarSelectorLevels</em>: Indicates the number of calendar selector levels that may be displayed on date picker controls; supported values: 1: months, 2: + years, 3: + decades;</li>
+                                <li><em>useUpdatingToolTips</em>: Indicates whether or not to use ToolTip controls for updating task start, finish, completion, and dependencies in the chart using drag and drop operation, assuming that DlhSoft.Data.HTML.Controls library that provides the required components is loaded; by default it is set to true;</li>
+                                <li>
+                                    <em>months</em>, <em>daysOfWeek</em>: Names of the months and of the days of the week to use at presentation time:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.months     = [ 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12' ];
+settings.daysOfWeek = [ 'D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6' ];
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>weekStartDay</em>: Day of the week to consider as week start; by default it is set to Sunday (0); to set it to Monday use one (1):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.weekStartDay = 1; // Monday
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>dateFormatter(date): text</em>, <em>dateTimeFormatter(dateTime): text</em>, <em>dateTimeParser(text): dateTime</em>: Functions that accept date or text parameters and return text or date values, used to convert date or date and time values to text values, and to parse text values as date and time values whenever needed within the control; the functions may be provided by the developer for further customization and/or localization purposes; by default they are initialized to a set of internally defined functions that consider a culture invariant date and time formatting: <em>MM/dd/yyyy HH:mm</em>:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dateFormatter     = function (date)     { return date.toDateString(); };
+settings.dateTimeFormatter = function (dateTime) { return dateTime.toString(); };
+settings.dateTimeParser    = function (text)     { return new Date(text); };
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>displayedTimeChangeHandler(displayedTime)</em>, <em>hourWidthChangeHandler(hourWidth)</em>: Functions called whenever the end user scrolls the chart area horizontally or performs mouse wheel zooming on the chart area, changing the left most displayed time (settings.displayedTime) or the zoom level (settings.hourWidth);</li>
+                                <li><em>splitterPositionChangeHandler(gridWidth, chartWidth)</em>: Function called whenever the end user resizes the grid and chart areas horizontally, changing the splitter position (settings.gridWidth and settings.chartWidth);</li>
+                                <li><em>columnWidthChangeHandler(column, width)</em>: Function called whenever the end user resizes a grid column, changing its width (column.width);</li>
+                                <li>
+                                    <em>itemPropertyChangeHandler(item, propertyName, isDirect, isFinal)</em>: Function called whenever item properties change within the control, providing the changed item, relevant property name, and Boolean values indicating whether this change was directly triggered by the user, and whether this is the final change in a periodic operation such as a drag and drop action, specified as parameters; a custom function may be provided by the developer in order to receive notifications whenever data changes occur within the control, when using the default grid columns and task template functions:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isFinal) {
+    if (isDirect && isFinal)
+        alert(item.content + '.' + propertyName + ' changed.');
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>itemExpansionChangeHandler(item, isExpanded)</em>: Function called whenever summary item expansion state changes within the control, providing the expanded or collapsed item, and a Boolean value indicating the updated expansion state, specified as parameters;</li>
+                                <li><em>itemSelectionChangeHandler(item, isSelected, isDirect)</em>: Function called whenever item selection changes within the control, providing the selected or unselected item, a Boolean value indicating the updated selection state, and a Boolean value indicating whether this change was directly triggered by the user, specified as parameters;</li>
+                                <li><em>itemMoveHandler(item, fromIndex, toIndex)</em>: Function called whenever an item is moved in the managed list of the control, providing the item, source and target positions of the item, specified as parameters;</li>
+                                <li><em>itemContextMenuHandler(e)</em>, <em>predecessorItemContextMenuHandler(e)</em>: Event handlers for chart item and predecessor item context menus.</li>
+                            </ul>
+                            <h3>Static operations</h3>
+                            <p>The following static APIs are available at settings initialization time, prefixed by <em>DlhSoft.Controls.GanttChartView</em> namespace:</p>
+                            <ul>
+                                <li><em>getDefaultColumns(items, settings)</em>: Returns an array of default definitions that you can further customize and use as value for the <em>columns</em> property of the control settings used at initialization time;</li>
+                                <li><em>getDefaultCollapsedToggleButtonTemplate(controlElement, settings)</em>, <em>getDefaultExpandedToggleButtonTemplate(controlElement, settings)</em>: Return functions that provide the original templates for collapsed and expanded toggle buttons in the tree-grid; developers can access them to retreive SVG content to be further adorned in the <em>collapsedToggleButtonTemplate</em>, and <em>expandedToggleButtonTemplate</em> functions specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultScales(settings)</em>: Returns an array of default definitions that you can further customize and use as value for the <em>scales</em> property of the control settings used at initialization time;</li>
+                                <li><em>getDefaultStyleDefinitionTemplate(controlElement, settings)</em>: Returns a function that provides common SVG definitions that may be used in template methods for task and dependency line styles specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultStandardTaskTemplate(items, controlElement, settings)</em>, <em>getDefaultSummaryTaskTemplate(items, controlElement, settings)</em>, <em>getDefaultMilestoneTaskTemplate(items, controlElement, settings)</em>: Return functions that provide the original templates for standard, summary, and milestone task bars in the chart area, based on the item received as parameter; developers can access them to retreive SVG content to be further adorned in the <em>standardTaskTemplate</em>, <em>summaryTaskTemplate</em>, and <em>milestoneTaskTemplate</em> functions specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultItemTemplate(settings)</em>: Returns a function that provides the original template for task items, usually presented as tool tips when hovering task bars in the chart area, based on the item received as parameter; developers can access it to retreive SVG content to be further adorned in the <em>itemTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultAssignmentsTemplate(settings)</em>: Returns a function that provides the original template for the assignments content positioned to the right of task bars in the chart area, based on the item received as parameter; developers can access it to retreive SVG content to be further adorned in the <em>assignmentsTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultDependencyLineTemplate(items, settings)</em>: Returns a function that provides the original template for the dependency lines presented in the chart area, based on the item and predecessor item received as parameters; developers can access it to retreive SVG content to be further adorned in the <em>dependencyLineTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultPredecessorItemTemplate(settings)</em>: Returns a function that provides the original template for predecessor items representing task dependencies, usually presented as tool tips when hovering dependency lines in the chart area, based on the item and predecessor item received as parameters; developers can access it to retreive SVG content to be further adorned in the <em>predecessorItemTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>initializeTaskDraggingThumbs(startThumb, startOnlyThumb, finishThumb, completedFinishThumb, item, itemLeft, itemRight, itemCompletedRight)</em>: Inside task template functions, sets up task drag and drop behavior for the non-null SVG elements specified to be designed as thumbs, considering the specified item and item positioning in the chart;</li>
+                                <li><em>initializeDependencyDraggingThumbs(thumb, startThumb, containerGroup, item, itemTop, itemRight, itemLeft)</em>: Inside task template functions, sets up dependency creation drag and drop behavior for the non-null SVG elements specified to be designed as thumbs inside its specified container group that would be used to supplementary present temporary dependency lines during drag and drop operations, considering the specified item and item positioning in the chart;</li>
+                                <li><em>getWorkingTime(dateTime, settings)</em>, <em>getEffort(start, finish, settings)</em>, <em>getFinish(start, effort, settings)</em>, <em>getStart(effort, finish, settings)</em>, <em>getCompletion(start, completedFinish, finish, settings)</em>, <em>getCompletedFinish(start, completion, finish, settings)</em>: Functions that return the next working time based on a specified date and time value, the effort betweeen the specified start and finish values, the finish date and time considering the specified start and effort values, the start date and time considering the specified effort and start values, and the completion rate (between 0 and 1) or completed finish date and time considering the specified start, completed finish date and time or completion rate and finish values;</li>
+                                <li><em>getWeekStart(dateTime, weekStartDay)</em>, <em>getWeekFinish(dateTime, weekStartDay)</em>: Functions that return the start and finish of the week based on a specified date and time value and the day of the week to be considered as first, represented by a value ranging from Sunday (0) to Saturday (6);</li>
+                                <li><em>defaultDateTimeFormatter(date)</em>: Default date time formatter implementation, returning a text representing the specified date and a time using month, day, year, and hour and minute time parts;</li>
+                                <li><em>defaultDateFormatter(date)</em>: Default date formatter implementation, returning a text representing the specified date using month, day, and year time parts;</li>
+                                <li><em>defaultDateTimeParser(value)</em>: Default date time parser implementation, returning a date value representing the specified date and a time text considering month, day, year, and optionally hour and minute time parts;</li>
+                                <li>
+                                    <em>textColumnTemplateBase(document, valueGetter, isVisibleGetter)</em>, <em>textInputColumnTemplateBase(document, width, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter)</em>, <em>optionSelectColumnTemplateBase(document, width, optionCollectionGetter, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter)</em>, <em>numberInputColumnTemplateBase(document, width, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter)</em>, <em>percentInputColumnTemplateBase(document, width, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter)</em>, <em>timeSpanInputColumnTemplateBase(document, width, valueGetter, valueSetter, scale, isEnabledGetter, isVisibleGetter, isBoldGetter)</em>, <em>dateTimeInputColumnTemplateBase(document, width, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter)</em>, <em>datePickerInputColumnTemplateBase(document, width, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter, defaultTimeOfDay, calendarSelectorValues, months, daysOfWeek)</em>, <em>dateTimePickerInputColumnTemplateBase(document, width, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter, defaultTimeOfDay, calendarSelectorValues, months, daysOfWeek)</em>, <em>multiSelectorComboBoxInputColumnTemplateBase(document, width, optionCollectionGetter, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter)</em>: Specific user interface generator functions useful when defining new grid columns or when customizing column cell templates; supported parameters are:
+                                    <ul>
+                                        <li><em>document</em>: The document to generate the required elements within; usually the document of the current window;</li>
+                                        <li><em>valueGetter()</em>: Function that gets the data value and prepares for the output element;</li>
+                                        <li><em>optionCollectionGetter()</em>: Function that gets the options available for selection within the output element;</li>
+                                        <li><em>valueSetter(value)</em>: Function that provides the updated content value of the output element as parameter, required to prepare and set the associated data object value;</li>
+                                        <li><em>scale</em>: Optional factor to consider for the value, such as 8 to display working day values instead of hours;</li>
+                                        <li><em>width</em>: The width of the output element;</li>
+                                        <li><em>isEnabledGetter()</em>: Optional function that returns a value that indicates whether the output element should be visible or not;</li>
+                                        <li><em>isVisibleGetter()</em>: Optional function that returns a value that indicates whether the output element should be enabled or not;</li>
+                                        <li><em>isBoldGetter()</em>: Optional function that returns a value that indicates whether the text in the output element should be bold or not;</li>
+                                        <li><em>defaultTimeOfDay</em>: Optionally indicates the time of day (in milliseconds) to be set by DatePicker (or DateTimePicker) controls;</li>
+                                        <li><em>calendarSelectorLevels</em>: Optionally indicates number of calendar selector levels to display by DatePicker (or DateTimePicker) controls;</li>
+                                        <li><em>months</em>, <em>daysOfWeek</em>: Optionally indicates month and day of week names to be displayed by DatePicker (or DateTimePicker) controls.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <em>getIconColumnTemplate(imageSource|-Getter, imageClass, imageStyle, isMovingEnabled|-Getter, isMovingToEnabledGetter, movingTargetHoveringClass, movingTargetHoveringStyle, disabledMovingTargetHoveringClass, disabledMovingTargetHoveringStyle)</em>, <em>getIndexColumnTemplate(zeroBased)</em>, <em>getWbsColumnTemplate(zeroBased)</em>, <em>getEffortColumnTemplate(inputWidth, scale, isInputDisabled)</em>, <em>getTotalEffortColumnTemplate(inputWidth, scale, isInputDisabled)</em>, <em>getDurationColumnTemplate(inputWidth, scale, isInputDisabled)</em>, <em>getCompletedEffortColumnTemplate(inputWidth, scale, isInputDisabled)</em>, <em>getTotalCompletedEffortColumnTemplate(inputWidth, scale, isInputDisabled)</em>, <em>getCompletionColumnTemplate(inputWidth, isInputDisabled)</em>, <em>getPredecessorsColumnTemplate(inputWidth, isInputDisabled, zeroBased)</em>, <em>getAssignmentSelectorColumnTemplate(selectWidth, assignableResourcesCollection|-Getter, isInputDisabled, useMultiSelectorComboBox)</em>, <em>getCostColumnTemplate(inputWidth, isInputDisabled)</em>, <em>getBaselineStartColumnTemplate(inputWidth, useDatePicker, useTimePicker, defaultTimeOfDay, calendarSelectorLevels, months, daysOfWeek, isInputDisabled)</em>, <em>getBaselineFinishColumnTemplate(inputWidth, useDatePicker, useTimePicker, defaultTimeOfDay, calendarSelectorLevels, months, daysOfWeek, isInputDisabled)</em>, <em>getMinStartColumnTemplate(inputWidth, useDatePicker, useTimePicker, defaultTimeOfDay, calendarSelectorLevels, months, daysOfWeek, isInputDisabled)</em>, <em>getMaxStartColumnTemplate(inputWidth, useDatePicker, useTimePicker, defaultTimeOfDay, calendarSelectorLevels, months, daysOfWeek, isInputDisabled)</em>, <em>getMinFinishColumnTemplate(inputWidth, useDatePicker, useTimePicker, defaultTimeOfDay, calendarSelectorLevels, months, daysOfWeek, isInputDisabled)</em>, <em>getMaxFinishColumnTemplate(inputWidth, useDatePicker, useTimePicker, defaultTimeOfDay, calendarSelectorLevels, months, daysOfWeek, isInputDisabled)</em>: Return common grid column cell template functions providing specific user interface that would allow end users to view and update extra item properties; supported parameters are:
+                                    <ul>
+                                        <li><em>imageSource|-Getter(item)</em>: URL of function that returns an URL identifying the image resource to be used as the source of the output image element.</li>
+                                        <li><em>imageClass</em>, <em>imageStyle</em>: CSS class and/or inline style to be applied to the image output element;</li>
+                                        <li><em>isMovingEnabled|-Getter(item)</em>: Boolean of function that returns a Boolean value indicating whether changing the item vertical order position in the managed hierarchy is enabled for end users by performing drag and drop operations initiated by the output image element;</li>
+                                        <li><em>isMovingToEnabledGetter(index, hoveringItem)</em>: Optional function that returns a Boolean value indicating whether moving the item to the row index used by the hovering item in the managed hierarchy received as parameters is enabled for end users when performing drag and drop operations initiated by the output image element;</li>
+                                        <li><em>movingTargetHoveringStyle</em>, <em>movingTargetHoveringClass</em>, <em>disabledMovingTargetHoveringStyle</em>, <em>disabledMovingTargetHoveringClass</em>: Optional inline styles and/or CSS classes to apply temporarily to items being hovered during drag and drop moving operations, for enabled and disabled indexes, respectively;</li>
+                                        <li><em>zeroBased</em>: Indicates whether displayed indexes are zero-based; by default they are one-based;</li>
+                                        <li><em>inputWidth</em>, <em>selectWidth</em>: Indicate the width of the output element;</li>
+                                        <li><em>scale</em>: Optional factor to consider for time values, such as 8 to display working day values instead of hours;</li>
+                                        <li><em>useDatePicker</em>, <em>useTimePicker</em>, <em>useMultiSelectorComboBox</em>: Indicate whether or not to use DatePicker (or DateTimePicker) and MultiSelectorComboBox controls for start and finish (when dateTimePickerType is set to "text"), and assignments content cell editors, respectively, in the grid, assuming that DlhSoft.Data.HTML.Controls library that provides the required components is loaded; by default they are set to true;</li>
+                                        <li><em>defaultTimeOfDay</em>: Optionally indicates the time of day (in milliseconds) to be set by DatePicker (or DateTimePicker) controls for start and finish content cell editors;</li>
+                                        <li><em>calendarSelectorLevels</em>: Optionally indicates number of calendar selector levels to display by DatePicker (or DateTimePicker) controls for start and finish content cell editors;</li>
+                                        <li><em>months</em>, <em>daysOfWeek</em>: Optionally indicates month and day of week names to be displayed by DatePicker (or DateTimePicker) controls for start and finish content cell editors;</li>
+                                        <li><em>assignableResourcesCollection|-Getter(item)</em>: Array of function that returns an array containing assignable resources available for selection within the assignment selector output element;</li>
+                                        <li><em>isInputDisabled</em>: Indicate whether the output element should be disabled.</li>
+                                    </ul>
+                                </li>
+                                <li><em>getInputDate(date)</em>, <em>getOutputDate(date)</em>: Prepares the specified date values to be used for component method input or method result or field output, considering that after initialization the component uses UTC date and time values internally; these methods may also be called using a component instance object.</li>
+                            </ul>
+                            <h3>Component instance</h3>
+                            <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <pre ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+<code class="language-javascript" ng-non-bindable>
+DlhSoft.Controls.GanttChartView.initialize(ganttChartView, items, settings);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>items</em>: Provides access to the Gantt Chart items displayed by the control;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refresh()</em>: Updates the user interface considering all external item and settings changes;</li>
+                                <li>
+                                    <em>refreshGridItems()</em>, <em>refreshChartItems()</em>, <em>refreshItems()</em>, <em>refreshGridItem(item)</em>, <em>refreshChartItem(item)</em>, <em>refreshItem(item)</em>, <em>refreshPredecessorItems(item)</em>, <em>refreshItemGraph(item)</em>, <em>refreshItemPath(item)</em>, <em>refreshItemNeighbourhood(item)</em>: Update the item(s), predecessor items, dependency graph, hierarchy path, or hierarchical neighbourhood within the grid, chart or both areas, considering all external changes on the specified item and related predecessor and successor items:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+item.barStyle = 'stroke: Red; fill: Yellow';
+ganttChartView.refreshChartItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>refreshCurrentTime()</em>, <em>setCurrentTime(dateTime)</em>, <em>updateCurrentTime()</em>: Update the user interface considering the specified current time chanage;</li>
+                                <li>
+                                    <em>insertItem(index, item)</em>, <em>addItem(item)</em>, <em>insertItems(index, items)</em>, <em>addItems(items)</em>: Insert item(s) to the managed item hierarchy at the specified index or at the bottom of the collection and refreshes the view:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+var item = { content: 'New task', start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 4, 16, 0, 0) };
+ganttChartView.insertItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>removeItem(item)</em>, <em>removeItems(items)</em>: Removes item(s) from the managed item hierarchy and refreshes the view;</li>
+                                <li><em>moveRange(fromIndex, count, toIndex)</em>: Moves a range of items to a specified index in the managed item hierarchy and refreshes the view;</li>
+                                <li><em>moveItem(item, toIndex)</em>, <em>moveItemHierarchy(item, toIndex)</em>: Moves an item or an item and its children to a specified index in the managed item hierarchy and refreshes the view;</li>
+                                <li><em>moveItemUp(item)</em>, <em>moveItemDown(item)</em>, <em>moveItemHierarchyUp(item)</em>, <em>moveItemHierarchyDown(item)</em>: Moves an item or an item and its children up or down in the managed item hierarchy and refreshes the view;</li>
+                                <li><em>increaseItemIndentation(item)</em>, <em>decreaseItemIndentation(item)</em>: Increases or decreases item indentation in the managed item hierarchy and refreshes the view;</li>
+                                <li><em>setItemContent(item, value)</em>: Set task content value;</li>
+                                <li><em>setItemStart(item, value)</em>, <em>setItemFinish(item, value)</em>: Set task start and finish date and time values;</li>
+                                <li><em>setItemIsMilestone(item, value)</em>: Set the milestone indicator of the task;</li>
+                                <li><em>getItemEffort(item)</em>, <em>setItemEffort(item, value)</em>, <em>getItemCompletedEffort(item)</em>, <em>setItemCompletedEffort(item, value)</em>: Get and set task effort and completed effort (duration) values, aggregating sum values for summary items;</li>
+                                <li><em>getItemTotalEffort(item)</em>, <em>getItemTotalCompletedEffort(item)</em>: Get task total effort values, considering resource assignments, aggregating sum values for summary items;</li>
+                                <li><em>getItemDuration(item)</em>, <em>setItemDuration(item, value)</em>: Get and set task duration values as time differences between item start and finish date and times, including for summary items;</li>
+                                <li><em>getItemCompletion(item)</em>, <em>setItemCompletion(item, value)</em>: Get and set task completion values (as rates between 0 and 1) considering the completed effort and effort values of the item;</li>
+                                <li><em>isItemCompleted(item)</em>: Determines whether the task work is fully completed;</li>
+                                <li><em>setItemAsCompleted(item)</em>: Specifies that the task work is fully completed;</li>
+                                <li><em>hasItemStarted(item)</em>: Determines whether the task work has already started;</li>
+                                <li><em>setItemAsNotStarted(item)</em>: Specifies that the task work has not started yet;</li>
+                                <li><em>isItemOnSchedule(item)</em>: Determines whether the task work is on schedule at the current date;</li>
+                                <li><em>setItemAssignmentsContent(item, value)</em>: Set task assignments content value;</li>
+                                <li><em>getItemIndexString(item, zeroBased)</em>: Gets the index string for the task, considering whether indexes are zero-based (by default they are one-based);</li>
+                                <li><em>getItemPredecessorsString(item, zeroBased)</em>, <em>setItemPredecessorsString(item, value, zeroBased)</em>: Get and set predecessors string values for the task, considering current item collection indexes, dependency types, and lag times, and whether indexes are zero-based (by default they are one-based);</li>
+                                <li><em>getCurrentItem()</em>: Returns the current item in the hierarchy;</li>
+                                <li><em>getSelectedItem()</em>, <em>getSelectedItems()</em>: Returns the selected item(s) in the hierarchy;</li>
+                                <li>
+                                    <em>selectItem(item)</em>, <em>unselectItem(item)</em>: Update the selection state of an item in the hierarchy:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+selectItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>expandItem(item)</em>, <em>collapseItem(item)</em>: Update the expansion state of a task item in the hierarchy:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+expandItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>scrollToItem(item)</em>: Scrolls the grid and chart areas vertically to display the specified item in the viewports:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+item.content = 'Changed content';
+ganttChartView.refreshItem(item);
+ganttChartView.scrollToItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>scrollToBottom()</em>: Scrolls the grid and chart areas vertically to the bottom of the presentation content;</li>
+                                <li><em>scrollToDateTime(dateTime)</em>: Scrolls the chart area horizontally to display the specified date and time value at the left most visible position in the viewport;</li>
+                                <li>
+                                    <em>increaseTimelinePage(timeAmount)</em>, <em>decreaseTimelinePage(timeAmount)</em>: Increases or decreases the displayed timeline in the viewport by a specified time interval (in milliseconds) and refreshes the view:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+ganttChartView.increaseTimelinePage(7 * 24 * 60 * 60 * 1000); // by 1 week
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>setHourWidth(hourWidth)</em>: Sets the hour width value used in the chart area to zoom the timeline in our out;</li>
+                                <li><em>setSplitterPosition(gridWidth, chartWidth)</em>: Resizes the grid and chart areas horizontally as specified to update the splitter position in the viewport;</li>
+                                <li><em>getChartPosition(dateTime)</em>: Returns the X coordinate of a specific date and time in the chart area;</li>
+                                <li><em>getChartWidth()</em>: Returns the actual width of the chart area;</li>
+                                <li><em>getDateTime(chartPosition)</em>: Returns the date and time of a specific X coordinate in the chart area;</li>
+                                <li><em>getWorkingTime(dateTime)</em>: Returns the next available working time in the schedule based on the specified date and time;</li>
+                                <li><em>getStartWorkingTime(dateTime)</em>: Returns the next available working time that may be used as a start value in the schedule based on the specified date and time;</li>
+                                <li><em>getFinishWorkingTime(dateTime)</em>: Returns the previous available working time that may be used as a finish value in the schedule based on the specified date and time;</li>
+                                <li><em>getEffort(start, finish)</em>: Returns the actual working effort (in milliseconds) required to complete a task that starts and finishes on the specified date and times;</li>
+                                <li><em>getFinish(start, effort)</em>: Returns the actual finish date and time of a task that starts on the specified date and time and completes after the specified working effort (in milliseconds);</li>
+                                <li><em>getStart(effort, finish)</em>: Returns the actual start date and time of a task that has completed after the specified working effort (in milliseconds) and finishes on the specified date and time;</li>
+                                <li><em>getCompletion(start, completedFinish, finish)</em>: Returns the completion rate (between 0 and 1) of a task that is scheduled between the specified start and finish date and times and has been completed up to the specified completed finish date and time;</li>
+                                <li><em>getCompletedFinish(start, completion, finish)</em>: Returns the completed finish date and time of a task that is scheduled between the specified start and finish date and times and has the specified completion rate (between 0 and 1);</li>
+                                <li><em>getItemsHeight()</em>: Returns the actual height of the chart area;</li>
+                                <li><em>getItemTop(item)</em>: Returns the top Y coordinate of a specific item in the chart area;</li>
+                                <li><em>onItemPropertyChanged(item, propertyName, isDirect, isFinal)</em>: Calls itemPropertyChangeHandler function specified within the settings collection using the specified item, property name, and Boolean indicators for direct user actions and completed actions as arguments;</li>
+                                <li><em>exportContent(exportSettings, output)</em>, <em>print(exportSettings)</em>: Exports or prints the content to a specified output document, window, or target or using a temporary document and window; supported export setting properties are:
+                                    <ul>
+                                        <li><em>title</em>: The title to use for the temporary client window generated to support the print operation;</li>
+                                        <li><em>preparingMessage</em>: The temporary message to be displayed in the output window while the asynchronous export operation is in progress;</li>
+                                        <li><em>isGridVisible</em>: Determines whether the grid is exported; by default the value from the component instance settings is used;</li>
+                                        <li><em>columnIndexes</em>: Determines the columns to be exported, considering the specified array of column indexes in the columns collection; by default all displayed columns are exported or printed;</li>
+                                        <li><em>timelineStart</em>, <em>timelineFinish</em>: Start and finish date and times of the exported chart area; by default the values from the component instance settings are used;</li>
+                                        <li><em>hourWidth</em>: Indicates the zoom level to be used for the exported chart area, and represents the actual number of device units each hour in the timeline gets available; to zoom in when exporting or printing, increase this value; to zoom out, decrease it; by default the value from the component instance settings is used;</li>
+                                        <li><em>startRowIndex</em>, <em>endRowIndex</em>: Determines the rows to be exported, considering the specified indexes in the item collection; by default all rows, including those that are not currently visible in the viewport, are exported or printed;</li>
+                                        <li><em>rotate</em>: Determines whether to rotate the exported content in the output document to simulate landscape printing;</li>
+                                        <li><em>autoClose</em>: Determines whether to automatically close the temporary export output window generated for printing when the operation is completed:</li>
+                                    </ul>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+ganttChartView.print({ 
+    title: 'Gantt Chart', 
+    isGridVisible: true, columnIndexes: [0], 
+    timelineStart: new Date(2012, 8, 1), timelineFinish: new Date(2012, 8, 30) });
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>getRootItems()</em>, <em>getLeafItems()</em>: Return the root and leaf items of the hierarchy;</li>
+                                <li><em>getProjectStart()</em>, <em>getProjectFinish()</em>, <em>getProjectEffort()</em>, <em>getProjectCompletedEffort()</em>, <em>getProjectTotalEffort()</em>, <em>getProjectTotalCompletedEffort()</em>, <em>getProjectCompletion()</em>: Return the minimum item start and maximum item finish date and times, duration and completed duration, total effort and completed effort considering the task assignments, and completion rate (value between 0 and 1) for the entire project loaded and displayed by the component;</li>
+                                <li><em>isItemCritical(item)</em>, <em>getCriticalItems()</em>: Determine whether a specific item is critical, and the list of standard items that are part of the critical path;</li>
+                                <li><em>ensureDependencyConstraints()</em>: Ensures that dependency constrains between tasks are enforced;</li>
+                                <li><em>setupBaseline()</em>: Sets up baseline start and baseline finish properties of standard and milestone task items based on their actual start and finish values; used as preparation for rescheduling the remaining work effort of a task item;</li>
+                                <li><em>rescheduleItemToStart(item, start)</em>, <em>rescheduleItemToFinish(item, finish)</em>: Reschedules an item to start or finish on the specified date and time;</li>
+                                <li><em>splitRemainingWork(item)</em>: Creates and inserts a partial copy of the specified task item considering its remaining work effort into the managed hierarchy, and updates the finish date and time of the original task item to its completion point;</li>
+                                <li><em>optimizeWork(dependenciesOnly, includeStartedTasks, start)</em>: Optimizes schedule times of all managed items in order to optimize the project finish date without leveling resources, respecting dependency constraints;</li>
+                                <li><em>levelAllocations([items])</em>: Levels the assigned allocation units assuming that all or the specified tasks within the control are fixed duration and effort driven; requires that assignmentsContent property of the task items is of type string, formatted as a list of resource names separated by commas, optionally having associated allocation percents declared between square brackets (e.g.: "John, Mary [50%], Diane [12.5%]");</li>
+                                <li><em>levelResources(includeStartedTasks, start)</em>: Levels the assigned resources from all standard tasks within the control in order to avoid over allocation, by updating task timing values accordingly; requires that assignmentsContent property of the task items is of type string, formatted as a list of resource names separated by commas, optionally having associated allocation percents declared between square brackets (e.g.: "John, Mary [50%], Diane [12.5%]"); <em>includeStartedTasks</em> parameter indicates whether or not to consider already started tasks (i.e. having completion > 0), and <em>start</em> parameter specifies the date and time to consider for resource leveling algorithm;</li>
+                                <li><em>getItemSuccessors(item)</em>, <em>getItemSuccessorPredecessorItems(item)</em>: Determine the list of the successors of a specific task item, as task items, or as predecessor items;</li>
+                                <li><em>getItemAllocationUnits(item)</em>: Determines the total amount of allocation units for the assignments of a specific task item;</li>
+                                <li><em>getItemAssignments(item)</em>, <em>getItemAssignedResources(item)</em>: Determine the list of the assignments of a specific task item, as key-value pairs indicating the assigned resource names and allocation unit values, or as strings indicating the assigned resource names;</li>
+                                <li><em>getResourceAssignments(resourceName)</em>, <em>getResourceAssignedItems(resourceName)</em>: Determine the list of the assignments of a specific resource, as key-value pairs indicating the assigned task item and allocation unit values, or as objects indicating the assigned task items;</li>
+                                <li><em>getAssignedResources()</em>: Determines the list of all assigned resources within the current project, as strings indicating their names;</li>
+                                <li><em>getItemAssignmentsCost(item)</em>, <em>getItemExtraCost(item)</em>, <em>getItemCost(item)</em>, <em>getResourceCost(resourceName)</em>, <em>getProjectCost()</em>: Return the partial and summarized costs of task items, assigned resources, and of the entire project loaded and displayed by the component;</li>
+                                <li><em>setItemCost(item, value)</em>: Sets the execution cost of a specified task item so that the summarized cost returned by <em>getItemCost</em> method would reach the specified value;</li>
+                                <li><em>getScheduleChartItems(assignableResources)</em>: Returns a list of Schedule Chart items for the current project, optionally considering the minimum set of assignable resources specified as parameter or those specified as settings.assignableResources if the parameter is undefined; the Schedule Chart items may be displayed using a separate <a href="ScheduleChartView.htm">ScheduleChartView</a> component instance;</li>
+                                <li><em>getAllocations(resourceName)</em>: Determines the list of all allocations of the specified resourcewithin the current project, as dictionary of key and values indicating the time intervals defined by start and finish date and times and allocation unit values;</li>
+                                <li><em>getLoadChartItems(resources)</em>: Returns a list of Load Chart items for the current project, optionally considering the set of resources specified as parameter; the Schedule Chart items may be displayed using a separate <a href="LoadChartView.htm">LoadChartView</a> component instance;</li>
+                                <li><em>getFilteredGanttChartItems(resources)</em>: Returns a list of filtered read only Gantt Chart items for the current project, considering the set of resources specified as parameter; the read only Gantt Chart items may be displayed using a separate <a href="GanttChartView.htm">GanttChartView</a> component instance;</li>
+                                <li><em>getPertChartItems(maxIndentation, startContent, finishContent, linkContent, completedContentSuffix, startingContentSuffix)</em>: Returns a list of PERT Chart items for the current project, optionally considering the maximum indentation, and start, finish, and link content and suffixes values specified as parameters; the PERT Chart items may be displayed using a separate <a href="PertChartView.htm">PertChartView</a> component instance;</li>
+                                <li><em>getNetworkDiagramItems(maxIndentation, startContent, finishContent)</em>: Returns a list of Network Diagram items for the current project, optionally considering the maximum indentation, and start and finish content values specified as parameters; the Network Diagram items may be displayed using a separate <a href="NetworkDiagramView.htm">NetworkDiagramView</a> component instance;</li>
+                                <li><em>isInitializing</em>, <em>isInitialized</em>: Verify that the component instance is currently initializing asynchronously, or that it has been successfully initialized;</li>
+                                <li><em>copyCommonSettings(targetSettings)</em>: Copies the common settings of the current component instance to the specified target settings collection; a secondary component instance may be initialized using the output collection.</li>
+                            </ul>
+                            <p>The initialized task item objects provide the following API, as a supplement to the coerced and validated original properties:</p>
+                            <ul>
+                                <li><em>index</em>: The index of the item in the managed hierarchy;</li>
+                                <li><em>parent</em>: The summary item that includes this task considering indentation values, or null when there is no such parent summary item;</li>
+                                <li>
+                                    <em>hasChildren</em>: Indicates whether the task is a summary item:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+if (item.hasChildren)
+    alert(item.content + ' is a summary item.');
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>children</em>: When this task is a summary item (i.e. hasChildren is set to true), returns an array of its child items;</li>
+                                <li><em>isVisible</em>: Indicates whether the task is visible within the hierarchy, i.e. it is not a descendent of a collapsed summary item;</li>
+                                <li>
+                                    <em>isVirtuallyVisible</em>: Indicates whether the task is visible in the scrolling viewport of the control when virtualization is enabled:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+if (item.isVirtuallyVisible)
+    alert(item.content + ' is or has been visible on screen.');
+</code>
+                                    </pre>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

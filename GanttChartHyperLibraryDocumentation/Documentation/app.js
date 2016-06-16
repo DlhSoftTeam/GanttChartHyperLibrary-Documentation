@@ -25,6 +25,6 @@ angular.module('Documentation', [])
     else
         $scope.selectedFile = initialSelection;
     $scope.isInitializing = true;
-    $timeout(function () { $scope.isInitializing = false; }, 200);
+    $timeout(function () { $scope.isInitializing = false; }, 250);
 });
 //# sourceMappingURL=app.js.map
