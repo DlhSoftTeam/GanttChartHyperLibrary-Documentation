@@ -1211,6 +1211,33 @@ settings.assignmentsStyle = 'fill: Green';
                                     <em>standardTaskTemplate</em>, <em>summaryTaskTemplate</em>, <em>milestoneTaskTemplate</em>: Functions that return the outputs (SVG nodes) for standard, summary, and milestone task bars to be presented in the chart for a specific item received as parameter:
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
+settings.standardTaskTemplate = function (item) {
+    var ganttChartView = item.ganttChartView;
+    var document = ganttChartView.ownerDocument;
+    var svgns = 'http://www.w3.org/2000/svg';
+    var containerGroup = document.createElementNS(svgns, 'g'); 
+    var rect = document.createElementNS(svgns, 'rect');
+    var itemLeft = ganttChartView.getChartPosition(item.start, settings);
+    var itemRight = ganttChartView.getChartPosition(item.finish, settings);
+    rect.setAttribute('x', itemLeft - 1);
+    rect.setAttribute('y', settings.barMargin - 1);
+    rect.setAttribute('width', itemRight - itemLeft + 1);
+    rect.setAttribute('height', settings.barHeight + 2);
+    rect.setAttribute('rx', 4);
+    rect.setAttribute('style', 'stroke: DarkGreen; fill: Green');
+    containerGroup.appendChild(rect);
+    var thumb = document.createElementNS(svgns, 'rect');
+    thumb.setAttribute('x', itemLeft); thumb.setAttribute('width', Math.max(0, itemRight - itemLeft - 1));
+    thumb.setAttribute('y', ganttChartView.settings.barMargin); thumb.setAttribute('height', ganttChartView.settings.barHeight);
+    thumb.setAttribute('style', 'fill: Transparent; cursor: move');
+    DlhSoft.Controls.GanttChartView.initializeTaskDraggingThumbs(thumb, null, null, null, item, itemLeft, itemRight, null);
+    containerGroup.appendChild(thumb);
+    return containerGroup;
+};
+</code>
+                                    </pre>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
 var originalStandardTaskTemplate = DlhSoft.Controls.GanttChartView.getDefaultStandardTaskTemplate(items, ganttChartView, settings);
 settings.standardTaskTemplate = function (item) {
     var ganttChartView = item.ganttChartView;
@@ -1821,7 +1848,7 @@ settings.interaction = 'TouchEnabled';
                                     </pre>
                                 </li>
                                 <li>
-                                    <em>theme</em>: Name of the theme to generically apply to the control; <em>Modern</em>, <em>ModernBordered</em>, and <em>Aero</em> themes are supported; by default it is Modern:
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em>, <em>ModernBordered</em>, and <em>Aero</em> themes are supported; by default it is Modern:
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
 settings.theme = 'Aero';
@@ -2078,7 +2105,8 @@ settings.barCornerRadius = 4;
                                     <em>styleDefinitionTemplate</em>: Function that returns SVG definitions (node) to be used in standard, and milestone style and template definitions (see below); by default, they include these items: <em>BlueGradient</em>, <em>BlackGradient</em>:
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
-settings.styleDefinitionTemplate = function () {
+settings.styleDefinitionTemplate = function (scheduleChartView) {
+    var document = scheduleChartView.ownerDocument;
     var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
     return defs;
 }
@@ -2128,6 +2156,33 @@ settings.temporaryAssignmentThumbStyle = 'fill: none; stroke: Green; stroke-dash
                                 </li>
                                 <li>
                                     <em>standardTaskTemplate</em>, <em>milestoneTaskTemplate</em>: Functions that return the outputs (SVG nodes) for standard, and milestone task bars to be presented in the chart for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.standardTaskTemplate = function (item) {
+    var ganttChartView = item.ganttChartView;
+    var document = ganttChartView.ownerDocument;
+    var svgns = 'http://www.w3.org/2000/svg';
+    var containerGroup = document.createElementNS(svgns, 'g'); 
+    var rect = document.createElementNS(svgns, 'rect');
+    var itemLeft = ganttChartView.getChartPosition(item.start, settings);
+    var itemRight = ganttChartView.getChartPosition(item.finish, settings);
+    rect.setAttribute('x', itemLeft - 1);
+    rect.setAttribute('y', settings.barMargin - 1);
+    rect.setAttribute('width', itemRight - itemLeft + 1);
+    rect.setAttribute('height', settings.barHeight + 2);
+    rect.setAttribute('rx', 4);
+    rect.setAttribute('style', 'stroke: DarkGreen; fill: Green');
+    containerGroup.appendChild(rect);
+    var thumb = document.createElementNS(svgns, 'rect');
+    thumb.setAttribute('x', itemLeft); thumb.setAttribute('width', Math.max(0, itemRight - itemLeft - 1));
+    thumb.setAttribute('y', ganttChartView.settings.barMargin); thumb.setAttribute('height', ganttChartView.settings.barHeight);
+    thumb.setAttribute('style', 'fill: Transparent; cursor: move');
+    DlhSoft.Controls.GanttChartView.initializeTaskDraggingThumbs(thumb, null, null, null, item, itemLeft, itemRight, null);
+    containerGroup.appendChild(thumb);
+    return containerGroup;
+};
+</code>
+                                    </pre>
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
 var originalStandardTaskTemplate = DlhSoft.Controls.ScheduleChartView.getDefaultStandardTaskTemplate(scheduleChartItems, scheduleChartView, settings);
@@ -2442,9 +2497,9 @@ var loadChartViewElement = document.querySelector('#loadChartView');
                             <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
 <code class="language-javascript" ng-non-bindable>
 &lt;ds:load-chart id="loadChartView"
-                items="items" settings="settings"
-                change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
-                style="min-height: 240px"&gt;
+               items="items" settings="settings"
+               change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
+               style="min-height: 240px"&gt;
 &lt;/ds:load-chart&gt;
 </code>
                             </pre>
@@ -2496,7 +2551,7 @@ settings.target = 'Phone';
                                     </pre>
                                 </li>
                                 <li>
-                                    <em>theme</em>: Name of the theme to generically apply to the control; <em>Modern</em>, <em>ModernBordered</em>, and <em>Aero</em> themes are supported; by default it is Modern:
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em>, <em>ModernBordered</em>, and <em>Aero</em> themes are supported; by default it is Modern:
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
 settings.theme = 'Aero';
@@ -2741,7 +2796,8 @@ settings.maxDisplayedUnits = 2; //200%
                                     <em>styleDefinitionTemplate</em>: Function that returns SVG definitions (node) to be used in allocation style and template definitions (see below):
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
-settings.styleDefinitionTemplate = function () {
+settings.styleDefinitionTemplate = function (loadChartView) {
+    var document = loadChartView.ownerDocument;
     var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
     return defs;
 }
@@ -2914,7 +2970,6 @@ var loadChartView = DlhSoft.Controls.LoadChartView.initialize(loadChartViewEleme
 </code>
                             </pre>
                             <p>The initialized control element provides the following API:</p>
-                            <p>The initialized control element provides the following API:</p>
                             <ul>
                                 <li><em>items</em>, <em>loadChartItems</em>: Provides access to the Gantt Chart items and Load Chart items displayed by the control;</li>
                                 <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
@@ -3028,7 +3083,334 @@ if (item.isVirtuallyVisible)<br />
             </section>
         </div>
         <div ng-show="isInitializing || selectedFile == 'PERT chart'">
-            PCV
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>PertChartView reference</h2>
+                            <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+                                The control container element can be retrieved using a querySelector method call:
+                            </p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+<code class="language-javascript" ng-non-bindable>
+var pertChartView = document.querySelector('#pertChartView'); 
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="language-javascript" ng-non-bindable>
+var pertChartViewElement = document.querySelector('#pertChartView'); 
+</code>
+                            </pre>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
+                                Using AngularJS you can access PertChartView component using <em>ds:pert-chart</em> directive and preparing the appropriate $scope fields (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
+<code class="language-javascript" ng-non-bindable>
+&lt;ds:pert-chart id="pertChartView"
+               items="items" settings="settings"
+               change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
+               style="min-height: 240px"&gt;
+&lt;/ds:pert-chart&gt;
+</code>
+                            </pre>
+                            <h3>Data items</h3>
+                            <p>The task event items that may be presented within <em>PertChartView</em> control should provide these properties:</p>
+                            <ul>
+                                <li><em>content</em>: The object that is displayed to represent the task event item in task event shape tool tips, usually the task event name;</li>
+                                <li><em>displayedText</em>: The object that is displayed to represent the task event item in the task event shape, usually a short task event name or identifier;</li>
+                                <li><em>isShapeVisible</em>: Indicates whether the task event shape is displayed in the chart area for this item;</li>
+                                <li><em>displayRowIndex</em>, <em>displayColumnIndex</em>: Indicates the row and column indexex to display the task event that at within the chart; by default they are not defined, and the row and column indexes are computed at runtime based on its collection position and dependencies;</li>
+                                <li><em>shapeClass</em>, <em>shapeStyle</em>: CSS classes and/or inline styles to apply to the task event shapes when they are presented in the chart for this item;</li>
+                                <li><em>taskEventTemplate</em>: Optional function that returns the output (SVG node) for the task event shape to be presented in the chart for this item, overriding the control settings;</li>
+                                <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the chart for this item (usually a tool tip), overriding the control settings;</li>
+                                <li>
+                                    <em>predecessors</em>: The predecessors collection defines predecessor items (objects) referring the task event items that the current item depends of, and having the relations displayed in the PERT Chart view as dependency lines; the predecessor item properties are presented below:
+                                    <ul>
+                                        <li><em>item</em>: Task event item that precedes the owner of the predecessor item (the item that the current item depends of);</li>
+                                        <li><em>dependencyLineClass</em>, <em>dependencyTextClass</em>, <em>dependencyLineStyle</em>, <em>dependencyTextStyle</em>: CSS class and/or inline style to apply to the dependency line and text to be presented in the chart for this predecessor item;</li>
+                                        <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the chart for this predecessor item (usually a tool tip), overriding the control settings.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p>You may obtain PERT task event items directly from GanttChartView component instances:</p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var pertChartItems = ganttChartView.getPertChartItems();
+</code>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Settings</h2>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>target</em>: Name of the target to generically apply to the control; <em>Standard</em>, and <em>Phone</em> targets are supported; by default it is Standard:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.target = 'Phone';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em>, <em>ModernBordered</em>, and <em>Aero</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Aero';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>border</em>: Color for the border to be presented around the main content container within the control; the border type is set to solid and its width is set to 1px by design (they are fixed values); by default it is gray:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.border = 'Blue';
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>containerClass</em>, <em>containerStyle</em>: CSS class and/or inline style to apply to the main content container within the control;</li>
+                                <li>
+                                    <em>canUserRearrangeItems</em>: Indicates whether the user can change the canvas positions of task event items in the control by drag and drop operations (by default it is set to true):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.canUserRearrangeItems = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>snapRearrangedItemsToGuidelines</em>: Indicates whether the task event item shapes are snapping to row and column based guidelines in the control during drag and drop based rearrange operations (by default it is set to true):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.snapRearrangedItemsToGuidelines = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>itemWidth</em>, <em>itemHeight</em>: Width and height values shared by all item columns and rows within the control (chart item areas); by default they are set to 40;</li>
+                                <li><em>aspectRatio</em>: The aspect ratio of the chart, indicating the rate between horizontal and vertical item layout positioning;</li>
+                                <li><em>shapeWidth</em>, <em>shapeHeight</em>: column width and row height of any shape presented in the chart; by default they are set to 32;</li>
+                                <li><em>dependencyTextBlockWidth</em>: The width of the text blocks displayed for dependency lines in the chart at initialization time; by default it is set to 120;</li>
+                                <li>
+                                    <em>chartMargin</em>: The margin to preserve around the chart; by default it is set to 16:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.chartMargin = 4;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>styleDefinitionTemplate</em>: Function that returns SVG definitions (node) to be used in standard style and template definitions (see below); by default, they include these items: <em>BlueGradient</em>, <em>BlackGradient</em>, <em>ArrowMarker</em>:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.styleDefinitionTemplate = function (pertChartView) {
+    var document = pertChartView.ownerDocument;
+    var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    var arrowMarker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    arrowMarker.setAttribute('id', 'ArrowMarker');
+    arrowMarker.setAttribute('viewBox', '0 0 10 10');
+    arrowMarker.setAttribute('refX', '0');
+    arrowMarker.setAttribute('refY', '5');
+    arrowMarker.setAttribute('markerUnits', 'strokeWidth');
+    arrowMarker.setAttribute('markerWidth', '5');
+    arrowMarker.setAttribute('markerHeight', '4');
+    arrowMarker.setAttribute('orient', 'auto');
+    var arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    arrowPath.setAttribute('fill', 'LightGreen');
+    arrowPath.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+    arrowMarker.appendChild(arrowPath);
+    defs.appendChild(arrowMarker);
+    return defs;
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>shapeClass</em>, <em>shapeStyle</em>: CSS classes and/or inline styles to apply to the shapes in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.shapeStyle = 'stroke: Green; fill: LightYellow';
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>temporaryThumbClass</em>, <em>temporaryThumbStyle</em>: CSS classes and/or inline styles to apply to the temporary shapes displayed during drag and drop operations performed within the chart;</li>
+                                <li>
+                                    <em>dependencyLineClass</em>, <em>dependencyLineStyle</em>: CSS class and/or inline style to apply to polylines displayed between dependent task event shapes in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dependencyLineStyle = 'stroke: LightGreen; fill: none; marker-end: url(#ArrowMarker)';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>taskEventTemplate</em>: Function that returns the output (SVG node) for task event shapes to be presented in the chart for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+var originalTaskEventTemplate = DlhSoft.Controls.PertChartView.getDefaultTaskEventTemplate(items, pertChartView, settings);
+settings.taskEventTemplate = function (item) {
+    var document = item.pertChartView.ownerDocument;
+    var svgGroup = originalTaskEventTemplate(item);
+    if (item.content.indexOf('Task event 2.') == 0) {
+        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', 0);
+        rect.setAttribute('y', 0);
+        rect.setAttribute('width', settings.shapeWidth);
+        rect.setAttribute('height', settings.shapeHeight);
+        rect.setAttribute('style', 'stroke: Red; fill: Transparent');
+        svgGroup.insertBefore(rect, svgGroup.childNodes[0]);
+    }
+    return svgGroup;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>extraTaskEventTemplate</em>: Optional function that returns supplemental output (SVG node) to display on top of task event shapes to be presented in the chart for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.extraTaskEventTemplate = function (item) {
+    var document = item.pertChartView.ownerDocument;
+    var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', 0);
+    rect.setAttribute('y', 0);
+    rect.setAttribute('width', 12);
+    rect.setAttribute('height', 12);
+    rect.setAttribute('style', 'stroke: Blue; fill: LightBlue');
+    return rect;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isTaskEventToolTipVisible</em>: Determines whether task event shape tool tips are presented;</li>
+                                <li>
+                                    <em>itemTemplate</em>: Function that returns the output (SVG node) to presented in the chart for a specific item received as parameter (usually a tool tip):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.itemTemplate = function (item) {
+    var document = item.pertChartView.ownerDocument;
+    var toolTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    var toolTipContent = 'Event: ' + item.content;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>dependencyLineTemplate</em>: Function that returns the output (SVG node) for dependency polyline representing predecessor information in the chart for an item and a specific predecessor item received as parameters;</li>
+                                <li><em>isDependencyToolTipVisible</em>: Determines whether dependency line tool tips are presented;</li>
+                                <li>
+                                    <em>predecessorItemTemplate</em>: Function that returns the output (SVG node) to presented in the chart for an item and a specific predecessor item received as parameters (usually a tool tip):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.predecessorItemTemplate = function (item, predecessorItem) {
+    var document = item.pertChartView.ownerDocument;
+    var toolTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    var toolTipContent = predecessorItem.item.displayedText + ' → ' + item.displayedText;
+    toolTip.appendChild(document.createTextNode(toolTipContent));
+    return toolTip;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>timeSpanFormatter(timeSpan): text</em>: Function that accepts time span parameters and returns text values, used to convert time span values (received in milliseconds) to text values whenever needed within the control; the functions may be provided by the developer for further customization and/or localization purposes; by default they are initialized to a set of internally defined functions that consider culture invariant time span formatting: <em>{Number}h</em> (the value is shown in hours);</li>
+                                <li>
+                                    <em>itemPropertyChangeHandler(item, propertyName, isDirect, isFinal)</em>: Function called whenever item properties change within the control, providing the changed item, relevant property name, and Boolean values indicating whether this change was directly triggered by the user, and whether this is the final change in a periodic operation such as a drag and drop action, specified as parameters; a custom function may be provided by the developer in order to receive notifications whenever data changes occur within the control:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isFinal) {
+    if (isDirect && isFinal)
+        alert(item.displayedText + '.' + propertyName + ' changed.');
+}
+</code>
+                                    </pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Operations</h2>
+                            <p>The following static APIs are available at settings initialization time, prefixed by <em>DlhSoft.Controls.Pert.PertChartView</em> namespace:</p>
+                            <ul>
+                                <li><em>getDefaultStyleDefinitionTemplate(controlElement, settings)</em>: Returns a function that provides common SVG definitions that may be used in template methods for task event and dependency line styles specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultTaskEventTemplate(items, controlElement, settings)</em>: Returns a function that provides the original template for task event shapes in the chart area, based on the item received as parameter; developers can access it to retreive SVG content to be further adorned in the <em>taskEventTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultItemTemplate(settings)</em>: Returns a function that provides the original template for task event items, usually presented as tool tips when hovering task event shapes in the chart area, based on the item received as parameter; developers can access it to retreive SVG content to be further adorned in the <em>itemTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultDependencyLineTemplate(items, settings)</em>: Returns a function that provides the original template for the dependency lines presented in the chart area, based on the item and predecessor item received as parameters; developers can access it to retreive SVG content to be further adorned in the <em>dependencyLineTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultPredecessorItemTemplate(settings)</em>: Returns a function that provides the original template for predecessor items representing task event dependencies, usually presented as tool tips when hovering dependency lines in the chart area, based on the item and predecessor item received as parameters; developers can access it to retreive SVG content to be further adorned in the <em>predecessorItemTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>initializeTaskEventDraggingThumbs(thumb, item, itemLeft, itemTop)</em>: Inside task event template functions, sets up task event drag and drop behavior for the non-null SVG element specified to be designed as thumb, considering the specified item and item positioning in the chart;</li>
+                                <li><em>defaultTimeSpanFormatter(timeSpan)</em>: Default time span formatter implementation, returning texts representing the specified time span value received in milliseconds and converted to hours.</li>
+                            </ul>
+                            <h3>Component instance</h3>
+                            <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+<code class="language-javascript" ng-non-bindable>
+DlhSoft.Controls.PertChartView.initialize(pertChartView, items, settings);
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="language-javascript" ng-non-bindable>
+var pertChartView = DlhSoft.Controls.LoadChartView.initialize(pertChartViewElement, items, settings);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>items</em>: Provides access to the PERT Chart items displayed by the control;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refresh()</em>: Updates the user interface considering all external item and settings changes;</li>
+                                <li>
+                                    <em>refreshItems()</em>, <em>refreshItem(item)</em>, <em>refreshPredecessorItems(item)</em>, <em>refreshItemGraph(item)</em>: Update the item(s), predecessor items, or dependency graph within the chart area, considering all external changes on the specified item and related predecessor and successor items:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+item.shapeStyle = 'stroke: Red; fill: LightYellow';
+pertChartView.refreshItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>scrollToItem(item)</em>: Scrolls the chart area horizontally and/or vertically to display the specified item in the viewport:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+item.displayedText = '?';
+pertChartView.refreshItem(item);
+pertChartView.scrollToItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>scrollToLeft()</em>, <em>scrollToTop()</em>, <em>scrollToRight()</em>, <em>scrollToBottom()</em>: Scroll the chart area vertically or horizontally to the left, top, right, or bottom of the presentation content;</li>
+                                <li><em>getChartWidth()</em>, <em>getChartHeight()</em>: Return the actual width and height of the chart area;</li>
+                                <li><em>getItemLeft(item)</em>, <em>getItemTop(item)</em>: Return the left X and top Y coordinates of a specific item in the chart area;</li>
+                                <li><em>onItemPropertyChanged(item, propertyName, isDirect, isFinal)</em>: Calls itemPropertyChangeHandler function specified within the settings collection using the specified item, property name, and Boolean indicators for direct user actions and completed actions as arguments;</li>
+                                <li>
+                                    <em>exportContent(exportSettings, output)</em>, <em>print(exportSettings)</em>: Exports or prints the content to a specified output document, window or target or using a temporary document and window; supported export setting properties are:
+                                    <ul>
+                                        <li><em>title</em>: The title of the output or temporary window to set up;</li>
+                                        <li><em>preparingMessage</em>: The temporary message to be displayed in the output window while the asynchronous export operation is in progress;</li>
+                                        <li><em>rotate</em>: Determines whether to rotate the exported content in the output document to simulate landscape printing;</li>
+                                        <li><em>autoClose</em>: Determines whether to automatically close the temporary export output window generated for printing when the operation is completed:</li>
+                                    </ul>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+pertChartView.print({ title: "PERT Chart" });
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isItemCritical(item)</em>, <em>getCriticalItems()</em>, <em>isDependencyCritical(predecessorItem)</em>, <em>getCriticalDependencies()</em>: Determine whether a specific item is critical and the list of items that are part of the critical path, or whether a specific predecessor item is critical and the list of predecessor items that are part of the critical path, considering PERT rules;</li>
+                                <li><em>repositionEnds()</em>: Updates the vertical position of start and finish nodes, assuming they are the first and the last items in the collection, to the first or between the first and second row in the view (when there is at least one item with two or more successors in the collection);</li>
+                                <li><em>isInitializing</em>, <em>isInitialized</em>: Verify that the component instance is currently initializing asynchronously, or that it has been successfully initialized.</li>
+                            </ul>
+                            <p>The initialized item objects provide the following API, as a supplement to the coerced and validated original properties:</p>
+                            <ul>
+                                <li><em>actualRowIndex</em>, <em>actualColumnIndex</em>: The actual row and column indexes of the item in the chart.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <div ng-show="isInitializing || selectedFile == 'Network diagram'">
             NDV
