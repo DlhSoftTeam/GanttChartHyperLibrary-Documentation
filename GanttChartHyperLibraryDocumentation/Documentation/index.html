@@ -1787,6 +1787,12 @@ for (var i = 4; i <= 32; i++) {
 }
 </code>
                             </pre>
+                            <p>Alternatively you may obtain Schedule Chart items directly from GanttChartView component instances:</p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var scheduleChartItems = ganttChartView.getScheduleChartItems();
+</code>
+                            </pre>
                         </div>
                     </div>
                 </div>
@@ -2173,7 +2179,8 @@ settings.extraTaskTemplate = function (item) {
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
 settings.itemTemplate = function (item) {
-    var toolTip = item.scheduleChartView.ownerDocument.createElementNS('http://www.w3.org/2000/svg', 'title');
+    var document = item.scheduleChartView.ownerDocument;
+    var toolTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
     var toolTipContent = item.content + ' • ' + 'Start: ' + item.start.toLocaleString();
     if (!item.isMilestone)
         toolTipContent += ' • ' + 'Finish: ' + item.finish.toLocaleString();
@@ -2411,7 +2418,614 @@ if (item.isVirtuallyVisible)
             </section>
         </div>
         <div ng-show="isInitializing || selectedFile == 'Load chart'">
-            LCV
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>LoadChartView reference</h2>
+                            <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+                                The control container element can be retrieved using a querySelector method call:
+                            </p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+<code class="language-javascript" ng-non-bindable>
+var loadChartView = document.querySelector('#loadChartView'); 
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="language-javascript" ng-non-bindable>
+var loadChartViewElement = document.querySelector('#loadChartView'); 
+</code>
+                            </pre>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
+                                Using AngularJS you can access LoadChartView component using <em>ds:load-chart</em> directive and preparing the appropriate $scope fields (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
+<code class="language-javascript" ng-non-bindable>
+&lt;ds:load-chart id="loadChartView"
+                items="items" settings="settings"
+                change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
+                style="min-height: 240px"&gt;
+&lt;/ds:load-chart&gt;
+</code>
+                            </pre>
+                            <h3>Data items</h3>
+                            <p>The resource and allocation items that may be presented within <em>LoadChartView</em> control should provide these properties:</p>
+                            <ul>
+                                <li><em>content</em>: The object that is displayed to represent the resource item in the grid, usually the resource name;</li>
+                                <li><em>isReadOnly</em>: Indicates whether the current item should be read only in the grid area;</li>
+                                <li><em>class</em>, <em>style</em>: CSS class and/or inline style to apply to the resource row container element in the grid;</li>
+                                <li><em>isSelected</em>: Indicates whether the current item is currently selected in the view;</li>
+                                <li>
+                                    <em>ganttChartItems</em>: Collection of <em>allocation item</em> objects that are displayed in the Load Chart view as allocation bars; the supported allocation item properties are presented below:
+                                    <ul>
+                                        <li><em>content</em>: The object that is displayed to represent the allocation item in allocation bar tool tips, usually the allocation units and/or the assignment owner resource name;</li>
+                                        <li><em>start</em>, <em>finish</em>;</li>
+                                        <li><em>isRelativeToTimezone</em>: Indicates whether <em>start</em>, and <em>finish</em> values are configured as local timezone based values (true by default); it gets set to false upon component initialization as date and times are converted to UTC values internally; set it back to true if you reinitialize the properties and refresh the component; to read the timing values externally, you may use <em>getOutputDate</em> method of the component;</li>
+                                        <li><em>units</em>: Indicates the capacity used from the assigned resource item during the time interval represented by the current allocation item;</li>
+                                        <li><em>isBarVisible</em>: Indicates whether the allocation bar is displayed in the chart area for this item;</li>
+                                        <li><em>displayRowIndex</em>: Indicates the row index to display the allocation bar at within the chart; by default it is not defined, and the row index is computed at runtime based on its parent resource item in the items collection;</li>
+                                        <li><em>barClass</em>, <em>barStyle</em>: CSS classes and/or inline styles to apply to the allocation bar when it is presented in the chart for this item;</li>
+                                        <li><em>taskTemplate</em>: Optional function that returns the output (SVG node) for the allocation bar to be presented in the chart for this item, overriding the control settings;</li>
+                                        <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the chart for this item (usually a tool tip), overriding the control settings.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p>Usually you will obtain assigned resources and allocation items directly from GanttChartView component instances:</p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var loadChartItems = ganttChartView.getLoadChartItems();
+</code>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Settings</h2>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>target</em>: Name of the target to generically apply to the control; <em>Standard</em>, and <em>Phone</em> targets are supported; by default it is Standard:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.target = 'Phone';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>theme</em>: Name of the theme to generically apply to the control; <em>Modern</em>, <em>ModernBordered</em>, and <em>Aero</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Aero';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>border</em>: Color for the border to be presented around the main content container within the control; the border type is set to solid and its width is set to 1px by design (they are fixed values); by default it is gray:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.border = 'Blue';
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>containerClass</em>, <em>containerStyle</em>: CSS class and/or inline style to apply to the main content container within the control;</li>
+                                <li>
+                                    <em>isGridVisible</em>: Determines whether the grid is visible in the view; true by default:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isGridVisible = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>gridWidth</em>, <em>chartWidth</em>: Widths of the grid and chart areas within the control; by default they are set to 15% and 85% when <em>isGridVisible</em> is true:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.gridWidth  = '30%';
+settings.chartWidth = '70%';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>isSplitterEnabled</em>: Determines whether a splitter is displayed between the grid and chart when the grid is visible and the end user hovers the left most area of the chart, allowing resizing the internal panels; true by default:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isSplitterEnabled = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>splitterWidth</em>: The width of the splitter within the control:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.splitterWidth = 8;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>splitterBackground</em>: The background used to fill the splitter within the control (when hovering the area between the grid and chart); by default it is a shade of light gray:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.splitterBackground = 'Blue';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>minGridWidth</em>, <em>minChartWidth</em>: The minimum widths of the grid and chart to be used as left and right splitting limits within the control (values should not be below 32 and 32 + splitterWidth, respectively):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.minGridWidth  = 100;
+settings.minChartWidth = 100 + 4;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>allowUserToResizeColumns</em>: Indicates whether the columns may be resized or not by the end user with gripper drag and drop operations; by default it is set to true; when set to true, individual <em>column.allowUserToResize</em> values may be defined as local overrides;</li>
+                                <li><em>minColumnWidth</em>, <em>maxColumnWidth</em>: Numeric values indicating the default limits of width of the columns (in pixels) when updated by the end user with gripper drag and drop operations;</li>
+                                <li>
+                                    <em>isReadOnly</em>: Indicates whether the control is read only or not (by default it is read only):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isReadOnly = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>headerBackground</em>: Background color (and optionally other standard background atributes) used to fill the header areas within the control (grid and chart headers); by default it is a shade of light gray;</li>
+                                <li>
+                                    <em>headerHeight</em>: Height of the header areas within the control (grid and chart headers); by default it is set to 42 (i.e. 21 for each of the 2 default headered scale items):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.headerHeight = 21 * 3; // Prepare space for 3 scales
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>itemHeight</em>: Height value shared by all item rows within the control (grid rows and chart item areas); by default it is set to 21;</li>
+                                <li>
+                                    <em>columns</em>: Collection of objects indicating the columns to be presented in the grid; each column object supports these properties:
+                                    <ul>
+                                        <li><em>header</em>: Text to be displayed as the grid column header;</li>
+                                        <li><em>width</em>: Numeric value indicating the width of the column (in pixels);</li>
+                                        <li><em>allowUserToResize</em>: Indicates whether the column may be resized or not by the end user with gripper drag and drop operations;</li>
+                                        <li><em>minWidth</em>, <em>maxWidth</em>: Numeric values indicating the limits of width of the column (in pixels) when updated by the end user using gripper drag and drop operations;</li>
+                                        <li><em>isReadOnly</em>: Indicates whether the column cells should be read only;</li>
+                                        <li><em>isSelection</em>: Indicates whether the column cells include user interface for item selection;</li>
+                                        <li><em>headerClass</em>, <em>headerStyle</em>: CSS class and/or inline style to apply to the grid header container element of the column;</li>
+                                        <li><em>cellClass</em>, <em>cellStyle</em>: CSS class and/or inline style to apply to the grid cell container elements for the column;</li>
+                                        <li><em>cellTemplate</em>, <em>exportCellTemplate</em>: Functions that return the output (document nodes) to be presented within the grid cell of this column in the standard view, and optionally different at export time, for a specific item received as parameter;</li>
+                                    </ul>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+loadChartItems[1].description = 'Custom description';
+var columns = DlhSoft.Controls.LoadChartView.getDefaultColumns(loadChartItems, settings);
+columns.push({ header: 'Description', width: 200, cellTemplate: function (item) { 
+    return item.loadChartView.ownerDocument.createTextNode(item.description); } });
+settings.columns = columns;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>itemClass</em>, <em>itemStyle</em>: CSS class and/or inline style to apply to resource row elements in the grid;</li>
+                                <li><em>alternativeItemClass</em>, <em>alternativeChartItemClass</em>, <em>alternativeItemStyle</em>, <em>alternativeChartItemStyle</em>: CSS classes and/or inline styles to apply to alternative row elements in the grid and chart area;</li>
+                                <li><em>gridLines</em>, <em>horizontalGridLines</em>, <em>verticalGridLines</em>: Colors for lines to be presented between rows and columns of the grid area of the control; by default they are not set;</li>
+                                <li><em>selectedItemClass</em>, <em>selectedItemStyle</em>: CSS class and/or inline style to apply to selected resource row elements in the grid;</li>
+                                <li><em>selectionMode</em>: Indicates the selection behavior; support values are <em>None</em> (not allowed), <em>Focus</em> (single item selected triggered by focus), <em>Single</em> (single item selection using check box), <em>Extended</em> (multiple item selection using check boxes), and <em>ExtendedFocus</em> (multiple item selection using check boxes or triggered by focus); by default it is set to <em>Focus</em>;</li>
+                                <li><em>cellClass</em>, <em>cellStyle</em>: CSS class and/or inline style to apply by default to cell container elements in the grid;</li>
+                                <li>
+                                    <em>displayedTime</em>, <em>currentTime</em>: Date and time to scroll to and highlight (using a vertical bar) within the chart view; by defaut they are obtained from the local computer:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.displayedTime = new Date(2012, 8, 1);
+settings.currentTime   = new Date(2012, 8, 2, 12, 0, 0);
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>timelineStart</em>, <em>timelineFinish</em>: Start and finish date and times of the scrollable chart area; by default they are set to include the current time near the start position:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.timelineStart  = new Date(2012, 7, 1);
+settings.timelineFinish = new Date(2014, 7, 1);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isRelativeToTimezone</em>: Indicates whether <em>displayedTime</em>, <em>currentTime</em>, <em>timelineStart</em>, and <em>timelineFinish</em> values are configured as local timezone based values (true by default); it gets set to false upon component initialization as date and times are converted to UTC values internally; set it back to true if you reinitialize the properties and refresh the component; to read the timing values externally, you may use <em>getOutputDate</em> method of the component;</li>
+                                <li>
+                                    <em>scales</em>: Collection of objects indicating the scales to be presented in the chart; each scale object supports these properties:
+                                    <ul>
+                                        <li><em>scaleType</em>: Type of the scale; supported values are: <em>Years</em>, <em>Months</em>, <em>Weeks</em>, <em>Days</em>, <em>Hours</em>, <em>NonworkingTime</em> (highlighting weekends), <em>CurrentTime</em> (current time vertical bar), <em>FutureTime</em> (current time vertical bar with future highlighting support), and <em>Custom</em> (the developer needs to also set the <em>intervals</em> collection in this case, using time interval objects defined by <em>start</em> and <em>finish</em> properties);</li>
+                                        <li><em>isHeaderVisible</em>: Whether to display a chart header for the scale or not; by default it is false for NonworkingTime and CurrentTime scale types;</li>
+                                        <li><em>headerHeight</em>: Height of the scale header in the chart;</li>
+                                        <li><em>headerTextFormat</em>: Format to use for scale header texts; supported values are: <em>DateTime</em>, <em>Date</em>, <em>Hour</em>, <em>DayOfWeek</em>, <em>DayOfWeekAbbreviation</em>, <em>Day</em>, <em>Month</em>, <em>MonthAbbreviation</em>, <em>Year</em>, <em>MonthYear</em>, <em>Localized</em>, and <em>Custom</em> (the developer needs to also set the <em>headerText</em> property of each interval object within the <em>intervals</em> collection of the scale object in this case), or a function that converts a Date parameter to a presentation string;</li>
+                                        <li><em>headerClass</em>, <em>headerStyle</em>: CSS class and/or inline style to apply to the scale header container elements;</li>
+                                        <li><em>isHighlightingVisible</em>: Whether to display vertical rectangles in the main chart area for the generated scale intervals;</li>
+                                        <li><em>highlightingClass</em>, <em>highlightingStyle</em>: CSS class and/or inline style to apply to the scale highlighter rectangle elements in the main chart area;</li>
+                                        <li><em>isSeparatorVisible</em>: Whether to display vertical separator lines in the main chart area between the generated scale intervals;</li>
+                                        <li><em>separatorClass</em>, <em>separatorStyle</em>: CSS class and/or inline style to apply to the scale separator line elements in the main chart area;</li>
+                                    </ul>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.scales = [
+    { scaleType: 'NonworkingTime', isHeaderVisible: false,
+      isHighlightingVisible: true, highlightingStyle: 'stroke-width: 0; fill: #f8f8f8' },
+    { scaleType: 'Months', headerTextFormat: 'Month',
+      headerStyle: 'padding: 2.25px; border-right: solid 1px #c8bfe7; border-bottom: solid 1px #c8bfe7',
+      isSeparatorVisible: true, separatorStyle: 'stroke: #c8bfe7' },
+    { scaleType: 'Weeks', headerTextFormat: 'Date',
+      headerStyle: 'padding: 2.25px; border-right: solid 1px #c8bfe7; border-bottom: solid 1px #c8bfe7' },
+    { scaleType: 'Days', headerTextFormat: 'Day', headerStyle: 'padding: 2.25px; border-right: solid 1px #c8bfe7' },
+    { scaleType: 'CurrentTime', isHeaderVisible: false, isSeparatorVisible: true, separatorStyle: 'stroke: #8bbf8a; stroke-width: 0.5px'}];
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>hourWidth</em>: Indicates the zoom level to be used for the chart area, and represents the actual number of pixels each hour in the timeline gets available; to zoom in, increase this value; to zoom out, decrease it; by default it is set to 2.5:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.hourWidth *= 2; // 200%
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>visibleWeekStart</em>, <em>visibleWeekFinish</em>: The start and finish days of the visible week interval; by default they are set to Sunday (0) and Saturday (6):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.visibleWeekStart  = 1; // Monday
+settings.visibleWeekFinish = 5; // Friday
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>workingWeekStart</em>, <em>workingWeekFinish</em>: The start and finish days of the working week interval; by default they are set to Monday (1) and Friday (5); remaining days of the week are considered nonworking time and by default they are highlighted in the chart area:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.workingWeekStart  = 1; // Monday
+settings.workingWeekFinish = 4; // Thursday
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>visibleDayStart</em>, <em>visibleDayFinish</em>: The start and finish times of the visible day interval, in milliseconds passed since midnight; by default they are set to 8 AM and 4 PM; the working time interval of the day is also defined using the same values:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.visibleDayStart  = 10 * 60 * 60 * 1000; // 10 AM
+settings.visibleDayFinish = 20 * 60 * 60 * 1000; // 8 PM
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>specialNonworkingDays</em>: Optional collection of special nonworking days, such as holidays:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.specialNonworkingDays = [new Date(2012, 8, 24), new Date(2012, 8, 25)];
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>schedule</em>: Allows initializing working week and day intervals and special nonworking days to consider for scheduling purposes using an alternative definition object:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.schedule = {
+    workingWeekStart: 0, workingWeekFinish: 3, // Sunday - Wednesday
+    workingDayStart: 9 * 60 * 60 * 1000, workingDayFinish: 19 * 60 * 60 * 1000, // 9 AM - 7 PM, exceeding visible 4 PM
+    specialNonworkingDays: [new Date(2012, 8, 18), new Date(2012, 8, 21), new Date(2012, 8, 22)] // Partial replacement for excluded dates
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>barMargin</em>: The top and bottom margins around the allocation bars in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.barMargin = 3;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>barHeight</em>: The actual height to apply to the allocation bars in the chart; by default it is set to the remaining space from itemHeight when subtracting top and bottom barMargin values:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.barHeight = 16;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>maxDisplayedUnits</em>: The maximum allocation units that are to be displayed as a full height bar in in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.maxDisplayedUnits = 2; //200%
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>styleDefinitionTemplate</em>: Function that returns SVG definitions (node) to be used in allocation style and template definitions (see below):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.styleDefinitionTemplate = function () {
+    var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    return defs;
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>normalAllocationBarClass</em>, <em>underAllocationBarClass</em>, <em>overAllocationBarClass</em>, <em>normalAllocationBarStyle</em>, <em>underAllocationBarStyle</em>, <em>overAllocationBarStyle</em>: CSS classes and/or inline styles to apply to the normal, under, and over allocation bars in the chart:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.normalAllocationBarStyle = 'stroke: Green; fill: Green';
+settings.underAllocationBarStyle  = 'stroke: Yellow; fill: Yellow';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>allocationTemplate</em>: Function that returns the output (SVG node) for allocation bars to be presented in the chart for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+var originalAllocationTemplate = DlhSoft.Controls.LoadChartView.getDefaultAllocationTemplate(loadChartItems, loadChartView, settings);
+settings.allocationTemplate = function (item) {
+    var loadChartView = item.loadChartView;
+    var document = loadChartView.ownerDocument;
+    var svgGroup = originalAllocationTemplate(item);
+    if (item.content.indexOf('Task 1 ') == 0) {
+        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        var itemLeft = loadChartView.getChartPosition(item.start, settings);
+        var itemRight = loadChartView.getChartPosition(item.finish, settings);
+        rect.setAttribute('x', itemLeft - 1);
+        rect.setAttribute('y', settings.barMargin - 1);
+        rect.setAttribute('width', Math.max(0, itemRight - itemLeft + 1));
+        rect.setAttribute('height', settings.barHeight + 2);
+        rect.setAttribute('style', 'stroke: Red; fill: Transparent');
+        svgGroup.insertBefore(rect, svgGroup.childNodes[0]);
+    }
+    return svgGroup;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>extraTaskTemplate</em>: Optional function that returns supplemental output (SVG node) to display on top of allocation bars to be presented in the chart for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.extraTaskTemplate = function (item) {
+    var loadChartView = item.loadChartView;
+    var document = loadChartView.ownerDocument;
+    var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    var itemLeft = loadChartView.getChartPosition(item.start, settings);
+    rect.setAttribute('x', itemLeft - 15);
+    rect.setAttribute('y', settings.barMargin);
+    rect.setAttribute('width', 12);
+    rect.setAttribute('height', settings.barHeight);
+    rect.setAttribute('style', 'stroke: Blue; fill: LightBlue');
+    return rect;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isTaskToolTipVisible</em>: Determines whether allocation bar tool tips are presented;</li>
+                                <li>
+                                    <em>itemTemplate</em>: Function that returns the output (SVG node) to presented in the chart for a specific item received as parameter (usually a tool tip):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.itemTemplate = function (item) {
+    var document = item.loadChartView.ownerDocument;
+    var toolTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    var toolTipContent = item.content + ' • ' + item.start.toLocaleString() + '-' + item.finish.toLocaleString();
+    toolTip.appendChild(document.createTextNode(toolTipContent));
+    return toolTip;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isGridRowClickTimeScrollingEnabled</em>: Indicates whehter clicking a grid row should automatically scroll the chart area horizontally to display the associated task item start date and time;</li>
+                                <li><em>isMouseWheelZoomEnabled</em>: Indicates whehter to zoom in and out the timeline automatically when the end user rolls the mouse wheel hovering the chart area;</li>
+                                <li><em>isMouseWheelZoomEnabledMinHourWidth</em>, <em>isMouseWheelZoomEnabledMaxHourWidth</em>: Indicates the limits of the <em>hourWidth</em> value to be considered when mouse wheel zooming is enabled;</li>
+                                <li>
+                                    <em>isVirtualizing</em>: Indicates whether the control will create allocation bars only when they need to be presented (such as only when scrolling the view to their positions); by default it is set to true for optimization purposes:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isVirtualizing = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>months</em>, <em>daysOfWeek</em>: Names of the months and of the days of the week to use at presentation time:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.months     = [ 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12' ];
+settings.daysOfWeek = [ 'D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6' ];
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>weekStartDay</em>: Day of the week to consider as week start; by default it is set to Sunday (0); to set it to Monday use one (1):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.weekStartDay = 1; // Monday
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>dateFormatter(date): text</em>, <em>dateTimeFormatter(dateTime): text</em>: Functions that accept date parameters and return text values, used to convert date or date and time values to text values whenever needed within the control; the functions may be provided by the developer for further customization and/or localization purposes; by default they are initialized to a set of internally defined functions that consider a culture invariant date and time formatting: <em>MM/dd/yyyy HH:mm</em>:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dateFormatter     = function (date)     { return date.toDateString(); };
+settings.dateTimeFormatter = function (dateTime) { return dateTime.toString(); };
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>displayedTimeChangeHandler(displayedTime)</em>, <em>hourWidthChangeHandler(hourWidth)</em>: Functions called whenever the end user scrolls the chart area horizontally or performs mouse wheel zooming on the chart area, changing the left most displayed time (settings.displayedTime) or the zoom level (settings.hourWidth);</li>
+                                <li><em>splitterPositionChangeHandler(gridWidth, chartWidth)</em>: Function called whenever the end user resizes the grid and chart areas horizontally, changing the splitter position (settings.gridWidth and settings.chartWidth);</li>
+                                <li><em>columnWidthChangeHandler(column, width)</em>: Function called whenever the end user resizes a grid column, changing its width (column.width);</li>
+                                <li>
+                                    <em>itemPropertyChangeHandler(item, propertyName, isDirect, isFinal)</em>: Function called whenever item properties change within the control, providing the changed item, relevant property name, and Boolean values indicating whether this change was directly triggered by the user, and whether this is the final change in a periodic operation such as a drag and drop action, specified as parameters; a custom function may be provided by the developer in order to receive notifications whenever data changes occur within the control, when using the default grid column template functions:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isFinal) {
+    if (isDirect && isFinal)
+        alert(item.content + '.' + propertyName + ' changed.');
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>itemSelectionChangeHandler(item, isSelected, isDirect)</em>: Function called whenever item selection changes within the control, providing the selected or unselected item, a Boolean value indicating the updated selection state, and a Boolean value indicating whether this change was directly triggered by the user, specified as parameters;</li>
+                                <li><em>itemMoveHandler(item, fromIndex, toIndex)</em>: Function called whenever an item is moved in the managed list of the control, providing the item, source and target positions of the item, specified as parameters;</li>
+                                <li><em>itemContextMenuHandler(e)</em>: Event handler for chart item context menu.</li>
+                            </ul>                        
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Operations</h2>
+                            <p>The following static APIs are available at settings initialization time, prefixed by <em>DlhSoft.Controls.LoadChartView</em> namespace:</p>
+                            <ul>
+                                <li><em>getDefaultColumns(items, settings)</em>: Returns an array of default definitions that you can further customize and use as value for the <em>columns</em> property of the control settings used at initialization time;</li>
+                                <li><em>getDefaultScales(settings)</em>: Returns an array of default definitions that you can further customize and use as value for the <em>scales</em> property of the control settings used at initialization time;</li>
+                                <li><em>getDefaultAllocationTemplate(items, controlElement, settings)</em>: Returns a function that provides the original template for allocation bars in the chart area, based on the item received as parameter; developers can access it to retreive SVG content to be further adorned in the <em>allocationTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultItemTemplate(settings)</em>: Returns a function that provides the original template for allocation items, usually presented as tool tips when hovering allocation bars in the chart area, based on the item received as parameter; developers can access it to retreive SVG content to be further adorned in the <em>itemTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getWorkingTime(dateTime, settings)</em>: Function that returns the next working time based on a specified date and time value;</li>
+                                <li>
+                                    <em>textColumnTemplateBase(document, valueGetter, isVisibleGetter)</em>, <em>textInputColumnTemplateBase(document, width, valueGetter, valueSetter, isEnabledGetter, isVisibleGetter, isBoldGetter)</em>: Specific user interface generator functions useful when defining new grid columns or when customizing column cell templates; supported parameters are:
+                                    <ul>
+                                        <li><em>document</em>: The document to generate the required elements within; usually the document of the current window;</li>
+                                        <li><em>valueGetter()</em>: Function that gets the data value and prepares for the output element;</li>
+                                        <li><em>valueSetter(value)</em>: Function that provides the updated content value of the output element as parameter, required to prepare and set the associated data object value;</li>
+                                        <li><em>width</em>: The width of the output element;</li>
+                                        <li><em>isEnabledGetter()</em>: Optional function that returns a value that indicates whether the output element should be visible or not;</li>
+                                        <li><em>isVisibleGetter()</em>: Optional function that returns a value that indicates whether the output element should be enabled or not;</li>
+                                        <li><em>isBoldGetter()</em>: Optional function that returns a value that indicates whether the text in the output element should be bold or not.</li>
+                                    </ul>
+                                </li>
+                                <li><em>getInputDate(date)</em>, <em>getOutputDate(date)</em>: Prepares the specified date values to be used for component method input or method result or field output, considering that after initialization the component uses UTC date and time values internally; these methods may also be called using a component instance object.</li>
+                            </ul>
+                            <h3>Component instance</h3>
+                            <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+<code class="language-javascript" ng-non-bindable>
+DlhSoft.Controls.LoadChartView.initialize(loadChartView, items, settings);
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="language-javascript" ng-non-bindable>
+var loadChartView = DlhSoft.Controls.LoadChartView.initialize(loadChartViewElement, items, settings);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>items</em>, <em>loadChartItems</em>: Provides access to the Gantt Chart items and Load Chart items displayed by the control;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refresh()</em>: Updates the user interface considering all external item and settings changes;</li>
+                                <li>
+                                    <em>refreshGridItems()</em>, <em>refreshChartItems()</em>, <em>refreshItems()</em>, <em>refreshGridItem(item)</em>, <em>refreshChartItem(item)</em>, <em>refreshItem(item)</em>, <em>refreshLoadChartItem(item)</em>: Update the Gantt Chart or Load Chart item(s) within the grid, chart or both areas, considering all external changes on the specified item:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+item.barStyle = 'stroke: Red; fill: Red';
+loadChartView.refreshChartItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>refreshCurrentTime()</em>, <em>setCurrentTime(dateTime)</em>, <em>updateCurrentTime()</em>: Update the user interface considering the specified current time chanage;</li>
+                                <li>
+                                    <em>insertLoadChartItem(index, item)</em>, <em>addLoadChartItem(item)</em>, <em>insertLoadChartItems(index, items)</em>, <em>addLoadChartItems(items)</em>: Insert Load Chart item(s) to the managed item list at the specified index or at the bottom of the collection and refreshes the view:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+var item = { content: 'New resource', ganttChartItems: [] };
+loadChartView.insertLoadChartItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>removeLoadChartItem(item)</em>, <em>removeLoadChartItems(items)</em>: Removes Load Chart item(s) from the managed item list and refreshes the view;</li>
+                                <li><em>moveLoadChartRange(fromIndex, count, toIndex)</em>: Moves a range of items to a specified index in the managed item list and refreshes the view;</li>
+                                <li><em>moveLoadChartItem(item, toIndex)</em>: Moves a Load Chart item to a specified index in the managed item list and refreshes the view;</li>
+                                <li><em>moveLoadChartItemUp(item)</em>, <em>moveLoadChartItemDown(item)</em>: Moves an item up or down in the managed item list and refreshes the view;</li>
+                                <li><em>setItemContent(item, value)</em>: Set resource content value;</li>
+                                <li><em>getCurrentItem()</em>: Returns the current item in the collection;</li>
+                                <li><em>getSelectedItem()</em>, <em>getSelectedItems()</em>: Returns the selected item(s) in the collection;</li>
+                                <li>
+                                    <em>selectItem(item)</em>, <em>unselectItem(item)</em>: Update the selection state of an item in the collection:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+selectItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>scrollToItem(item)</em>: Scrolls the grid and chart areas vertically to display the specified item in the viewports:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+item.content = 'Changed content';
+loadChartView.refreshGridItem(item);
+loadChartView.scrollToItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>scrollToBottom()</em>: Scrolls the grid and chart areas vertically to the bottom of the presentation content;</li>
+                                <li><em>scrollToDateTime(dateTime)</em>: Scrolls the chart area horizontally to display the specified date and time value at the left most visible position in the viewport;</li>
+                                <li>
+                                    <em>increaseTimelinePage(timeAmount)</em>, <em>decreaseTimelinePage(timeAmount)</em>: Increases or decreases the displayed timeline in the viewport by a specified time interval (in milliseconds) and refreshes the view:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+loadChartView.increaseTimelinePage(7 * 24 * 60 * 60 * 1000); // by 1 week
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>setHourWidth(hourWidth)</em>: Sets the hour width value used in the chart area to zoom the timeline in our out;</li>
+                                <li><em>setSplitterPosition(gridWidth, chartWidth)</em>: Resizes the grid and chart areas horizontally as specified to update the splitter position in the viewport;</li>
+                                <li><em>getChartPosition(dateTime)</em>: Returns the X coordinate of a specific date and time in the chart area;</li>
+                                <li><em>getChartWidth()</em>: Returns the actual width of the chart area;</li>
+                                <li><em>getDateTime(chartPosition)</em>: Returns the date and time of a specific X coordinate in the chart area;</li>
+                                <li><em>getWorkingTime(dateTime)</em>: Returns the next available working time in the schedule based on the specified date and time;</li>
+                                <li><em>getItemsHeight()</em>: Returns the actual height of the chart area;</li>
+                                <li><em>getItemTop(item)</em>: Returns the top Y coordinate of a specific item in the chart area;</li>
+                                <li><em>onItemPropertyChanged(item, propertyName, isDirect, isFinal)</em>: Calls itemPropertyChangeHandler function specified within the settings collection using the specified item, property name, and Boolean indicators for direct user actions and completed actions as arguments;</li>
+                                <li>
+                                    <em>exportContent(exportSettings, output)</em>, <em>print(exportSettings)</em>: Exports or prints the content to a specified output document, window or target or using a temporary document and window; supported export setting properties are:
+                                    <ul>
+                                        <li><em>title</em>: The title of the output or temporary window to set up;</li>
+                                        <li><em>preparingMessage</em>: The temporary message to be displayed in the output window while the asynchronous export operation is in progress;</li>
+                                        <li><em>isGridVisible</em>: Determines whether the grid is exported; by default the value from the component instance settings is used;</li>
+                                        <li><em>columnIndexes</em>: Determines the columns to be exported, considering the specified array of column indexes in the columns collection; by default all displayed columns are exported or printed;</li>
+                                        <li><em>timelineStart</em>, <em>timelineFinish</em>: Start and finish date and times of the exported chart area; by default the values from the component instance settings are used;</li>
+                                        <li><em>hourWidth</em>: Indicates the zoom level to be used for the exported chart area, and represents the actual number of device units each hour in the timeline gets available; to zoom in when exporting or printing, increase this value; to zoom out, decrease it; by default the value from the component instance settings is used;</li>
+                                        <li><em>startRowIndex</em>, <em>endRowIndex</em>: Determines the rows to be exported, considering the specified indexes in the item collection; by default all displayed rows, including those that are not currently visible in the viewport, are exported or printed;</li>
+                                        <li><em>rotate</em>: Determines whether to rotate the exported content in the output document to simulate landscape printing;</li>
+                                        <li><em>autoClose</em>: Determines whether to automatically close the temporary export output window generated for printing when the operation is completed:</li>
+                                    </ul>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+loadChartView.print({ 
+    title: 'Load Chart', 
+    isGridVisible: true, columnIndexes: [0], 
+    timelineStart: new Date(2012, 8, 1), timelineFinish: new Date(2012, 8, 30) });
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>getProjectStart()</em>, <em>getProjectFinish()</em>: Return the minimum item start and maximum item finish date and times for the entire project loaded and displayed by the component;</li>
+                                <li><em>isLoadChartInitializing</em>, <em>isLoadChartInitialized</em>: Verify that the component instance is currently initializing asynchronously, or that it has been successfully initialized;</li>
+                                <li><em>copyCommonSettings(targetSettings)</em>: Copies the common settings of the current component instance to the specified target settings collection; a secondary component instance may be initialized using the output collection.</li>
+                            </ul>
+                            <p>The initialized item objects provide the following API, as a supplement to the coerced and validated original properties:</p>
+                            <ul>
+                                <li><em>index</em>: The index of the item in the internal item collection;</li>
+                                <li><em>loadChartIndex</em>: The index of a resource item in the Load Chart item collection;</li>
+                                <li>
+                                    <em>isVirtuallyVisible</em>: Indicates whether the resource or allocation is visible in the scrolling viewport of the control when virtualization is enabled:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+if (item.isVirtuallyVisible)<br />
+    alert(item.content + ' is or has been visible on screen.');
+</code>
+                                    </pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <div ng-show="isInitializing || selectedFile == 'PERT chart'">
             PCV
