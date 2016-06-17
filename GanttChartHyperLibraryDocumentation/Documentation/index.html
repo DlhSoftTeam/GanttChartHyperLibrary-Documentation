@@ -705,16 +705,25 @@ $scope.settings = settings;
                             <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+                            <div class="code-snippet">
+                                <pre ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+<code class="language-markup" ng-non-bindable>
+&lt;body&gt;
+    &lt;div id="ganttChartView"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 var ganttChartView = document.querySelector('#ganttChartView'); 
 </code>
-                            </pre>
-                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
-<code class="language-javascript" ng-non-bindable>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="TypeScript (language-javascript)" ng-non-bindable>
 var ganttChartViewElement = document.querySelector('#ganttChartView'); 
 </code>
-                            </pre>
+                                </pre>
+                            </div>
                             <p ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
                                 Using AngularJS you can access GanttChartView component using <em>ds:gantt-chart</em> directive and preparing the appropriate $scope fields (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
@@ -1209,7 +1218,8 @@ settings.assignmentsStyle = 'fill: Green';
                                 </li>
                                 <li>
                                     <em>standardTaskTemplate</em>, <em>summaryTaskTemplate</em>, <em>milestoneTaskTemplate</em>: Functions that return the outputs (SVG nodes) for standard, summary, and milestone task bars to be presented in the chart for a specific item received as parameter:
-                                    <pre>
+                                    <div class="code-snippet">
+                                        <pre class="no-name">
 <code class="language-javascript" ng-non-bindable>
 settings.standardTaskTemplate = function (item) {
     var ganttChartView = item.ganttChartView;
@@ -1235,8 +1245,8 @@ settings.standardTaskTemplate = function (item) {
     return containerGroup;
 };
 </code>
-                                    </pre>
-                                    <pre>
+                                        </pre>
+                                        <pre class="no-name">
 <code class="language-javascript" ng-non-bindable>
 var originalStandardTaskTemplate = DlhSoft.Controls.GanttChartView.getDefaultStandardTaskTemplate(items, ganttChartView, settings);
 settings.standardTaskTemplate = function (item) {
@@ -1257,7 +1267,8 @@ settings.standardTaskTemplate = function (item) {
     return svgGroup;
 };
 </code>
-                                    </pre>
+                                        </pre>
+                                    </div>
                                 </li>
                                 <li>
                                     <em>extraTaskTemplate</em>: Optional function that returns supplemental output (SVG node) to display on top of task bars to be presented in the chart for a specific item received as parameter:
@@ -1728,16 +1739,25 @@ var projectSerializer = DlhSoft.Controls.GanttChartView.ProjectSerializer.initia
                             <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+                            <div class="code-snippet">
+                                <pre ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+<code class="language-markup" ng-non-bindable>
+&lt;body&gt;
+  &lt;div id="scheduleChartView"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 var scheduleChartView = document.querySelector('#scheduleChartView'); 
 </code>
-                            </pre>
-                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
-<code class="language-javascript" ng-non-bindable>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="TypeScript (language-javascript)" ng-non-bindable>
 var scheduleChartViewElement = document.querySelector('#scheduleChartView'); 
 </code>
-                            </pre>
+                                </pre>
+                            </div>
                             <p ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
                                 Using AngularJS you can access ScheduleChartView component using <em>ds:schedule-chart</em> directive and preparing the appropriate $scope fields (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
@@ -2156,7 +2176,8 @@ settings.temporaryAssignmentThumbStyle = 'fill: none; stroke: Green; stroke-dash
                                 </li>
                                 <li>
                                     <em>standardTaskTemplate</em>, <em>milestoneTaskTemplate</em>: Functions that return the outputs (SVG nodes) for standard, and milestone task bars to be presented in the chart for a specific item received as parameter:
-                                    <pre>
+                                    <div class="code-snippet">
+                                        <pre class="no-name">
 <code class="language-javascript" ng-non-bindable>
 settings.standardTaskTemplate = function (item) {
     var ganttChartView = item.ganttChartView;
@@ -2182,8 +2203,8 @@ settings.standardTaskTemplate = function (item) {
     return containerGroup;
 };
 </code>
-                                    </pre>
-                                    <pre>
+                                        </pre>
+                                        <pre class="no-name">
 <code class="language-javascript" ng-non-bindable>
 var originalStandardTaskTemplate = DlhSoft.Controls.ScheduleChartView.getDefaultStandardTaskTemplate(scheduleChartItems, scheduleChartView, settings);
 settings.standardTaskTemplate = function (item) {
@@ -2204,7 +2225,8 @@ settings.standardTaskTemplate = function (item) {
     return svgGroup;
 };
 </code>
-                                    </pre>
+                                        </pre>
+                                    </div>
                                 </li>
                                 <li>
                                     <em>extraTaskTemplate</em>: Optional function that returns supplemental output (SVG node) to display on top of task bars to be presented in the chart for a specific item received as parameter:
@@ -2481,16 +2503,25 @@ if (item.isVirtuallyVisible)
                             <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+                            <div class="code-snippet">
+                                <pre ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+<code class="language-markup" ng-non-bindable>
+&lt;body&gt;
+  &lt;div id="loadChartView"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 var loadChartView = document.querySelector('#loadChartView'); 
 </code>
-                            </pre>
-                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
-<code class="language-javascript" ng-non-bindable>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="TypeScript (language-javascript)" ng-non-bindable>
 var loadChartViewElement = document.querySelector('#loadChartView'); 
 </code>
-                            </pre>
+                                </pre>
+                            </div>
                             <p ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
                                 Using AngularJS you can access LoadChartView component using <em>ds:load-chart</em> directive and preparing the appropriate $scope fields (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
@@ -3071,7 +3102,7 @@ loadChartView.print({
                                     <em>isVirtuallyVisible</em>: Indicates whether the resource or allocation is visible in the scrolling viewport of the control when virtualization is enabled:
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
-if (item.isVirtuallyVisible)<br />
+if (item.isVirtuallyVisible)
     alert(item.content + ' is or has been visible on screen.');
 </code>
                                     </pre>
@@ -3091,16 +3122,25 @@ if (item.isVirtuallyVisible)<br />
                             <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+                            <div class="code-snippet">
+                                <pre ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+<code class="language-markup" ng-non-bindable>
+&lt;body&gt;
+  &lt;div id="pertChartView"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 var pertChartView = document.querySelector('#pertChartView'); 
 </code>
-                            </pre>
-                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
-<code class="language-javascript" ng-non-bindable>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="TypeScript (language-javascript)" ng-non-bindable>
 var pertChartViewElement = document.querySelector('#pertChartView'); 
 </code>
-                            </pre>
+                                </pre>
+                            </div>
                             <p ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
                                 Using AngularJS you can access PertChartView component using <em>ds:pert-chart</em> directive and preparing the appropriate $scope fields (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
@@ -3354,7 +3394,7 @@ DlhSoft.Controls.PertChartView.initialize(pertChartView, items, settings);
                             </pre>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
 <code class="language-javascript" ng-non-bindable>
-var pertChartView = DlhSoft.Controls.LoadChartView.initialize(pertChartViewElement, items, settings);
+var pertChartView = DlhSoft.Controls.PertChartView.initialize(pertChartViewElement, items, settings);
 </code>
                             </pre>
                             <p>The initialized control element provides the following API:</p>
@@ -3413,10 +3453,967 @@ pertChartView.print({ title: "PERT Chart" });
             </section>
         </div>
         <div ng-show="isInitializing || selectedFile == 'Network diagram'">
-            NDV
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>NetworkDiagramView reference</h2>
+                            <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+                                The control container element can be retrieved using a querySelector method call:
+                            </p>
+                            <div class="code-snippet">
+                                <pre ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+<code class="language-markup" ng-non-bindable>
+&lt;body&gt;
+  &lt;div id="networkDiagramView"&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+<code class="language-javascript" ng-non-bindable>
+var networkDiagramView = document.querySelector('#networkDiagramView'); 
+</code>
+                                </pre>
+                                <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="TypeScript (language-javascript)" ng-non-bindable>
+var networkDiagramViewElement = document.querySelector('#networkDiagramView'); 
+</code>
+                                </pre>
+                            </div>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
+                                Using AngularJS you can access NetworkDiagramView component using <em>ds:network-diagram</em> directive and preparing the appropriate $scope fields (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
+<code class="language-javascript" ng-non-bindable>
+&lt;ds:network-diagram id="networkDiagramView"
+                    items="items" settings="settings"
+                    change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
+                    style="min-height: 240px"&gt;
+&lt;/ds:network-diagram&gt;
+</code>
+                            </pre>
+                            <h3>Data items</h3>
+                            <p>The task items that may be presented within <em>NetworkDiagramView</em> control should provide these properties:</p>
+                            <ul>
+                                <li><em>content</em>: The object that is displayed to represent the task item in task shape tool tips, usually the full task name and path;</li>
+                                <li><em>displayedText</em>: The object that is displayed to represent the task item in the task shape, usually a short task name or identifier;</li>
+                                <li><em>effort</em>, <em>earlyStart</em>, <em>earlyfinish</em>, <em>lateState</em>, <em>lateFinish</em>;</li>
+                                <li><em>isMilestone</em>: A milestone task is displayed in the Network Diagram view using a supplemental task shape template;</li>
+                                <li><em>slack</em>;</li>
+                                <li><em>isRelativeToTimezone</em>: Indicates whether <em>{early|Late}{Start|Finish}</em> values are configured as local timezone based values (true by default); it gets set to false upon component initialization as date and times are converted to UTC values internally; set it back to true if you reinitialize the properties and refresh the component; to read the timing values externally, you may use <em>getOutputDate</em> method of the component;</li>
+                                <li><em>isShapeVisible</em>: Indicates whether the task shape is displayed in the diagram area for this item;</li>
+                                <li><em>displayRowIndex</em>, <em>displayColumnIndex</em>: Indicates the row and column indexex to display the task that at within the diagram; by default they are not defined, and the row and column indexes are computed at runtime based on its collection position and dependencies;</li>
+                                <li><em>shapeClass</em>, <em>milestoneClass</em>, <em>shapeStyle</em>, <em>milestoneStyle</em>: CSS classes and/or inline styles to apply to the task shapes and milestone supplemental shapes when they are presented in the diagram for this item;</li>
+                                <li><em>taskTemplate</em>: Optional function that returns the output (SVG node) for the task shape to be presented in the diagram for this item, overriding the control settings;</li>
+                                <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the diagram for this item (usually a tool tip), overriding the control settings;</li>
+                                <li>
+                                    <em>predecessors</em>: The predecessors collection defines predecessor items (objects) referring the task items that the current item depends of, and having the relations displayed in the Network Diagram view as dependency lines; the predecessor item properties are presented below:
+                                    <ul>
+                                        <li><em>item</em>: Task item that precedes the owner of the predecessor item (the item that the current item depends of);</li>
+                                        <li><em>dependencyLineClass</em>, <em>dependencyLineStyle</em>: CSS class and/or inline style to apply to the dependency line to be presented in the diagram for this predecessor item;</li>
+                                        <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the diagram for this predecessor item (usually a tool tip), overriding the control settings.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p>You may obtain network task items directly from GanttChartView component instances:</p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var networkDiagramItems = ganttChartView.getNetworkDiagramItems();
+</code>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Settings</h2>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>target</em>: Name of the target to generically apply to the control; <em>Standard</em>, and <em>Phone</em> targets are supported; by default it is Standard:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.target = 'Phone';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em>, <em>ModernBordered</em>, and <em>Aero</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Aero';
+</code>
+                                    </pre>
+                                    <div class='code'>
+                                    </div>
+                                </li>
+                                <li>
+                                    <em>border</em>: Color for the border to be presented around the main content container within the control; the border type is set to solid and its width is set to 1px by design (they are fixed values); by default it is gray:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.border = 'Blue';
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>containerClass</em>, <em>containerStyle</em>: CSS class and/or inline style to apply to the main content container within the control;</li>
+                                <li>
+                                    <em>canUserRearrangeItems</em>: Indicates whether the user can change the canvas positions of task items in the control by drag and drop operations (by default it is set to true):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.canUserRearrangeItems = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>snapRearrangedItemsToGuidelines</em>: Indicates whether the task item shapes are snapping to row and column based guidelines in the control during drag and drop based rearrange operations (by default it is set to true):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.snapRearrangedItemsToGuidelines = false;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>itemWidth</em>, <em>itemHeight</em>: Width and height values shared by all item columns and rows within the control (diagram item areas); by default they are set to 220 and 100, respectively;</li>
+                                <li><em>aspectRatio</em>: The aspect ratio of the diagram, indicating the rate between horizontal and vertical item layout positioning;</li>
+                                <li><em>shapeWidth</em>, <em>shapeHeight</em>: column width and row height of any shape presented in the diagram; by default they are set to 212 and 92, respectively;</li>
+                                <li><em>minDependencyLineLength</em>: The minimum length of the dependency lines displayed in the diagram at initialization time; by default it is set to 48;</li>
+                                <li>
+                                    <em>diagramMargin</em>: The margin to preserve around the diagram; by default it is set to 16:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.diagramMargin = 4;
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>styleDefinitionTemplate</em>: Function that returns SVG definitions (node) to be used in standard and milestone style and template definitions (see below); by default, they include these items: <em>BlueGradient</em>, <em>BlackGradient</em>, <em>ArrowMarker</em>:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.styleDefinitionTemplate = function () {
+    var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    var arrowMarker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    arrowMarker.setAttribute('id', 'ArrowMarker');
+    arrowMarker.setAttribute('viewBox', '0 0 10 10');
+    arrowMarker.setAttribute('refX', '0');
+    arrowMarker.setAttribute('refY', '5');
+    arrowMarker.setAttribute('markerUnits', 'strokeWidth');
+    arrowMarker.setAttribute('markerWidth', '5');
+    arrowMarker.setAttribute('markerHeight', '4');
+    arrowMarker.setAttribute('orient', 'auto');
+    var arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    arrowPath.setAttribute('fill', 'LightGreen');
+    arrowPath.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
+    arrowMarker.appendChild(arrowPath);
+    defs.appendChild(arrowMarker);
+    return defs;
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>shapeClass</em>, <em>milestoneClass</em>, <em>shapeStyle</em>, <em>milestoneStyle</em>: CSS classes and/or inline styles to apply to the shapes and milestones in the diagram:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.shapeStyle     = 'stroke: Green; fill: LightYellow';
+settings.milestoneStyle = 'stroke: DarkGreen; fill: Yellow';
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>temporaryThumbClass</em>, <em>temporaryThumbStyle</em>: CSS classes and/or inline styles to apply to the temporary shapes displayed during drag and drop operations performed within the diagram;</li>
+                                <li>
+                                    <em>dependencyLineClass</em>, <em>dependencyLineStyle</em>: CSS class and/or inline style to apply to polylines displayed between dependent task shapes in the diagram:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dependencyLineStyle = 'stroke: LightGreen; fill: none; marker-end: url(#ArrowMarker)';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>taskTemplate</em>: Function that returns the output (SVG node) for task shapes to be presented in the diagram for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+var originalTaskTemplate = DlhSoft.Controls.NetworkDiagramView.getDefaultTaskTemplate(items, networkDiagramView, settings);
+settings.taskTemplate = function (item) {
+    var document = item.networkDiagramView.ownerDocument;
+    var svgGroup = originalTaskTemplate(item);
+    if (item.content.indexOf('Task 2.') == 0) {
+        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', 0);
+        rect.setAttribute('y', 0);
+        rect.setAttribute('width', settings.shapeWidth);
+        rect.setAttribute('height', settings.shapeHeight);
+        rect.setAttribute('style', 'stroke: Red; fill: Transparent');
+        svgGroup.insertBefore(rect, svgGroup.childNodes[0]);
+    }
+    return svgGroup;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>extraTaskTemplate</em>: Optional function that returns supplemental output (SVG node) to display on top of task shapes to be presented in the diagram for a specific item received as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.extraTaskTemplate = function (item) {
+    var document = item.networkDiagramView.ownerDocument;
+    var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', 0);
+    rect.setAttribute('y', 0);
+    rect.setAttribute('width', 12);
+    rect.setAttribute('height', 12);
+    rect.setAttribute('style', 'stroke: Blue; fill: LightBlue');
+    return rect;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isTaskToolTipVisible</em>: Determines whether task shape tool tips are presented;</li>
+                                <li>
+                                    <em>itemTemplate</em>: Function that returns the output (SVG node) to presented in the diagram for a specific item received as parameter (usually a tool tip):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.itemTemplate = function (item) {
+    var document = item.networkDiagramView.ownerDocument;
+    var toolTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    var toolTipContent = item.content + ' • ' + 'Early start: ' + item.earlyStart.toLocaleString();
+    if (!item.isMilestone)
+        toolTipContent += ' • ' + 'Late finish: ' + item.lateFinish.toLocaleString();
+    toolTip.appendChild(document.createTextNode(toolTipContent));
+    return toolTip;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>dependencyLineTemplate</em>: Function that returns the output (SVG node) for dependency polyline representing predecessor information in the diagram for an item and a specific predecessor item received as parameters;</li>
+                                <li><em>isDependencyToolTipVisible</em>: Determines whether dependency line tool tips are presented;</li>
+                                <li>
+                                    <em>predecessorItemTemplate</em>: Function that returns the output (SVG node) to presented in the diagram for an item and a specific predecessor item received as parameters (usually a tool tip):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.predecessorItemTemplate = function (item, predecessorItem) {
+    var document = item.networkDiagramView.ownerDocument;
+    var toolTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+    var toolTipContent = predecessorItem.item.displayedText + ' → ' + item.displayedText;
+    toolTip.appendChild(document.createTextNode(toolTipContent));
+    return toolTip;
+};
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>dateTimeFormatter(dateTime): text</em>, <em>timeSpanFormatter(timeSpan): text</em>: Functions that accept date and time span parameters and return text values, used to convert date or date and time and time span values (received in milliseconds) to text values whenever needed within the control; the functions may be provided by the developer for further customization and/or localization purposes; by default they are initialized to a set of internally defined functions that consider culture invariant date and time and time span formatting: <em>MM/dd/yyyy HH:mm</em> (space character is used to separate the values on two rows internally), <em>{Number}h</em> (the value is shown in hours):
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dateTimeFormatter = function (dateTime) { return dateTime.toString(); };
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>itemPropertyChangeHandler(item, propertyName, isDirect, isFinal)</em>: Function called whenever item properties change within the control, providing the changed item, relevant property name, and Boolean values indicating whether this change was directly triggered by the user, and whether this is the final change in a periodic operation such as a drag and drop action, specified as parameters; a custom function may be provided by the developer in order to receive notifications whenever data changes occur within the control:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isFinal) {
+    if (isDirect && isFinal)
+        alert(item.displayedText + '.' + propertyName + ' changed.');
+}
+</code>
+                                    </pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Operations</h2>
+                            <p>The following static APIs are available at settings initialization time, prefixed by <em>DlhSoft.Controls.Pert.NetworkDiagramView</em> namespace:</p>
+                            <ul>
+                                <li><em>getDefaultStyleDefinitionTemplate(controlElement, settings)</em>: Returns a function that provides common SVG definitions that may be used in template methods for task and dependency line styles specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultTaskTemplate(items, controlElement, settings)</em>: Returns a function that provides the original template for task shapes in the diagram area, based on the item received as parameter; developers can access it to retreive SVG content to be further adorned in the <em>taskTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultItemTemplate(settings)</em>: Returns a function that provides the original template for task items, usually presented as tool tips when hovering task shapes in the diagram area, based on the item received as parameter; developers can access it to retreive SVG content to be further adorned in the <em>itemTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultDependencyLineTemplate(items, settings)</em>: Returns a function that provides the original template for the dependency lines presented in the diagram area, based on the item and predecessor item received as parameters; developers can access it to retreive SVG content to be further adorned in the <em>dependencyLineTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>getDefaultPredecessorItemTemplate(settings)</em>: Returns a function that provides the original template for predecessor items representing task dependencies, usually presented as tool tips when hovering dependency lines in the diagram area, based on the item and predecessor item received as parameters; developers can access it to retreive SVG content to be further adorned in the <em>predecessorItemTemplate</em> function specified in the control settings used at initialization time;</li>
+                                <li><em>initializeTaskDraggingThumbs(thumb, item, itemLeft, itemTop)</em>: Inside task template functions, sets up task drag and drop behavior for the non-null SVG element specified to be designed as thumb, considering the specified item and item positioning in the diagram;</li>
+                                <li><em>defaultDateTimeFormatter(date)</em>, <em>defaultTimeSpanFormatter(timeSpan)</em>: Default date time and time span formatter implementations, returning texts representing the specified date and a time using month, day, year, and hour and minute time parts, or time span value received in milliseconds and converted to hours;</li>
+                                <li><em>getInputDate(date)</em>, <em>getOutputDate(date)</em>: Prepares the specified date values to be used for component method input or method result or field output, considering that after initialization the component uses UTC date and time values internally; these methods may also be called using a component instance object.</li>
+                            </ul>
+                            <h3>Component instance</h3>
+                            <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+<code class="language-javascript" ng-non-bindable>
+DlhSoft.Controls.NetworkDiagramView.initialize(networkDiagramView, items, settings);
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="language-javascript" ng-non-bindable>
+var networkDiagramView = DlhSoft.Controls.NetworkDiagramView.initialize(networkDiagramViewElement, items, settings);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>items</em>: Provides access to the Network Diagram items displayed by the control;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refresh()</em>: Updates the user interface considering all external item and settings changes;</li>
+                                <li>
+                                    <em>refreshItems()</em>, <em>refreshItem(item)</em>, <em>refreshPredecessorItems(item)</em>, <em>refreshItemGraph(item)</em>: Update the item(s), predecessor items, or dependency graph within the diagram area, considering all external changes on the specified item and related predecessor and successor items:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+item.shapeStyle = 'stroke: Red; fill: LightYellow';
+networkDiagramView.refreshItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>scrollToItem(item)</em>: Scrolls the diagram area horizontally and/or vertically to display the specified item in the viewport:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+item.displayedText = 'Changed displayed text';
+networkDiagramView.refreshItem(item);
+networkDiagramView.scrollToItem(item);
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>scrollToLeft()</em>, <em>scrollToTop()</em>, <em>scrollToRight()</em>, <em>scrollToBottom()</em>: Scroll the diagram area vertically or horizontally to the left, top, right, or bottom of the presentation content;</li>
+                                <li><em>getChartWidth()</em>, <em>getChartHeight()</em>: Return the actual width and height of the diagram area;</li>
+                                <li><em>getItemLeft(item)</em>, <em>getItemTop(item)</em>: Return the left X and top Y coordinates of a specific item in the diagram area;</li>
+                                <li><em>onItemPropertyChanged(item, propertyName, isDirect, isFinal)</em>: Calls itemPropertyChangeHandler function specified within the settings collection using the specified item, property name, and Boolean indicators for direct user actions and completed actions as arguments;</li>
+                                <li>
+                                    <em>exportContent(exportSettings, output)</em>, <em>print(exportSettings)</em>: Exports or prints the content to a specified output document, window or target or using a temporary document and window; supported export setting properties are:
+                                    <ul>
+                                        <li><em>title</em>: The title of the output or temporary window to set up;</li>
+                                        <li><em>preparingMessage</em>: The temporary message to be displayed in the output window while the asynchronous export operation is in progress;</li>
+                                        <li><em>rotate</em>: Determines whether to rotate the exported content in the output document to simulate landscape printing;</li>
+                                        <li><em>autoClose</em>: Determines whether to automatically close the temporary export output window generated for printing when the operation is completed:</li>
+                                    </ul>
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+networkDiagramView.print({ title: "Network Diagram" });
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isItemCritical(item)</em>, <em>getCriticalItems()</em>, <em>isDependencyCritical(predecessorItem)</em>, <em>getCriticalDependencies()</em>: Determine whether a specific item is critical and the list of items that are part of the critical path, or whether a specific predecessor item is critical and the list of predecessor items that are part of the critical path, considering PERT rules;</li>
+                                <li><em>repositionEnds()</em>: Updates the vertical position of start and finish nodes, assuming they are the first and the last items in the collection, to the first or between the first and second row in the view (when there is at least one item with two or more successors in the collection);</li>
+                                <li><em>isInitializing</em>, <em>isInitialized</em>: Verify that the component instance is currently initializing asynchronously, or that it has been successfully initialized.</li>
+                            </ul>
+                            <p>The initialized item objects provide the following API, as a supplement to the coerced and validated original properties:</p>
+                            <ul>
+                                <li><em>actualRowIndex</em>, <em>actualColumnIndex</em>: The actual row and column indexes of the item in the diagram.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <div ng-show="isInitializing || selectedFile == 'More'">
-            More
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Calendar</h2>
+                            <p>
+                                <em>Calendar</em> control is used to present a date value as a selected item in a month calendar.
+                                The selected date value must be of <em>Date</em> type (the time of day of the <em>Date</em> object is ignored):
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var selectedDate = new Date();
+</code>
+                            </pre>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em> and <em>Standard</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Standard';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>isReadOnly</em>: Indicates whether the control is read only:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isReadOnly = true;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>displayedDate</em>: <em>Date</em> object that indicates the month to be displayed (day and time of day values are ignored); by default it is set to the current date;</li>
+                                <li><em>isTodayLinkVisible</em>: Indicates whether a Today link that would change the displayed month to the current date when clicked is visible at the bottom of the control; by default it is set to false;</li>
+                                <li>
+                                    <em>defaultTimeOfDay</em>: A numeric value indicating milliseconds since midnight that would to be set as the time of day to the selected date value when it is changed by the end user by clicking a specific day or the Today link available within the displayed month calendar:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.defaultTimeOfDay = 8 * 60 * 60 * 1000; // 8 AM
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>containerClass</em>, <em>containerStyle</em>: CSS class and/or inline style to apply to the table representing the month calendar within the control;</li>
+                                <li><em>monthYearHeaderClass</em>, <em>monthYearHeaderStyle</em>, <em>dayOfWeekHeaderClass</em>, <em>dayOfWeekHeaderStyle</em>, <em>dayClass</em>, <em>dayStyle</em>, <em>todayLinkClass</em>, <em>todayLinkStyle</em>: CSS classes and/or inline styles to apply to the inner elements of the month calendar within the control;</li>
+                                <li><em>otherMonthDayClass</em>, <em>otherMonthDayStyle</em>: CSS class and/or inline style to supplementary apply to day items in the previous or next months (before and after the currently displayed month) in the control;</li>
+                                <li><em>selectedDayClass</em>, <em>selectedDayStyle</em>: CSS class and/or inline style to supplementary apply to the currently selected day in the month calendar of the control;</li>
+                                <li>
+                                    <em>months</em>, <em>daysOfWeek</em>: Names of the months and of the days of the week to use at presentation time:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.months     = [ 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12' ];
+settings.daysOfWeek = [ 'D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6' ];
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>todayString</em>: The text of the Today link; by default it is set to English "Today";</li>
+                                <li><em>displayedDateChangeHandler(displayedDate)</em>: Function called whenever the displayed month is changed in the control, providing the selected date value that triggered the change, or the first or last day of the next or previous month when the month changed from the previous or next month internal buttons, specified as parameter;</li>
+                                <li>
+                                    <em>selectedDateChangeHandler(selectedDate)</em>: Function called whenever the selected date changes within the control, providing the changed value specified as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.selectedDateChangeHandler = function (selectedDate) {
+    alert('Selected date changed to ' + selectedDate.toDateString() + '.');
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>monthRows</em>, <em>monthColumns</em>: Indicate how many month rows and columns are displayed; by default their values are set to 1; when set to values higher than 1, some component features may be disabled, tough:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.monthRows    = 4;
+settings.monthColumns = 3;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>monthCellSpacing</em>, <em>monthCellClass</em>, <em>monthCellStyle</em>, <em>applyMonthStyleForSingleCell</em>, <em>applyNextMonthButtonToLastColumn</em>, <em>applyNextMonthButtonToLastRow</em>: Establish further settings for calendar month cells displayed in the view;</li>
+                                <li>
+                                    <em>disabledDateSelector(date)</em>: Function called for each displayed date to determine whether it should be disabled in the view;
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.disabledDateSelector = function(date) { return date.getDay() == 6; }
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>disabledDayClass</em>, <em>disabledDayStyle</em>: Allow customizing the user interface for disabled days in the view;</li>
+                                <li><em>minValue</em>: The minimum date that the control may navigate to and select;</li>
+                                <li><em>highlightingClassSelector(date)</em>, <em>highlightingStyleSelector(date)</em>: Functions called for each displayed date to determine the CSS class and style to apply to its element in the view;</li>
+                                <li>
+                                    <em>allowMultipleSelection</em>, <em>allowRangeSelection</em>: Indicate whether the control allows multiple date selection and/or date range selection:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.allowMultipleSelection = true;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>selectionChangedHandler()</em>: Function called when there is any change in the selected dates array;</li>
+                                <li>
+                                    <em>calendarSelectorLevels</em>: Indicates the number of supplemental calendar selector levels to display when clicking calendar headers; supported values: 1: month; 2: + year; 3: + decade:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+// Display month selector level, showing the current year and allowing selecting another month when clicking the month header in the view:
+// Setting a value of 2 or 3 would also display second and/or third year and decade selector levels, showing the current decade or century 
+// and allowing selecting another year or decade when clicking on the year or decade header in the month or year view.
+settings.calendarSelectorLevels = 1;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>calendarSelectorPopupClass</em>, <em>calendarSelectorPopupStyles</em>: Popup CSS class and style to apply when displaying supplemental calendar selectors.</li>
+                            </ul>
+                            <p>
+                                The component may be initialized using an <em>initialize</em> method call, and could also be obtained later using a <em>get</em> method call;
+                                <em>calendarElement</em> host may be a <em>span</em> or <em>div</em> element of the HTML document:
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var calendar = DlhSoft.Controls.Calendar.initialize(calendarElement, selectedDate, settings);
+var calendar = DlhSoft.Controls.Calendar.get(calendarElement);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>selectedDate</em>: Provides access to the currently selected date in the control;</li>
+                                <li><em>selectedDates</em>, <em>selectedDateRange</em>, <em>selectedDateRanges</em>: Provides access to the currently selected dates array and/or selected date range(s) in the control, when <em>allowMultipleSelection</em> or <em>allowRangeSelection</em> settings are set to true;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refresh()</em>: Updates the user interface considering all external selected date and settings changes;</li>
+                                <li><em>getValue(): selectedDate</em>, <em>setValue(selectedDate)</em>: Get and set the selected date in the control;</li>
+                                <li><em>getValues(): value[]</em>, <em>setValues(value[])</em>, <em>getValueRange(): { start, finish }</em>, <em>setValueRange({ start, finish })</em>, <em>getValueRanges(): { start, finish }[]</em>, <em>setValueRanges({ start, finish }[])</em>: Get and set the date value array or date range(s) in the control, when <em>allowMultipleSelection</em> or <em>allowRangeSelection</em> settings are set to true;</li>
+                                <li><em>isValueSelected(date)</em>: Determines whether the specified date is selected in the control, useful when <em>allowMultipleSelection</em> or <em>allowRangeSelection</em> settings are set to true;</li>
+                                <li><em>invertValueSelection(date)</em>: Inverts the selection state for the specified date is selected in the control, useful when <em>allowMultipleSelection</em> setting is set to true;</li>
+                                <li><em>setDisplayedValue(displayedDate)</em>: Sets the displayed date in the control, indicating the first displayed month in the view;</li>
+                                <li><em>isInitialized</em>: Verifies that the component instance has been successfully initialized.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>DatePicker</h2>
+                            <p>
+                                <em>DatePicker</em> control is used to present and select a date value using a month calendar displayed upon focusing its input element or when clicking an associated drop down button.
+                                The value must be of <em>Date</em> type (the time of day of the <em>Date</em> object is ignored):
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var value = new Date();
+</code>
+                            </pre>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em> and <em>Standard</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Standard';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>isReadOnly</em>: Indicates whether the control is read only:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isReadOnly = true;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isNullValueAccepted</em>: Indicates whether an undefined or null value is accepted and represented as an empty string in the input element of the control;</li>
+                                <li><em>isDropDownButtonVisible</em>: Indicates whether a drop down button is appended to the user interface to the right side of the input element of the control; by default it is set to false;</li>
+                                <li><em>dropDownButtonDefinition</em>: Provides HTML to define the drop down button displayed by the control when <em>isDropDownButtonVisible</em> is set to true; by default it is set to an inline SVG image representing a calendar;</li>
+                                <li><em>displayedDate</em>: <em>Date</em> object that indicates the month to be displayed in the calendar (day and time of day values are ignored); by default it is set to the current date;</li>
+                                <li><em>isTodayLinkVisible</em>: Indicates whether a Today link that would change the displayed month to the current date when clicked is visible at the bottom of the calendar of the control; by default it is set to true;</li>
+                                <li>
+                                    <em>defaultTimeOfDay</em>: A numeric value indicating milliseconds since midnight that would to be set as the time of day to the selected date value when it is changed by the end user by clicking a specific day or the Today link available within the displayed month calendar:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.defaultTimeOfDay = 8 * 60 * 60 * 1000; // 8 AM
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>inputClass</em>, <em>inputStyle</em>: CSS class and/or inline style to apply to the input element managing the date value within the control;</li>
+                                <li><em>popupClass</em>, <em>popupStyle</em>: CSS class and/or inline style to apply to the popup element displaying the month calendar within the control, when visible;</li>
+                                <li><em>monthYearHeaderClass</em>, <em>monthYearHeaderStyle</em>, <em>dayOfWeekHeaderClass</em>, <em>dayOfWeekHeaderStyle</em>, <em>dayClass</em>, <em>dayStyle</em>, <em>todayLinkClass</em>, <em>todayLinkStyle</em>: CSS classes and/or inline styles to apply to the inner elements of the month calendar within the control;</li>
+                                <li><em>otherMonthDayClass</em>, <em>otherMonthDayStyle</em>: CSS class and/or inline style to supplementary apply to day items in the previous or next months (before and after the currently displayed month) in the control;</li>
+                                <li><em>selectedDayClass</em>, <em>selectedDayStyle</em>: CSS class and/or inline style to supplementary apply to the currently selected day in the month calendar of the control;</li>
+                                <li>
+                                    <em>months</em>, <em>daysOfWeek</em>: Names of the months and of the days of the week to use at presentation time:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.months     = [ 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12' ];
+settings.daysOfWeek = [ 'D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6' ];
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>todayString</em>: The text of the Today link; by default it is set to English "Today";</li>
+                                <li>
+                                    <em>dateTimeFormatter(dateTime): text</em>, <em>dateTimeParser(text): dateTime</em>: Functions that accept date or text parameters and return text or date values, used to convert date and time values to text values, and to parse text values as date and time values whenever needed within the control; the functions may be provided by the developer for further customization and/or localization purposes; by default they are initialized to a set of internally defined functions that consider a culture invariant date and time formatting: <em>MM/dd/yyyy HH:mm</em>:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.dateTimeFormatter = function (dateTime) { return dateTime.toString(); };
+settings.dateTimeParser    = function (text)     { return new Date(text); };
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>displayedDateChangeHandler(displayedDate)</em>, <em>selectedDateChangeHandler(selectedDate)</em>: Functions called whenever the displayed month or selected date are changed in the month calendar of the control, when visible, providing the selected date value that triggered the change, or the first or last day of the next or previous month when the month changed from the previous or next month internal buttons, specified as parameter;</li>
+                                <li><em>dropDownOpenedHandler()</em>, <em>dropDownClosedHandler()</em>: Functions called whenever the drop down is opened (popup element shown) or closed (popup element hidden) in the control;</li>
+                                <li>
+                                    <em>valueChangeHandler(value)</em>: Function called whenever the date value changes within the control, providing it specified as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.valueChangeHandler = function (value) {
+    alert('Value changed to ' + value.toDateString() + '.');
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>monthRows</em>, <em>monthColumns</em>: Indicate how many month rows and columns are displayed; by default their values are set to 1; when set to values higher than 1, some component features may be disabled, tough:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.monthRows    = 4;
+settings.monthColumns = 3;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>monthCellSpacing</em>, <em>monthCellClass</em>, <em>monthCellStyle</em>, <em>applyMonthStyleForSingleCell</em>, <em>applyNextMonthButtonToLastColumn</em>, <em>applyNextMonthButtonToLastRow</em>: Establish further settings for calendar month cells displayed in the view;</li>
+                                <li>
+                                    <em>disabledDateSelector(date)</em>: Function called for each displayed date to determine whether it should be disabled in the view;
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.disabledDateSelector = function(date) { return date.getDay() == 6; }
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>disabledDayClass</em>, <em>disabledDayStyle</em>: Allow customizing the user interface for disabled days in the view;</li>
+                                <li><em>minValue</em>: The minimum date that the control may navigate to and select;</li>
+                                <li><em>highlightingClassSelector(date)</em>, <em>highlightingStyleSelector(date)</em>: Functions called for each displayed date to determine the CSS class and style to apply to its element in the view;</li>
+                                <li><em>openDropDownOnInputClick</em>: Indicates whether the drop down should open when clicking inside the input element (and no value change has occured since focusing);</li>
+                                <li>
+                                    <em>calendarSelectorLevels</em>: Indicates the number of supplemental calendar selector levels to display when clicking calendar headers; supported values: 1: month; 2: + year; 3: + decade:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+// Display month and year selector levels, showing the current year or decade
+// and allowing selecting another month or year when clicking the month or year header in the views:
+// Setting a value of 3 would also display a third decade selector level, showing the current century 
+// and allowing selecting another decade when clicking on the decade header in the year view.
+settings.calendarSelectorLevels = 2;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>calendarSelectorPopupClass</em>, <em>calendarSelectorPopupStyles</em>: Popup CSS class and style to apply when displaying supplemental calendar selectors; by default, the values defined by <em>popupClass</em> and <em>popupStyle</em> are used.</li>
+                            </ul>
+                            <p>
+                                The component may be initialized using an <em>initialize</em> method call, and could also be obtained later using a <em>get</em> method call;
+                                <em>datePickerElement</em> host may be a <em>span</em>, <em>div</em>, or <em>input</em> element of the HTML document:
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var datePicker = DlhSoft.Controls.DatePicker.initialize(datePickerElement, value, settings);
+var datePicker = DlhSoft.Controls.DatePicker.get(datePickerElement);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>value</em>: Provides access to the current value of the control;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refresh()</em>, <em>refreshValue()</em>: Update the entire user interface or specific features of the user interface considering all external date value and settings changes;</li>
+                                <li><em>getValue(): value</em>, <em>setValue(value)</em>: Get and set the date value of the control;</li>
+                                <li><em>setDisplayedValue(displayedDate)</em>: Sets the displayed date in the control, indicating the first displayed month in the view;</li>
+                                <li><em>isOpen</em>: Provides access to a value indicating whether the drop down is opened (popup element is shown) in the control;</li>
+                                <li><em>openDropDown()</em>, <em>closeDropDown()</em>: Open and set the drop down (popup element) of the control;</li>
+                                <li><em>isInitialized</em>: Verifies that the component instance has been successfully initialized.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>TimePicker</h2>
+                            <p>
+                                <em>TimePicker</em> control is used to present and select a time of day value using a calendar day time sheet displayed upon focusing its input element or when clicking an associated drop down button.
+                                The value must be of <em>number</em> type (in milliseconds since midnight of the day):
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var value = 14 * 60 * 60 * 1000; // 2 PM
+</code>
+                            </pre>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em> and <em>Standard</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Standard';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>isReadOnly</em>: Indicates whether the control is read only:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isReadOnly = true;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isNullValueAccepted</em>: Indicates whether an undefined or null value is accepted and represented as an empty string in the input element of the control;</li>
+                                <li><em>isDropDownButtonVisible</em>: Indicates whether a drop down button is appended to the user interface to the right side of the input element of the control; by default it is set to false;</li>
+                                <li><em>dropDownButtonDefinition</em>: Provides HTML to define the drop down button displayed by the control when <em>isDropDownButtonVisible</em> is set to true; by default it is set to an inline SVG image representing a clock;</li>
+                                <li><em>header</em>, <em>isHeaderVisible</em>: The displayed header text and its visibility setting;</li>
+                                <li><em>isNowLinkVisible</em>: Indicates whether a Now link that would change the displayed month to the current time when clicked is visible at the bottom of the calendar day time sheet of the control; by default it is set to true;</li>
+                                <li><em>defaultPrefix</em>: An optional displayed prefix text for the input value, such as a string representing a date; the prefix is separated from the time value by a space (last space within the value string);</li>
+                                <li><em>inputClass</em>, <em>inputStyle</em>: CSS class and/or inline style to apply to the input element managing the time value within the control;</li>
+                                <li><em>popupClass</em>, <em>popupStyle</em>: CSS class and/or inline style to apply to the popup element displaying the calendar day time sheet within the control, when visible;</li>
+                                <li><em>headerClass</em>, <em>headerStyle</em>, <em>timeClass</em>, <em>timeStyle</em>, <em>nowLinkClass</em>, <em>nowLinkStyle</em>: CSS classes and/or inline styles to apply to the inner elements of the calendar day time sheet within the control;</li>
+                                <li><em>selectedTimeClass</em>, <em>selectedTimeStyle</em>: CSS class and/or inline style to supplementary apply to the currently selected time in the calendar day time sheet of the control;</li>
+                                <li><em>nowString</em>: The text of the Now link; by default it is set to English "Now";</li>
+                                <li><em>timeFormatter(time): text</em>, <em>timeParser(text): time</em>: Functions that accept time numbers (in milliseconds) or text parameters and return text or time number (in milliseconds) values, used to convert time values to text values, and to parse text values as time values whenever needed within the control; the functions may be provided by the developer for further customization and/or localization purposes; by default they are initialized to a set of internally defined functions that consider a culture invariant date and time formatting: <em>HH:mm</em>;</li>
+                                <li><em>dropDownOpenedHandler()</em>, <em>dropDownClosedHandler()</em>: Functions called whenever the drop down is opened (popup element shown) or closed (popup element hidden) in the control;</li>
+                                <li>
+                                    <em>valueChangeHandler(value)</em>: Function called whenever the time value changes within the control, providing it specified as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.valueChangeHandler = function (value) {
+    alert('Value changed to ' + value + ' (milliseconds).');
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>hourDivisions</em>: Indicates the number of times to display for each hour of the day; by default it is set to 2, displaying :00 and :30 minute times of each hour:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.hourDivisions = 4; // Display quarters.
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>hourColumns</em>: Indicates the number of columns to display for the shown times of day; by default it is set to 4, displaying these time of day intervals: 0 - 6, 6 - 12, 12 - 18, 18 - 24:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.hourColumns = 2; // Display AM and PM hours side by side.
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>scrollingHeight</em>: Specifies the maximum height to use for the time sheet before enabling scrolling; by default it is set to auto, but if you use a large value for <em>hourDivisions</em> and/or a low value for <em>hourColumns</em> you may want to set it to an appropriate value:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.scrollingHeight = '160px'; // Enable scrolling.
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>disabledTimeSelector(time)</em>: Function called for each displayed time to determine whether it should be disabled in the view;
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.disabledTimeSelector = function(time) { return time < 5 * 60 * 60 * 1000; } // 5 AM
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>disabledTimeClass</em>, <em>disabledTimeStyle</em>: Allow customizing the user interface for disabled times in the view;</li>
+                                <li><em>highlightingClassSelector(date)</em>, <em>highlightingStyleSelector(date)</em>: Functions called for each displayed time to determine the CSS class and style to apply to its element in the view;</li>
+                                <li><em>openDropDownOnInputClick</em>: Indicates whether the drop down should open when clicking inside the input element (and no value change has occured since focusing).</li>
+                            </ul>
+                            <p>
+                                The component may be initialized using an <em>initialize</em> method call, and could also be obtained later using a <em>get</em> method call;
+                                <em>timePickerElement</em> host may be a <em>span</em>, <em>div</em>, or <em>input</em> element of the HTML document:
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var timePicker = DlhSoft.Controls.TimePicker.initialize(timePickerElement, value, settings);
+var timePicker = DlhSoft.Controls.TimePicker.get(timePickerElement);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>value</em>: Provides access to the current value of the control;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refresh()</em>, <em>refreshValue()</em>: Update the entire user interface or specific features of the user interface considering all external time value and settings changes;</li>
+                                <li><em>getValue(): value</em>, <em>setValue(value)</em>: Get and set the time value of the control (in milliseconds since midnight);</li>
+                                <li><em>isOpen</em>: Provides access to a value indicating whether the drop down is opened (popup element is shown) in the control;</li>
+                                <li><em>openDropDown()</em>, <em>closeDropDown()</em>: Open and set the drop down (popup element) of the control;</li>
+                                <li><em>isInitialized</em>: Verifies that the component instance has been successfully initialized.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>DateTimePicker</h2>
+                            <p>
+                                <em>DateTimePicker</em> control is used to present and select a date and time value using a month calendar displayed upon focusing its input element or when clicking on the date part of the value, and using a calendar day time sheet displaying upon cliking the input element on the time part of the value, or when clicking two associated drop down buttons.
+                                It is an extension for and licensed as a <em>DatePicker</em> control.
+                                The value must be of <em>Date</em> type:
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var value = new Date();
+</code>
+                            </pre>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em> and <em>Standard</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Standard';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>isReadOnly</em>: Indicates whether the control is read only:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isReadOnly = true;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>isNullValueAccepted</em>: Indicates whether an undefined or null value is accepted and represented as an empty string in the input element of the control;</li>
+                                <li><em>areDropDownButtonsVisible</em>: Indicates whether drop down buttons are appended to the user interface to the right side of the input element of the control; by default it is set to false;</li>
+                                <li><em>areCurrentLinksVisible</em>: Indicates whether Today and Now links are visible at the bottom of the month calendar or calendar day time sheet of the control; by default it is set to true;</li>
+                                <li>
+                                    <em>defaultTimeOfDay</em>: A numeric value indicating milliseconds since midnight that would to be set as the time of day to the selected date value when it is changed by the end user by clicking a specific day or the Today link available within the displayed month calendar:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.defaultTimeOfDay = 8 * 60 * 60 * 1000; // 8 AM
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>inputClass</em>, <em>inputStyle</em>: CSS class and/or inline style to apply to the input element managing the date and time value within the control;</li>
+                                <li><em>popupClass</em>, <em>popupStyle</em>: CSS class and/or inline style to apply to the popup elements displaying the month calendar and the calendar day time sheet within the control, when visible;</li>
+                                <li>
+                                    <em>months</em>, <em>daysOfWeek</em>: Names of the months and of the days of the week to use at presentation time:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.months     = [ 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12' ];
+settings.daysOfWeek = [ 'D0', 'D1', 'D2', 'D3', 'D4', 'D5', 'D6' ];
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>dateTimeFormatter(dateTime): text</em>, <em>dateTimeParser(text): dateTime</em>: Functions that accept date or text parameters and return text or date values, used to convert date and time values to text values, and to parse text values as date and time values whenever needed within the control; the functions may be provided by the developer for further customization and/or localization purposes; by default they are initialized to a set of internally defined functions that consider a culture invariant date and time formatting: <em>MM/dd/yyyy HH:mm</em>;</li>
+                                <li><em>displayedDateChangeHandler(displayedDate)</em>, <em>selectedDateChangeHandler(selectedDate)</em>: Functions called whenever the displayed month or selected date are changed in the month calendar of the control, when visible, providing the selected date value that triggered the change, or the first or last day of the next or previous month when the month changed from the previous or next month internal buttons, specified as parameter;</li>
+                                <li>
+                                    <em>valueChangeHandler(value)</em>: Function called whenever the date value changes within the control, providing it specified as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.valueChangeHandler = function (value) {
+    alert('Value changed to ' + value.toDateString() + '.');
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>disabledDateSelector(date)</em>: Function called for each displayed date to determine whether it should be disabled in the view;
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.disabledDateSelector = function(date) { return date.getDay() == 6; }
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>disabledTimeSelector(time)</em>: Function called for each displayed time (in millseconds since midnight) to determine whether it should be disabled in the view;
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.disabledTimeSelector = function(time) { return time < 5 * 60 * 60 * 1000; } // 5 AM
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>openDropDownOnInputClick</em>: Indicates whether an appropriate drop down should open when clicking inside the input element (and no value change has occured since focusing), depending on the currently selected date and time value part of the input;</li>
+                                <li>
+                                    <em>calendarSelectorLevels</em>: Indicates the number of supplemental calendar selector levels to display when clicking calendar headers; supported values: 1: month; 2: + year; 3: + decade:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+// Display month and year selector levels, showing the current year or decade 
+// and allowing selecting another month or year when clicking the month or year header in the views:
+// Setting a value of 3 would also display a third decade selector level, showing the current century 
+// and allowing selecting another decade when clicking on the decade header in the year view.
+settings.calendarSelectorLevels = 2;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>datePickerSettings</em>, <em>timePickerSettings</em>: Provide supplemental settings for <em>DatePicker</em> and <em>TimePicker</em> control parts of the current component instance.</li>
+                            </ul>
+                            <p>
+                                The component may be initialized using an <em>initialize</em> method call, and could also be obtained later using a <em>get</em> method call;
+                                <em>dateTimePickerElement</em> host may be a <em>span</em>, <em>div</em>, or <em>input</em> element of the HTML document:
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var dateTimePicker = DlhSoft.Controls.DateTimePicker.initialize(dateTimePickerElement, value, settings);
+var dateTimePicker = DlhSoft.Controls.DateTimePicker.get(dateTimePickerElement);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>value</em>: Provides access to the current value of the control;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refreshValue()</em>: Updates the value features of the user interface considering all external date value changes;</li>
+                                <li><em>getValue(): value</em>, <em>setValue(value)</em>: Get and set the date and time value of the control;</li>
+                                <li><em>getTimeValue(): value</em>, <em>setTimeValue(value)</em>: Get and set the time value of the control (in milliseconds since midnight);</li>
+                                <li><em>isOpen</em>: Provides access to a value indicating whether the date drop down is opened (popup element is shown) in the control;</li>
+                                <li><em>openDropDown()</em>, <em>closeDropDown()</em>: Open and set the date drop down (popup element) of the control;</li>
+                                <li><em>isTimeOpen</em>: Provides access to a value indicating whether the time drop down is opened (popup element is shown) in the control;</li>
+                                <li><em>openTimeDropDown()</em>, <em>closeTimeDropDown()</em>: Open and set the time drop down (popup element) of the control;</li>
+                                <li><em>getCurrentValuePart()</em>: Returns "Date" or "Time" to indicate which date and time value part is currently selected in the input element of the control;</li>
+                                <li><em>isInitialized</em>: Verifies that the component instance has been successfully initialized.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>MultiSelectorComboBox</h2>
+                            <p>
+                                <em>MultiSelectorComboBox</em> control is used to present and construct an aggregated text value using a list of choice check boxes displayed upon focusing its input element or when clicking an associated drop down button.
+                                The available choices and the resulting value must be of <em>string</em> type (aggregated text would use separator characters, such as comma, to separate parts, and special characters, such as brackets, may also introduce excluded content for any of the parts, if needed):
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var availableChoices = ['Value 1', 'Value 2', 'Value 3'];
+var value = 'Value 1 [details], Value 2';
+</code>
+                            </pre>
+                            <p>The control supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
+                            <ul>
+                                <li>
+                                    <em>theme</em>: Name of the internal theme to generically apply to the control; <em>Modern</em> and <em>Standard</em> themes are supported; by default it is Modern:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.theme = 'Standard';
+</code>
+                                    </pre>
+                                </li>
+                                <li>
+                                    <em>isReadOnly</em>: Indicates whether the control is read only:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.isReadOnly = true;
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>autoAppendAvailableChoices</em>: Indicates whether new choice values entered by the end user using the input element of the control are automatically appended to the available choices collection; by default it is set to false;</li>
+                                <li><em>isDropDownButtonVisible</em>: Indicates whether a drop down button is appended to the user interface to the right side of the input element of the control; by default it is set to false;</li>
+                                <li><em>dropDownButtonDefinition</em>: Provides HTML to define the drop down button displayed by the control when <em>isDropDownButtonVisible</em> is set to true; by default it is set to a value generating a simple button based on a triangle arrow character oriented towards the bottom of the screen;</li>
+                                <li><em>separator</em>: Indicates the separator string used to identify parts in the aggregated value of the control; by default it is set to a comma (",");</li>
+                                <li><em>isSpaceSeparated</em>: Indicates whether aggregated value will have space characters after each separator in the control; by default it is set to true;</li>
+                                <li><em>delimiters</em>: Optional array of delimiter characters for aggregated value parts to ignore during choice value comparisons; by default it is set to an array containing only the left bracket ("["]);</li>
+                                <li><em>inputClass</em>, <em>inputStyle</em>: CSS class and/or inline style to apply to the input element managing the aggregated value within the control;</li>
+                                <li><em>popupClass</em>, <em>popupStyle</em>: CSS class and/or inline style to apply to the popup element displaying the available choices as a check box list within the control, when visible;</li>
+                                <li><em>choiceClass</em>, <em>choiceStyle</em>: CSS class and/or inline style to apply to each element displaying one of the available choices within the control, when visible;</li>
+                                <li><em>selectedChoiceClass</em>, <em>selectedChoiceStyle</em>: CSS class and/or inline style to apply to each element displaying one of the selected choices within the control, when visible;</li>
+                                <li><em>areCheckBoxesVisible</em>: Indicates whether check boxes are displayed in the popup; if set to false, the choices will still be displayed as clickable labels, but the end user could not select more than one value, similarly to using a standard combo box; provided in order to be able to simmulate an auto-complete text box using the same type of user interface when required in a custom application; by default it is set to true;</li>
+                                <li><em>dropDownOpenedHandler()</em>, <em>dropDownClosedHandler()</em>: Functions called whenever the drop down is opened (popup element shown) or closed (popup element hidden) in the control;</li>
+                                <li>
+                                    <em>valueChangeHandler(value)</em>: Function called whenever the aggregated value changes within the control, providing it specified as parameter:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.valueChangeHandler = function (value) {
+    alert('Value changed to ' + value + '.');
+}
+</code>
+                                    </pre>
+                                </li>
+                                <li><em>openDropDownOnInputClick</em>: Indicates whether the drop down should open when clicking inside the input element (and no value change has occured since focusing).</li>
+                            </ul>
+                            <p>
+                                The component may be initialized using an <em>initialize</em> method call, and could also be obtained later using a <em>get</em> method call;
+                                <em>multiSelectorComboBoxElement</em> host may be a <em>span</em>, <em>div</em>, or <em>input</em> element of the HTML document:
+                            </p>
+                            <pre>
+<code class="language-javascript" ng-non-bindable>
+var multiSelectorComboBox = DlhSoft.Controls.MultiSelectorComboBox.initialize(multiSelectorComboBoxElement, availableChoices, value, settings);
+var multiSelectorComboBox = DlhSoft.Controls.MultiSelectorComboBox.get(multiSelectorComboBoxElement);
+</code>
+                            </pre>
+                            <p>The initialized control element provides the following API:</p>
+                            <ul>
+                                <li><em>availableChoices</em>: Provides access to the available choice values of the control;</li>
+                                <li><em>value</em>: Provides access to the current value of the control;</li>
+                                <li><em>settings</em>: Provides access to the settings object used to initialize the control;</li>
+                                <li><em>refresh()</em>, <em>refreshAvailableChoices()</em>, <em>refreshSelectedChoices()</em>, <em>refreshValue()</em>: Update the entire user interface or specific features of the user interface considering all external aggregated value and settings changes;</li>
+                                <li><em>getSelectedChoices(availableOnly)</em>: Enumerates the selected choices specified in the current aggregated value control to an output array, optionally limiting them to those indicated by <em>availableChoices</em>;</li>
+                                <li><em>selectChoice(choice)</em>, <em>unselectChoice(choice)</em>: Select or unselect a specific choice in the control, updating the aggregated value accordingly;</li>
+                                <li><em>getValue(): value</em>, <em>setValue(value)</em>: Get and set the aggregated value of the control;</li>
+                                <li><em>isOpen</em>: Provides access to a value indicating whether the drop down is opened (popup element is shown) in the control;</li>
+                                <li><em>openDropDown()</em>, <em>closeDropDown()</em>: Open and set the drop down (popup element) of the control;</li>
+                                <li><em>isInitialized</em>: Verifies that the component instance has been successfully initialized.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </body>

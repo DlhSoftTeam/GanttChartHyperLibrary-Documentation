@@ -25,6 +25,11 @@
     <Content Include="AngularJS\default.htm" />
     <Content Include="AngularJS\documentation.htm" />
     <Content Include="app.css" />
+    <Content Include="MultiSelectorComboBox.htm" />
+    <Content Include="Calendar.htm" />
+    <Content Include="DateTimePicker.htm" />
+    <Content Include="TimePicker.htm" />
+    <Content Include="DatePicker.htm" />
     <Content Include="NetworkDiagramView.htm" />
     <Content Include="PertChartView.htm" />
     <Content Include="LoadChartView.htm" />
