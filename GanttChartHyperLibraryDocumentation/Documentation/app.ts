@@ -20,7 +20,6 @@ angular.module('Documentation', [])
             if (technology == $scope.selectedTechnology)
                 return;
             $scope.selectedTechnology = technology;
-            $scope.selectedFile = null;
         };
         if (initialSelection == 'AngularJS')
             $scope.selectedTechnology = technologies[2];

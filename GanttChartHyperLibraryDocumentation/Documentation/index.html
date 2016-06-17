@@ -702,12 +702,29 @@ $scope.settings = settings;
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>GanttChartView reference</h2>
-                            <p ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
+                            <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 var ganttChartView = document.querySelector('#ganttChartView'); 
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="language-javascript" ng-non-bindable>
+var ganttChartViewElement = document.querySelector('#ganttChartView'); 
+</code>
+                            </pre>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
+                                Using AngularJS you can access GanttChartView component using <em>ds:gantt-chart</em> directive and preparing the appropriate $scope fields (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
+<code class="language-javascript" ng-non-bindable>
+&lt;ds:gantt-chart id="ganttChartView"
+                items="items" settings="settings"
+                change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
+                style="min-height: 240px"&gt;
+&lt;/ds:gantt-chart&gt;
 </code>
                             </pre>
                             <h3>Data items</h3>
@@ -1437,9 +1454,14 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                             </ul>
                             <h3>Component instance</h3>
                             <p ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">The component may be initialized using an <em>initialize</em> method call:</p>
-                            <pre ng-show="isInitializing || selectedTechnology.name != 'AngularJS'">
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 DlhSoft.Controls.GanttChartView.initialize(ganttChartView, items, settings);
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
+<code class="language-javascript" ng-non-bindable>
+var ganttChartView = DlhSoft.Controls.GanttChartView.initialize(ganttChartViewElement, items, settings);
 </code>
                             </pre>
                             <p>The initialized control element provides the following API:</p>
