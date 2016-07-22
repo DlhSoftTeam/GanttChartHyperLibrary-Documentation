@@ -26,4 +26,3 @@ angular.module('Documentation', [])
     $scope.isInitializing = true;
     $timeout(function () { $scope.isInitializing = false; }, 400);
 });
-//# sourceMappingURL=app.js.map
