@@ -3114,6 +3114,8 @@ var pertChartViewElement = document.querySelector('#pertChartView');
                                     <em>predecessors</em>: The predecessors collection defines predecessor items (objects) referring the task event items that the current item depends of, and having the relations displayed in the PERT Chart view as dependency lines; the predecessor item properties are presented below:
                                     <ul>
                                         <li><em>item</em>: Task event item that precedes the owner of the predecessor item (the item that the current item depends of);</li>
+                                        <li><em>content</em>: The object that is displayed to represent the task item in the dependency line tool tips, usually the task name;</li>
+                                        <li><em>displayedText</em>: The object that is displayed to represent the task item on the dependency line, usually a short task name or identifier;</li>
                                         <li><em>dependencyLineClass</em>, <em>dependencyTextClass</em>, <em>dependencyLineStyle</em>, <em>dependencyTextStyle</em>: CSS class and/or inline style to apply to the dependency line and text to be presented in the chart for this predecessor item;</li>
                                         <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the chart for this predecessor item (usually a tool tip), overriding the control settings.</li>
                                     </ul>
