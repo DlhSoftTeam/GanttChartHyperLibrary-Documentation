@@ -483,6 +483,44 @@ ganttChartView.print({ title: 'My document', columnIndexes: new int[] {0, 2}, ro
 </code>
                                 </pre>
                             </div>
+                            <h2>Handling events</h2>
+                            <p>
+                                You may run custom code upon specific item changes:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+ganttChartView.itemPropertyChangeHandler  = function(item, propertyName, isFinal, isDirect) {…}; 
+ganttChartView.itemSelectionChangeHandler = function(item, isSelected, isDirect) {…};
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                Other types of changes also provide notifications:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+ganttChartView.hourWidthChangeHandler        = function(hourWidth) {…};             // Zoom level changed
+ganttChartView.displayedTimeChangeHandler    = function(displayedTime) {…};         // Chart date scroll changed
+ganttChartView.splitterPositionChangeHandler = function(gridWidth, chartWidth) {…}; // Splitter moved
+ganttChartView.columnWidthChangeHandler      = function(column, width) {…};         // Grid column resized
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                And you can easily respond to common mouse events as well:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+ganttChartView.chartClickHandler                = function(isOnItemsArea, item, dateTime) {…};
+ganttChartView.itemDoubleClickHandler           = function(isOnChart, item) {…};
+ganttChartView.chartItemDoubleClickHandler      = function(item, dateTime) {…};
+ganttChartView.dependencyLineDoubleClickHandler = function(predecessorItem, targetItem) {…};
+</code>
+                                </pre>
+                            </div>
                             <h2>More operations</h2>
                             <p>
                                 To display the current items from a Gantt Chart control in different way using a Schedule Chart:
@@ -510,6 +548,9 @@ var projectCost = ganttChartView.getProjectCost();
 var finish = ganttChartView.getProjectFinish();
 ganttChartView.itemPropertyChangeHandler = function(item, propertyName, isFinal, isDirect) {…}; 
 ganttChartView.itemSelectionChangeHandler = function(item, isSelected, isDirect) {…};
+ganttChartView.chartClickHandler = function(isOnItemsArea, item, dateTime) {…};
+ganttChartView.itemDoubleClickHandler = function(isOnChart, item) {…};
+ganttChartView.predecessorItemDoubleClickHandler = function(predecessorItem, targetItem) {…};
 </code>
                                 </pre>
                             </div>
@@ -1387,6 +1428,8 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                                 <li><em>itemExpansionChangeHandler(item, isExpanded)</em>: Function called whenever summary item expansion state changes within the control, providing the expanded or collapsed item, and a Boolean value indicating the updated expansion state, specified as parameters;</li>
                                 <li><em>itemSelectionChangeHandler(item, isSelected, isDirect)</em>: Function called whenever item selection changes within the control, providing the selected or unselected item, a Boolean value indicating the updated selection state, and a Boolean value indicating whether this change was directly triggered by the user, specified as parameters;</li>
                                 <li><em>itemMoveHandler(item, fromIndex, toIndex)</em>: Function called whenever an item is moved in the managed list of the control, providing the item, source and target positions of the item, specified as parameters;</li>
+                                <li><em>mouseHandler(eventName, isOnItemsArea, isOnChart, row, column, button, clickCount, e)</em>, <em>mouseMoveHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>mouseDownHandler(isOnItemsArea, isOnChart, row, column, button)</em>, <em>clickHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>doubleClickHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>itemClickHandler(isOnChart, item, column)</em>, <em>itemDoubleClickHandler(isOnChart, item, column)</em>, <em>chartClickHandler(isOnItemsArea, row, dateTime)</em>, <em>chartDoubleClickHandler(isOnItemsArea, row, dateTime)</em>, <em>chartItemClickHandler(item, dateTime)</em>, <em>chartItemDoubleClickHandler(item, dateTime)</em>: Event handlers for generic or granular mouse events, such as for grid and chart, header and items areas, or click and double click event types;</li>
+                                <li><em>dependencyLineClickHandler(predecessorItem, targetItem, e)</em>, <em>dependencyLineDoubleClickHandler(predecessorItem, targetItem, e)</em>: Event handlers for dependency line click and double click events;</li>
                                 <li><em>itemContextMenuHandler(e)</em>, <em>predecessorItemContextMenuHandler(e)</em>: Event handlers for chart item and predecessor item context menus.</li>
                             </ul>
                         </div>
@@ -2273,6 +2316,7 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                                 </li>
                                 <li><em>itemSelectionChangeHandler(item, isSelected, isDirect)</em>: Function called whenever item selection changes within the control, providing the selected or unselected item, a Boolean value indicating the updated selection state, and a Boolean value indicating whether this change was directly triggered by the user, specified as parameters;</li>
                                 <li><em>itemMoveHandler(item, fromIndex, toIndex)</em>: Function called whenever an item is moved in the managed list of the control, providing the item, source and target positions of the item, specified as parameters;</li>
+                                <li><em>mouseHandler(eventName, isOnItemsArea, isOnChart, row, column, button, clickCount, e)</em>, <em>mouseMoveHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>mouseDownHandler(isOnItemsArea, isOnChart, row, column, button)</em>, <em>clickHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>doubleClickHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>itemClickHandler(isOnChart, item, column)</em>, <em>itemDoubleClickHandler(isOnChart, item, column)</em>, <em>chartClickHandler(isOnItemsArea, row, dateTime)</em>, <em>chartDoubleClickHandler(isOnItemsArea, row, dateTime)</em>, <em>chartItemClickHandler(item, dateTime)</em>, <em>chartItemDoubleClickHandler(item, dateTime)</em>: Event handlers for generic or granular mouse events, such as for grid and chart, header and items areas, or click and double click event types;</li>
                                 <li><em>itemContextMenuHandler(e)</em>: Event handler for chart item context menu.</li>
                             </ul>
                         </div>
@@ -2903,6 +2947,7 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                                 </li>
                                 <li><em>itemSelectionChangeHandler(item, isSelected, isDirect)</em>: Function called whenever item selection changes within the control, providing the selected or unselected item, a Boolean value indicating the updated selection state, and a Boolean value indicating whether this change was directly triggered by the user, specified as parameters;</li>
                                 <li><em>itemMoveHandler(item, fromIndex, toIndex)</em>: Function called whenever an item is moved in the managed list of the control, providing the item, source and target positions of the item, specified as parameters;</li>
+                                <li><em>mouseHandler(eventName, isOnItemsArea, isOnChart, row, column, button, clickCount, e)</em>, <em>mouseMoveHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>mouseDownHandler(isOnItemsArea, isOnChart, row, column, button)</em>, <em>clickHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>doubleClickHandler(isOnItemsArea, isOnChart, row, column)</em>, <em>itemClickHandler(isOnChart, item, column)</em>, <em>itemDoubleClickHandler(isOnChart, item, column)</em>, <em>chartClickHandler(isOnItemsArea, row, dateTime)</em>, <em>chartDoubleClickHandler(isOnItemsArea, row, dateTime)</em>, <em>chartItemClickHandler(item, dateTime)</em>, <em>chartItemDoubleClickHandler(item, dateTime)</em>: Event handlers for generic or granular mouse events, such as for grid and chart, header and items areas, or click and double click event types;</li>
                                 <li><em>itemContextMenuHandler(e)</em>: Event handler for chart item context menu.</li>
                             </ul>                        
                         </div>
@@ -3314,6 +3359,8 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
 </code>
                                     </pre>
                                 </li>
+                                <li><em>mouseHandler(eventName, item, button, clickCount, e)</em>, <em>mouseMoveHandler(item)</em>, <em>mouseDownHandler(item, button)</em>, <em>itemClickHandler(item)</em>, <em>itemDoubleClickHandler(item)</em>: Event handlers for generic or granular mouse events, such as for click and double click event types;</li>
+                                <li><em>dependencyLineClickHandler(predecessorItem, targetItem, e)</em>, <em>dependencyLineDoubleClickHandler(predecessorItem, targetItem, e)</em>: Event handlers for dependency line click and double click events.</li>
                             </ul>
                         </div>
                     </div>
@@ -3670,6 +3717,8 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
 </code>
                                     </pre>
                                 </li>
+                                <li><em>mouseHandler(eventName, item, button, clickCount, e)</em>, <em>mouseMoveHandler(item)</em>, <em>mouseDownHandler(item, button)</em>, <em>itemClickHandler(item)</em>, <em>itemDoubleClickHandler(item)</em>: Event handlers for generic or granular mouse events, such as for click and double click event types;</li>
+                                <li><em>dependencyLineClickHandler(predecessorItem, targetItem, e)</em>, <em>dependencyLineDoubleClickHandler(predecessorItem, targetItem, e)</em>: Event handlers for dependency line click and double click events.</li>
                             </ul>
                         </div>
                     </div>
