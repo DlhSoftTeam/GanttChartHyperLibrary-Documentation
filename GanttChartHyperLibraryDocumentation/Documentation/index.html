@@ -312,7 +312,7 @@ settings.visibleDayFinish  = 17 * 60 * 60 * 1000; // 5 PM
                             <div class="code-snippet">
                                 <pre class="line-numbers">
 <code class="language-javascript" ng-non-bindable>
-settings.schedule = { workingWeekStart: 1, workingWeekFinish: 5 …); 
+settings.schedule = { workingWeekStart: 1, workingWeekFinish: 5, … }; 
 item.schedule     = { … };
 </code>
                                 </pre>
@@ -388,7 +388,7 @@ settings.predecessorItemTemplate = function (item, predecessorItem, predecessorI
                             </div>
                             <h2>More settings</h2>
                             <p>
-                                To set up assignable resources and define their costs:
+                                To set up assignable resources and define their costs, and to set up resource schedules to use when they are assigned on task items without specific schedules (considering the first resource among the ones assigned with maximum allocation units):
                             </p>
                             <div class="code-snippet">
                                 <pre class="line-numbers">
@@ -396,6 +396,7 @@ settings.predecessorItemTemplate = function (item, predecessorItem, predecessorI
 settings.assignableResources = …; 
 settings.resourceQuantities = …; 
 settings.specificResourceHourCosts = …;
+settings.resourceSchedules = …;
 </code>
                                 </pre>
                             </div>
@@ -1368,6 +1369,14 @@ settings.resourceQuantities = [{ key: 'Material 1', value: 4 }, { key: 'Material
                                 </li>
                                 <li><em>maxLoadChartDisplayedResourceQuantity</em>: Indicates the maximum quantity displayed as 100% height in the Load Chart when using <em>getLoadChartItems</em> method;</li>
                                 <li>
+                                    <em>resourceSchedules</em>: Dictionary that determines the schedules to use for tasks based on assigned resources; such a task will use the schedule of the first resource assigned to that task having the maximum allocation units value among all assignments of that task:
+                                    <pre>
+<code class="language-javascript" ng-non-bindable>
+settings.resourceSchedules = [{ key: 'Resource 1', value: { workingWeekStart: 2, workingWeekFinish: 6 }, { key: 'Resource 2', value: { workingWeekStart: 0, workingWeekFinish: 4 } }];
+</code>
+                                    </pre>
+                                </li>
+                                <li>
                                     <em>taskInitiationCost</em>, <em>defaultResourceUsageCost</em>, <em>specificResourceUsageCosts</em>, <em>defaultResourceHourCost</em>, <em>specificResourceHourCosts</em>: Numbers and dictionaries that determine costs of managed tasks and assigned resources:
                                     <pre>
 <code class="language-javascript" ng-non-bindable>
@@ -1778,8 +1787,16 @@ var scheduleChartViewElement = document.querySelector('#scheduleChartView');
                             <p>The resource and assigned task items that may be presented within <em>ScheduleChartView</em> control should provide these properties:</p>
                             <ul>
                                 <li><em>content</em>: The object that is displayed to represent the resource item in the grid, usually the resource name;</li>
-                                <li><em>isHidden</em>: Indicates whether the current item should be hidden in the grid, for filtering purposes;</li>
+                                <li>
+                                    <em>schedule</em>: Object that optionally defines specific working week and day intervals and special nonworking days to consider for scheduling purposes (applying to all assigned tasks of the resource item that do not have specific schedules themselves) using these properties:
+                                    <ul>
+                                        <li><em>workingWeekStart</em>, <em>workingWeekFinish</em>: The start and finish days of the working week interval, used when computing task effort values and when dragging and dropping task bars;</li>
+                                        <li><em>workingDayStart</em>, <em>workingDayFinish</em>: The start and finish times of the working day interval, in milliseconds passed since midnight, used when computing task effort values and when dragging and dropping task bars;</li>
+                                        <li><em>specialNonworkingDays</em>: Optional collection of special nonworking days, such as holidays;</li>
+                                    </ul>
+                                </li>
                                 <li><em>isReadOnly</em>: Indicates whether the current item should be read only in the grid;</li>
+                                <li><em>isHidden</em>: Indicates whether the current item should be hidden in the grid, for filtering purposes;</li>
                                 <li><em>class</em>, <em>style</em>: CSS class and/or inline style to apply to the resource row container element in the grid;</li>
                                 <li><em>isSelected</em>: Indicates whether the current item is currently selected in the view;</li>
                                 <li>
