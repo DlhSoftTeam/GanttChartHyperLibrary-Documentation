@@ -24,5 +24,5 @@ angular.module('Documentation', [])
     else
         $scope.selectedFile = initialSelection;
     $scope.isInitializing = true;
-    $timeout(function () { $scope.isInitializing = false; }, 2500);
+    $timeout(function () { $scope.isInitializing = false; }, 4000);
 });
