@@ -195,7 +195,7 @@ var item2 = { content: 'My standard task', indentation: 1,
               assignmentsContent: 'My resource' };
 var items = [ item1, item2 ];
 var item3 = { content: 'My milestone', indentation: 1,
-              isMilestone: true };
+              start: new Date(2012, 8, 7, 16, 0, 0), isMilestone: true };
 items.push(item3);
 </code>
                                 </pre>
@@ -207,7 +207,7 @@ var item2 = &lt;GanttChartItem&gt;{ content: 'My standard task', indentation: 1,
                               completedFinish: new Date(2012, 8, 5, 16, 0, 0), assignmentsContent: 'My resource' };
 var items = &lt;GanttChartItem[]&gt;[ item1, item2 ];
 var item3 = &lt;GanttChartItem&gt;{ content: 'My milestone', indentation: 1,
-                              isMilestone: true };
+                              start: new Date(2012, 8, 7, 16, 0, 0), isMilestone: true };
 items.push(item3);
 </code>
                                 </pre>
