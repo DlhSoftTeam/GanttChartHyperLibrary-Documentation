@@ -13,7 +13,7 @@ angular.module('Documentation', [])
         $scope.selectFile = (file) => {
             $scope.selectedFile = file;
         };
-        var technologies = [{ name: 'JavaScript', title: 'HTML + JavaScript®' }, { name: 'TypeScript', title: 'HTML + TypeScript' }, { name: 'AngularJS', title: 'Angular + JQuery' }];
+        var technologies = [{ name: 'JavaScript', title: 'HTML + JavaScript®' }, { name: 'TypeScript', title: 'HTML + TypeScript' }, { name: 'AngularJS', title: 'AngularJS' }];
         $scope.technologies = technologies;
         $scope.selectedTechnology = technologies[0];
         $scope.selectTechnology = (technology) => {
