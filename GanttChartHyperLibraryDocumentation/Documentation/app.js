@@ -4,6 +4,7 @@ angular.module('Documentation', [])
     .controller('MainController', function ($scope, $timeout) {
     var files = ['Gantt chart', 'Schedule chart', 'Load chart', 'PERT chart', 'Network diagram', 'More'];
     $scope.files = files;
+    $scope.visibleFiles = files;
     $scope.selectedFile = null;
     $scope.getStarted = function () {
         $scope.selectedFile = null;
@@ -18,6 +19,16 @@ angular.module('Documentation', [])
         if (technology == $scope.selectedTechnology)
             return;
         $scope.selectedTechnology = technology;
+        if (technology.name == "Angular" || technology.name == "React") {
+            var visibleFiles = files.slice();
+            visibleFiles.pop();
+            $scope.visibleFiles = visibleFiles;
+            if ($scope.selectedFile == "More")
+                $scope.selectedFile = null;
+        }
+        else {
+            $scope.visibleFiles = files;
+        }
     };
     if (initialSelection == 'AngularJS')
         $scope.selectedTechnology = technologies[2];

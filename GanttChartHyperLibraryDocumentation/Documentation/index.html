@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="module widget-handle left">
                                     <ul class="menu">
-                                        <li ng-repeat="file in files">
+                                        <li ng-repeat="file in visibleFiles">
                                             <a class="{{ selectedFile == file ? 'color-primary' : '' }}" href="javascript:" ng-click="selectFile(file)">{{ file }}</a>
                                         </li>
                                     </ul>
