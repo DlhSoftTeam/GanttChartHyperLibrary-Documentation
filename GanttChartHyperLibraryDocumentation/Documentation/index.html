@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-        <div ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && !selectedFile)">
+        <div ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React' && !selectedFile)">
             <section>
                 <div class="container">
                     <div class="row">
@@ -701,7 +701,6 @@ $scope.settings = settings;
                                 Get and apply the software library to your project using one of the ways we have made available:
                             </p>
                             <ul>
-                                <li><a href="http://DlhSoft.com/GoTo.aspx?Url=http://NuGet.org/Packages/DlhSoft.GanttChartHyperLibrary" target="_blank">NuGet package</a></li>
                                 <li><a href="http://DlhSoft.com/Packages/DlhSoft.GanttChartHyperLibrary.zip">Download</a> (.zip)</li>
                                 <li>
                                     Other package manager commands:
@@ -760,6 +759,15 @@ import { NetworkDiagramView } from './DlhSoft/DlhSoft.ProjectData.PertChart.Angu
   …
 })
 …
+</code>
+                                </pre>
+                                <pre class="line-numbers">
+<code class="language-markup" ng-non-bindable>
+&lt;ganttchartview [items]="items" [settings]="settings"
+                [change]="onItemChanged"
+                style="min-height: 388px"&gt;
+    …
+&lt;/ganttchartview&gt;
 </code>
                                 </pre>
                             </div>
@@ -840,20 +848,151 @@ this.settings = settings;
                 </div>
             </section>
         </div>
+        <div ng-show="isInitializing || (selectedTechnology.name == 'React' && !selectedFile)">
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Get started</h2>
+                            <p>
+                                Get and apply the software library to your project using one of the ways we have made available:
+                            </p>
+                            <ul>
+                                <li><a href="http://DlhSoft.com/Packages/DlhSoft.GanttChartHyperLibrary.zip">Download</a> (.zip)</li>
+                                <li>
+                                    Other package manager commands:
+                                    <div class="code-snippet">
+                                        <pre>
+<code class="node.js (language-ini)">
+npm install http://DlhSoft.com/Packages/DlhSoft.GanttChartHyperLibrary.tar
+</code>
+                                        </pre>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>
+                                To use the React extensions for DlhSoft Gantt Chart Hyper Library please follow these steps:
+                            </p>
+                            <ul>
+                                <li>Ensure you have a React based application project (version 16 or a future compatible version of the library is required).</li>
+                                <li>Include the core DlhSoft.*.HTML.Controls.js script files (either as links in the HTML head and having the files deployed with your app, or within a script bundle) – these define the core HTML components.</li>
+                                <li>Include DlhSoft.*.React.Components.js script files as well (either as links in the HTML head and having the files deployed with your app or within a script bundle) – these provide the React extensions for the core HTML components.</li>
+                                <li>Use React components in your markup as needed to access the required HTML components from the core product.</li>
+                            </ul>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-markup" ng-non-bindable>
+&lt;head&gt;
+  …
+  &lt;script src="DlhSoft.ProjectData.GanttChart.HTML.Controls.js" type="text/javascript"&gt;&lt;/script&gt;  
+  &lt;script src="DlhSoft.Data.HTML.Controls.js" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;script src="DlhSoft.ProjectData.GanttChart.HTML.Controls.Extras.js" type="text/javascript"&gt;&lt;/script&gt;
+  &lt;script src="DlhSoft.ProjectData.GanttChart.React.Component.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code>
+                                </pre>
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+…
+return (
+    &lt;GanttChartView items={items} settings={settings}
+                    change={onItemChanged} 
+                    style={{minHeight: '388px'}}&gt;
+        …
+    &lt;/GanttChartView&gt;
+);
+</code>
+                                </pre>
+                            </div>
+                            <h2>Data items</h2>
+                            <p>
+                                To load and present data items within ds:gantt-chart extension or other Gantt Chart based component instances initialize their items collections.
+                                The item type to use depends on the actual component type. For Gantt Chart controls define objects providing these fields:
+                            </p>
+                            <ul>
+                                <li>content values usually specify task names;</li>
+                                <li>start and finish date and time values indicate the scheduled times of their displayed bars;</li>
+                                <li>completedFinish date and time values specify the schedule times of their completion displayed bars (indicating completion percentages);</li>
+                                <li>isMilestone Boolean values determine the project milestones that are presented as diamond shapes in the chart;</li>
+                                <li>assignmentsContent values specify indicate the assigned resource names of each task, separated by commas;</li>
+                                <li>indentation values generate the hierarchical work breakdown structure of the project (summary and standard tasks).</li>
+                            </ul>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="language-javascript" ng-non-bindable>
+var item1 = { content: 'My summary task' };
+var item2 = { content: 'My standard task', indentation: 1,
+              start: new Date(2012, 8, 2, 8, 0, 0), finish: new Date(2012, 8, 7, 16, 0, 0), 
+              completedFinish: new Date(2012, 8, 5, 16, 0, 0), assignmentsContent: 'My resource' };
+var items = [ item1, item2 ];
+var item3 = { content: 'My milestone', indentation: 1,
+              start: new Date(2012, 8, 7, 16, 0, 0), isMilestone: true };
+items.push(item3);
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                To initialize dependencies between Gantt Chart bars, use the successor item’s predecessors collection.
+                                The referred item is determined by reference within the component’s items collection.
+                                Dependency type values supports all common types of task links, including: Finish-to-Start (FS), Start-to-Start (SS), Finish-to-Finish (FF), Start-to-Finish (SF):
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="TypeScript (language-javascript)" ng-non-bindable>
+item3.predecessors = [{ item: item2, dependencyType: 'FF' }];
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                You may supplementary customize items using custom values, if needed:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="TypeScript (language-javascript)" ng-non-bindable>
+item['description'] = 'My task’s description';
+</code>
+                                </pre>
+                            </div>
+                            <p>
+                                Finally, prepare the component settings object and call initialize function to prepare the user interface of the component.
+                                To customize the displayed grid columns, use the columns field of the component’s settings object.
+                                By default, the first column displays content data hierarchically.
+                                You may also prepare new or updated column objects starting from the default columns collection, using JavaScript® statements referring item values as defined by cellTemplate field:
+                            </p>
+                            <div class="code-snippet">
+                                <pre class="line-numbers">
+<code class="TypeScript (language-javascript)" ng-non-bindable>
+var settings = { currentTime: new Date(2012, 8, 2, 12, 0, 0) };
+var columns = DlhSoft.Controls.GanttChartView.getDefaultColumns(items, settings);
+columns[0].header = 'Work items';
+columns[0].width  = 240;
+columns[1].header = 'Beginning';
+columns[2].header = 'Start';
+columns.push({ header: 'Description', width: 200, cellTemplate: (item) => { 
+    return item.ganttChartView.ownerDocument.createTextNode(item.description); } });
+settings.columns = columns;
+</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
         <div ng-show="isInitializing || selectedFile == 'Gantt chart'">
             <section>
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>GanttChartView reference</h2>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
-                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
+                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
 <code class="language-markup" ng-non-bindable>
 &lt;body&gt;
-    &lt;div id="ganttChartView"&gt;&lt;/div&gt;
+  &lt;div id="ganttChartView"&gt;&lt;/div&gt;
 &lt;/body&gt;
 </code>
                                 </pre>
@@ -874,8 +1013,11 @@ var ganttChartViewElement = document.querySelector('#ganttChartView');
                             <p ng-show="isInitializing || selectedTechnology.name == 'Angular'">
                                 Using Angular you can access GanttChartView component using <em>ganttchartview</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'React'">
+                                Using React you can access GanttChartView component using <em>GanttChartView</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;ds:gantt-chart id="ganttChartView"
                 items="items" settings="settings"
                 change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
@@ -884,11 +1026,21 @@ var ganttChartViewElement = document.querySelector('#ganttChartView');
 </code>
                             </pre>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'Angular'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;ganttchartview [items]="items" [settings]="settings"
                 [change]="itemPropertyChangeHandler"
                 style="min-height: 240px"&gt;
 &lt;/ganttchartview&gt;
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'React'">
+<code class="language-javascript" ng-non-bindable>
+return (
+    &lt;GanttChartView items="{items}" settings="{settings}"
+                    change="{itemPropertyChangeHandler}"
+                    style={{min-height: 240px}}&gt;
+    &lt;/GanttchartView&gt;
+);
 </code>
                             </pre>
                             <h3>Data items</h3>
@@ -1674,7 +1826,7 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                                 <li><em>getInputDate(date)</em>, <em>getOutputDate(date)</em>: Prepares the specified date values to be used for component method input or method result or field output, considering that after initialization the component uses UTC date and time values internally; these methods may also be called using a component instance object.</li>
                             </ul>
                             <h3>Component instance</h3>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">The component may be initialized using an <em>initialize</em> method call:</p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 DlhSoft.Controls.GanttChartView.initialize(ganttChartView, items, settings);
@@ -1866,7 +2018,7 @@ if (item.isVirtuallyVisible)
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>ProjectSerializer</h2>
-                            <p><em>GanttChartView.ProjectSerializer</em> component (available with DlhSoft.ProjectData.GanttChart.HTML.Controls.Extras.js and .d.ts) is used to import/export task items managed by <em>GanttChartView</em> control instances from/to XML format using <em>Microsoft Project®</em> XML schema.</p>
+                            <p><em>GanttChartView.ProjectSerializer</em> component (available with DlhSoft.ProjectData.GanttChart.HTML.Controls.Extras.js and .d.ts files, and requiring Gantt chart's DOM element reference) is used to import/export task items managed by <em>GanttChartView</em> control instances from/to XML format using <em>Microsoft Project®</em> XML schema.</p>
                             <p>The component supports specific settings passed as an argument object to the <em>initialize</em> method call; the settings object supports these properties:</p>
                             <ul>
                                 <li><em>assignableResources</em>: Optional array hosting the imported or exported resource names;</li>
@@ -1903,11 +2055,11 @@ var projectSerializer = DlhSoft.Controls.GanttChartView.ProjectSerializer.initia
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>ScheduleChartView reference</h2>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
-                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
+                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
 <code class="language-markup" ng-non-bindable>
 &lt;body&gt;
   &lt;div id="scheduleChartView"&gt;&lt;/div&gt;
@@ -1931,8 +2083,11 @@ var scheduleChartViewElement = document.querySelector('#scheduleChartView');
                             <p ng-show="isInitializing || selectedTechnology.name == 'Angular'">
                                 Using Angular you can access ScheduleChartView component using <em>schedulechartview</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'React'">
+                                Using React you can access ScheduleChartView component using <em>ScheduleChartView</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;ds:schedule-chart id="scheduleChartView"
                    items="items" settings="settings"
                    change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
@@ -1941,11 +2096,21 @@ var scheduleChartViewElement = document.querySelector('#scheduleChartView');
 </code>
                             </pre>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'Angular'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;schedulechartview [items]="items" [settings]="settings"
                    [change]="itemPropertyChangeHandler"
                    style="min-height: 240px"&gt;
 &lt;/schedulechartview&gt;
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'React'">
+<code class="language-javascript" ng-non-bindable>
+return (
+    &lt;ScheduleChartView items="{items}" settings="{settings}"
+                       change="{itemPropertyChangeHandler}"
+                       style={{min-height: 240px}}&gt;
+    &lt;/ScheduleChartView&gt;
+);
 </code>
                             </pre>
                             <h3>Data items</h3>
@@ -2551,14 +2716,14 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                                 <li><em>getInputDate(date)</em>, <em>getOutputDate(date)</em>: Prepares the specified date values to be used for component method input or method result or field output, considering that after initialization the component uses UTC date and time values internally; these methods may also be called using a component instance object.</li>
                             </ul>
                             <h3>Component instance</h3>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">The component may be initialized using an <em>initialize</em> method call:</p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 DlhSoft.Controls.ScheduleChartView.initialize(scheduleChartView, items, settings);
 </code>
                             </pre>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'TypeScript'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 var scheduleChartView = DlhSoft.Controls.ScheduleChartView.initialize(scheduleChartViewElement, items, settings);
 </code>
                             </pre>
@@ -2688,11 +2853,11 @@ if (item.isVirtuallyVisible)
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>LoadChartView reference</h2>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
-                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
+                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
 <code class="language-markup" ng-non-bindable>
 &lt;body&gt;
   &lt;div id="loadChartView"&gt;&lt;/div&gt;
@@ -2716,8 +2881,11 @@ var loadChartViewElement = document.querySelector('#loadChartView');
                             <p ng-show="isInitializing || selectedTechnology.name == 'Angular'">
                                 Using Angular you can access LoadChartView component using <em>loadchartview</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'Angular'">
+                                Using React you can access LoadChartView component using <em>LoadChartView</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;ds:load-chart id="loadChartView"
                items="items" settings="settings"
                change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
@@ -2726,11 +2894,21 @@ var loadChartViewElement = document.querySelector('#loadChartView');
 </code>
                             </pre>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'Angular'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;loadchartview [items]="items" [settings]="settings"
                [change]="itemPropertyChangeHandler"
                style="min-height: 240px"&gt;
 &lt;/loadchartview&gt;
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'React'">
+<code class="language-javascript" ng-non-bindable>
+return (
+    &lt;LoadChartView items="{items}" settings="{settings}"
+                   change="{itemPropertyChangeHandler}"
+                   style={{min-height: 240px}}&gt;
+    &lt;/LoadChartView&gt;
+);
 </code>
                             </pre>
                             <h3>Data items</h3>
@@ -3189,7 +3367,7 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                                 <li><em>getInputDate(date)</em>, <em>getOutputDate(date)</em>: Prepares the specified date values to be used for component method input or method result or field output, considering that after initialization the component uses UTC date and time values internally; these methods may also be called using a component instance object.</li>
                             </ul>
                             <h3>Component instance</h3>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">The component may be initialized using an <em>initialize</em> method call:</p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 DlhSoft.Controls.LoadChartView.initialize(loadChartView, items, settings);
@@ -3319,11 +3497,11 @@ if (item.isVirtuallyVisible)
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>PertChartView reference</h2>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
-                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
+                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
 <code class="language-markup" ng-non-bindable>
 &lt;body&gt;
   &lt;div id="pertChartView"&gt;&lt;/div&gt;
@@ -3347,8 +3525,11 @@ var pertChartViewElement = document.querySelector('#pertChartView');
                             <p ng-show="isInitializing || selectedTechnology.name == 'Angular'">
                                 Using Angular you can access PertChartView component using <em>pertchartview</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'React'">
+                                Using React you can access PertChartView component using <em>PertChartView</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;ds:pert-chart id="pertChartView"
                items="items" settings="settings"
                change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
@@ -3357,11 +3538,21 @@ var pertChartViewElement = document.querySelector('#pertChartView');
 </code>
                             </pre>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'Angular'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;pertchartview [items]="items" [settings]="settings"
                [change]="itemPropertyChangeHandler"
                style="min-height: 240px"&gt;
 &lt;/pertchartview&gt;
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'React'">
+<code class="language-javascript" ng-non-bindable>
+return (
+    &lt;PertChartView items="{items}" settings="{settings}"
+                   change="{itemPropertyChangeHandler}"
+                   style={{min-height: 240px}}&gt;
+    &lt;/PertChartView&gt;
+);
 </code>
                             </pre>
                             <h3>Data items</h3>
@@ -3601,7 +3792,7 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                                 <li><em>defaultTimeSpanFormatter(timeSpan)</em>: Default time span formatter implementation, returning texts representing the specified time span value received in milliseconds and converted to hours.</li>
                             </ul>
                             <h3>Component instance</h3>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">The component may be initialized using an <em>initialize</em> method call:</p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 DlhSoft.Controls.PertChartView.initialize(pertChartView, items, settings);
@@ -3673,11 +3864,11 @@ pertChartView.print({ title: "PERT Chart" });
                     <div class="row">
                         <div class="col-sm-12">
                             <h2>NetworkDiagramView reference</h2>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
                                 The control container element can be retrieved using a querySelector method call:
                             </p>
-                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
-                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">
+                            <div class="code-snippet" ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
+                                <pre ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">
 <code class="language-markup" ng-non-bindable>
 &lt;body&gt;
   &lt;div id="networkDiagramView"&gt;&lt;/div&gt;
@@ -3701,8 +3892,11 @@ var networkDiagramViewElement = document.querySelector('#networkDiagramView');
                             <p ng-show="isInitializing || selectedTechnology.name == 'Angular'">
                                 Using Angular you can access NetworkDiagramView component using <em>networkdiagramview</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
                             </p>
+                            <p ng-show="isInitializing || selectedTechnology.name == 'React'">
+                                Using React you can access NetworkDiagramView component using <em>NetworkDiagramView</em> element and preparing the appropriate properties (<em>items</em>, <em>settings</em>) and functions (<em>change</em>):
+                            </p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'AngularJS'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;ds:network-diagram id="networkDiagramView"
                     items="items" settings="settings"
                     change="itemPropertyChangeHandler" auto-refresh="{{ true }}"
@@ -3711,11 +3905,21 @@ var networkDiagramViewElement = document.querySelector('#networkDiagramView');
 </code>
                             </pre>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'Angular'">
-<code class="language-javascript" ng-non-bindable>
+<code class="language-markup" ng-non-bindable>
 &lt;networkdiagramview [items]="items" [settings]="settings"
                     [change]="itemPropertyChangeHandler"
                     style="min-height: 240px"&gt;
 &lt;/networkdiagramview&gt;
+</code>
+                            </pre>
+                            <pre ng-show="isInitializing || selectedTechnology.name == 'React'">
+<code class="language-javascript" ng-non-bindable>
+return (
+    &lt;NetworkDiagramView items="{items}" settings="{settings}"
+                        change="{itemPropertyChangeHandler}"
+                        style={{min-height: 240px}}&gt;
+    &lt;/PertChartView&gt;
+);
 </code>
                             </pre>
                             <h3>Data items</h3>
@@ -3971,7 +4175,7 @@ settings.itemPropertyChangeHandler = function (item, propertyName, isDirect, isF
                                 <li><em>getInputDate(date)</em>, <em>getOutputDate(date)</em>: Prepares the specified date values to be used for component method input or method result or field output, considering that after initialization the component uses UTC date and time values internally; these methods may also be called using a component instance object.</li>
                             </ul>
                             <h3>Component instance</h3>
-                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular')">The component may be initialized using an <em>initialize</em> method call:</p>
+                            <p ng-show="isInitializing || (selectedTechnology.name != 'AngularJS' && selectedTechnology.name != 'Angular' && selectedTechnology.name != 'React')">The component may be initialized using an <em>initialize</em> method call:</p>
                             <pre ng-show="isInitializing || selectedTechnology.name == 'JavaScript'">
 <code class="language-javascript" ng-non-bindable>
 DlhSoft.Controls.NetworkDiagramView.initialize(networkDiagramView, items, settings);

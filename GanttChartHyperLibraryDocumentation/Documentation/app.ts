@@ -13,7 +13,7 @@ angular.module('Documentation', [])
         $scope.selectFile = (file) => {
             $scope.selectedFile = file;
         };
-        var technologies = [{ name: 'JavaScript', title: 'HTML + JavaScript®' }, { name: 'TypeScript', title: 'HTML + TypeScript' }, { name: 'AngularJS', title: 'AngularJS' }, { name: 'Angular', title: 'Angular 8' }];
+        var technologies = [{ name: 'JavaScript', title: 'HTML + JavaScript®' }, { name: 'TypeScript', title: 'HTML + TypeScript' }, { name: 'AngularJS', title: 'AngularJS' }, { name: 'Angular', title: 'Angular 8' }, { name: 'React', title: 'React' }];
         $scope.technologies = technologies;
         $scope.selectedTechnology = technologies[0];
         $scope.selectTechnology = (technology) => {
@@ -25,6 +25,8 @@ angular.module('Documentation', [])
             $scope.selectedTechnology = technologies[2];
         else if (initialSelection == 'Angular')
             $scope.selectedTechnology = technologies[3];
+        else if (initialSelection == 'React')
+            $scope.selectedTechnology = technologies[4];
         else
             $scope.selectedFile = initialSelection;
         $scope.isInitializing = true;
