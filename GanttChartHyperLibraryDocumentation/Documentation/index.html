@@ -493,8 +493,8 @@ ganttChartView.print({ title: 'My document', columnIndexes: [0, 2], rotate: true
                             <div class="code-snippet">
                                 <pre class="line-numbers">
 <code class="language-javascript" ng-non-bindable>
-ganttChartView.itemPropertyChangeHandler  = function(item, propertyName, isFinal, isDirect) {…}; 
-ganttChartView.itemSelectionChangeHandler = function(item, isSelected, isDirect) {…};
+settings.itemPropertyChangeHandler  = function(item, propertyName, isFinal, isDirect) {…}; 
+settings.itemSelectionChangeHandler = function(item, isSelected, isDirect) {…};
 </code>
                                 </pre>
                             </div>
@@ -504,10 +504,10 @@ ganttChartView.itemSelectionChangeHandler = function(item, isSelected, isDirect)
                             <div class="code-snippet">
                                 <pre class="line-numbers">
 <code class="language-javascript" ng-non-bindable>
-ganttChartView.hourWidthChangeHandler        = function(hourWidth) {…};             // Zoom level changed
-ganttChartView.displayedTimeChangeHandler    = function(displayedTime) {…};         // Chart date scroll changed
-ganttChartView.splitterPositionChangeHandler = function(gridWidth, chartWidth) {…}; // Splitter moved
-ganttChartView.columnWidthChangeHandler      = function(column, width) {…};         // Grid column resized
+settings.hourWidthChangeHandler        = function(hourWidth) {…};             // Zoom level changed
+settings.displayedTimeChangeHandler    = function(displayedTime) {…};         // Chart date scroll changed
+settings.splitterPositionChangeHandler = function(gridWidth, chartWidth) {…}; // Splitter moved
+settings.columnWidthChangeHandler      = function(column, width) {…};         // Grid column resized
 </code>
                                 </pre>
                             </div>
@@ -517,10 +517,10 @@ ganttChartView.columnWidthChangeHandler      = function(column, width) {…};   
                             <div class="code-snippet">
                                 <pre class="line-numbers">
 <code class="language-javascript" ng-non-bindable>
-ganttChartView.chartClickHandler                = function(isOnItemsArea, item, dateTime) {…};
-ganttChartView.itemDoubleClickHandler           = function(isOnChart, item) {…};
-ganttChartView.chartItemDoubleClickHandler      = function(item, dateTime) {…};
-ganttChartView.dependencyLineDoubleClickHandler = function(predecessorItem, targetItem) {…};
+settings.chartClickHandler                = function(isOnItemsArea, item, dateTime) {…};
+settings.itemDoubleClickHandler           = function(isOnChart, item) {…};
+settings.chartItemDoubleClickHandler      = function(item, dateTime) {…};
+settings.dependencyLineDoubleClickHandler = function(predecessorItem, targetItem) {…};
 </code>
                                 </pre>
                             </div>
@@ -549,11 +549,11 @@ ganttChartView.moveItemHierarchyUp(item);
 ganttChartView.moveItemHierarchyDown(item);
 var projectCost = ganttChartView.getProjectCost();
 var finish = ganttChartView.getProjectFinish();
-ganttChartView.itemPropertyChangeHandler = function(item, propertyName, isFinal, isDirect) {…}; 
-ganttChartView.itemSelectionChangeHandler = function(item, isSelected, isDirect) {…};
-ganttChartView.chartClickHandler = function(isOnItemsArea, item, dateTime) {…};
-ganttChartView.itemDoubleClickHandler = function(isOnChart, item) {…};
-ganttChartView.predecessorItemDoubleClickHandler = function(predecessorItem, targetItem) {…};
+settings.itemPropertyChangeHandler = function(item, propertyName, isFinal, isDirect) {…}; 
+settings.itemSelectionChangeHandler = function(item, isSelected, isDirect) {…};
+settings.chartClickHandler = function(isOnItemsArea, item, dateTime) {…};
+settings.itemDoubleClickHandler = function(isOnChart, item) {…};
+settings.predecessorItemDoubleClickHandler = function(predecessorItem, targetItem) {…};
 </code>
                                 </pre>
                             </div>
