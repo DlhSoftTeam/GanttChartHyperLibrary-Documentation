@@ -459,7 +459,7 @@ ganttChartView.levelResources();
                             <div class="code-snippet">
                                 <pre class="line-numbers">
 <code class="language-javascript" ng-non-bindable>
-var criticalItems = ganttChartView.getCriticalItems();
+var criticalItems = ganttChartView.getCriticalItems(); // or, to use PERT method: getPertCriticalItems()
 </code>
                                 </pre>
                             </div>
@@ -1243,7 +1243,9 @@ return (
                                         <li><em>template</em>: Optional function that returns the output (SVG node) to presented in the chart for this predecessor item (usually a tool tip), overriding the control settings;</li>
                                     </ul>
                                 </li>
-                                <li><em>executionCost</em>: The direct cost related to the task item execution.</li>
+                                <li><em>executionCost</em>: The direct cost related to the task item execution;</li>
+                                <li><em>hasFixedEffort</em>: When set to true it would ensure that the original item's total effort is preserved when duration is updated by updating assignment allocation units, assuming that the item has resources assigned;</li>
+                                <li><em>areDependencyConstraintsEnabled</em>: When set to false, turns off auto-scheduling for the individual item when component's areTaskDependencyConstraintsEnabled is set to true.</li>
                             </ul>
                             <pre>
 <code class="language-javascript" ng-non-bindable>
@@ -2118,11 +2120,12 @@ ganttChartView.print({
                                 <li><em>getRootItems()</em>, <em>getLeafItems()</em>: Return the root and leaf items of the hierarchy;</li>
                                 <li><em>getProjectStart()</em>, <em>getProjectFinish()</em>, <em>getProjectEffort()</em>, <em>getProjectCompletedEffort()</em>, <em>getProjectTotalEffort()</em>, <em>getProjectTotalCompletedEffort()</em>, <em>getProjectCompletion()</em>: Return the minimum item start and maximum item finish date and times, duration and completed duration, total effort and completed effort considering the task assignments, and completion rate (value between 0 and 1) for the entire project loaded and displayed by the component;</li>
                                 <li><em>isItemCritical(item)</em>, <em>getCriticalItems()</em>: Determine whether a specific item is critical, and the list of standard items that are part of the critical path;</li>
+                                <li><em>getPertCriticalItems()</em>: Determines whether a specific item is on the PERT-based critical path in the project;</li>
                                 <li><em>ensureDependencyConstraints()</em>: Ensures that dependency constrains between tasks are enforced;</li>
                                 <li><em>setupBaseline()</em>: Sets up baseline start and baseline finish properties of standard and milestone task items based on their actual start and finish values; used as preparation for rescheduling the remaining work effort of a task item;</li>
                                 <li><em>rescheduleItemToStart(item, start)</em>, <em>rescheduleItemToFinish(item, finish)</em>: Reschedules an item to start or finish on the specified date and time;</li>
                                 <li><em>splitRemainingWork(item)</em>: Creates and inserts a partial copy of the specified task item considering its remaining work effort into the managed hierarchy, and updates the finish date and time of the original task item to its completion point;</li>
-                                <li><em>optimizeWork(dependenciesOnly, includeStartedTasks, start)</em>: Optimizes schedule times of all managed items in order to optimize the project finish date without leveling resources, respecting dependency constraints;</li>
+                                <li><em>optimizeWork(dependenciesOnly, includeStartedTasks, start, singlePassTaskLeveling)</em>: Optimizes schedule times of all managed items in order to optimize the project finish date without leveling resources (optionally using single pass task leveling), respecting dependency constraints;</li>
                                 <li><em>levelAllocations([items])</em>: Levels the assigned allocation units assuming that all or the specified tasks within the control are fixed duration and effort driven; requires that assignmentsContent property of the task items is of type string, formatted as a list of resource names separated by commas, optionally having associated allocation percents declared between square brackets (e.g.: "John, Mary [50%], Diane [12.5%]");</li>
                                 <li><em>levelResources(includeStartedTasks, start)</em>: Levels the assigned resources from all standard tasks within the control in order to avoid over allocation, by updating task timing values accordingly; requires that assignmentsContent property of the task items is of type string, formatted as a list of resource names separated by commas, optionally having associated allocation percents declared between square brackets (e.g.: "John, Mary [50%], Diane [12.5%]"); <em>includeStartedTasks</em> parameter indicates whether or not to consider already started tasks (i.e. having completion > 0), and <em>start</em> parameter specifies the date and time to consider for resource leveling algorithm;</li>
                                 <li><em>getItemSuccessors(item)</em>, <em>getItemSuccessorPredecessorItems(item)</em>: Determine the list of the successors of a specific task item, as task items, or as predecessor items;</li>
